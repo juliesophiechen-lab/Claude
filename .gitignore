@@ -1,0 +1,4 @@
+# Local env vars (NCP Maps key etc.) - never commit real secrets
+.local/.env
+.local/.env.*
+!.local/.env.example
