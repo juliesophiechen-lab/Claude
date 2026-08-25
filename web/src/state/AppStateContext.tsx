@@ -42,6 +42,7 @@ interface AppState {
   itineraryItems: ItineraryItem[]
   toggleFavorite: (placeId: string) => void
   toggleVisited: (placeId: string) => void
+  updatePlaceCoordinates: (placeId: string, latitude: number, longitude: number) => void
   addItineraryItem: (input: NewItineraryItemInput) => ItineraryItem
   importPlaces: (newPlaces: Place[]) => void
   resetToMockData: () => void
@@ -66,6 +67,12 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
 
   function toggleVisited(placeId: string) {
     setPlaces((prev) => prev.map((p) => (p.id === placeId ? { ...p, visited: !p.visited } : p)))
+  }
+
+  function updatePlaceCoordinates(placeId: string, latitude: number, longitude: number) {
+    setPlaces((prev) =>
+      prev.map((p) => (p.id === placeId ? { ...p, latitude, longitude, geocoded: true } : p)),
+    )
   }
 
   function addItineraryItem(input: NewItineraryItemInput): ItineraryItem {
@@ -95,6 +102,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     itineraryItems,
     toggleFavorite,
     toggleVisited,
+    updatePlaceCoordinates,
     addItineraryItem,
     importPlaces,
     resetToMockData,

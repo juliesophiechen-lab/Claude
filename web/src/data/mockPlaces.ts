@@ -1,9 +1,9 @@
 import type { Place } from '../models'
 
-// Real saved places for the October 2026 Seoul trip. ~70 of these didn't come
-// with geocoded coordinates in the source export, so they're placed at a
-// jittered neighborhood-center fallback until confirmed addresses/real
-// geocoding are available (see priority: 3 places and their notes).
+// Real saved places for the October 2026 Seoul trip. Places with
+// geocoded: false didn't come with real coordinates in the source export, so
+// they sit at a jittered neighborhood-center fallback until
+// useGeocodeMissingPlaces (see map/) resolves their real position.
 export const places: Place[] = [
   {
     "id": "prov",
@@ -22,7 +22,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": true
   },
   {
     "id": "ogl",
@@ -40,7 +41,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": true
   },
   {
     "id": "brsi",
@@ -57,7 +59,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "fy",
@@ -74,7 +77,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "vc",
@@ -91,7 +95,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "tapa",
@@ -108,7 +113,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "taco",
@@ -126,7 +132,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "gbd",
@@ -143,7 +150,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "sbun",
@@ -160,7 +168,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "okn",
@@ -179,7 +188,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "alld",
@@ -196,7 +206,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "chom",
@@ -213,7 +224,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "ment",
@@ -232,7 +244,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "goat",
@@ -250,7 +263,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "heidi",
@@ -269,7 +283,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "star",
@@ -288,7 +303,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "well",
@@ -307,7 +323,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "clubk",
@@ -324,7 +341,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "deco",
@@ -342,7 +360,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "wmus",
@@ -360,7 +379,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "arom",
@@ -378,7 +398,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "eco",
@@ -396,7 +417,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "jenny",
@@ -415,7 +437,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "okid",
@@ -434,7 +457,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "woos",
@@ -452,7 +476,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "bitb",
@@ -470,7 +495,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "kitts",
@@ -488,7 +514,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "ouio",
@@ -507,7 +534,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "olbe",
@@ -524,7 +552,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "mkim",
@@ -543,7 +572,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "must",
@@ -561,7 +591,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "satur",
@@ -579,7 +610,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "cov",
@@ -598,7 +630,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "8sec",
@@ -615,7 +648,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "top10",
@@ -632,7 +666,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "emis",
@@ -649,7 +684,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "lifew",
@@ -667,7 +703,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "spao",
@@ -685,7 +722,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "mlb",
@@ -703,7 +741,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "aland",
@@ -722,7 +761,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "ader",
@@ -740,7 +780,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "amom",
@@ -758,7 +799,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "marga",
@@ -776,7 +818,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "clo",
@@ -794,7 +837,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "plaza",
@@ -813,7 +857,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "szio",
@@ -832,7 +877,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "thei",
@@ -850,7 +896,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "louev",
@@ -868,7 +915,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "baser",
@@ -885,7 +933,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "mega",
@@ -904,7 +953,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "ndm",
@@ -923,7 +973,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "panda",
@@ -941,7 +992,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "hongp",
@@ -959,7 +1011,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "ryp",
@@ -977,7 +1030,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "berry",
@@ -995,7 +1049,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "owm",
@@ -1014,7 +1069,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "gyeo",
@@ -1031,7 +1087,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "bukc",
@@ -1049,7 +1106,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "seoc",
@@ -1067,7 +1125,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "dong",
@@ -1084,7 +1143,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "jong",
@@ -1102,7 +1162,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "apgu",
@@ -1119,7 +1180,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "myst",
@@ -1137,7 +1199,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "mull",
@@ -1155,7 +1218,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "aqua",
@@ -1172,7 +1236,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "myeo",
@@ -1190,7 +1255,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "olive",
@@ -1208,7 +1274,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "conc",
@@ -1226,7 +1293,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "xl02",
@@ -1241,7 +1309,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl03",
@@ -1256,7 +1325,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl04",
@@ -1271,7 +1341,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl05",
@@ -1287,7 +1358,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl06",
@@ -1302,7 +1374,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl07",
@@ -1318,7 +1391,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": false
   },
   {
     "id": "xl08",
@@ -1334,7 +1408,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl09",
@@ -1350,7 +1425,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl10",
@@ -1366,7 +1442,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl11",
@@ -1382,7 +1459,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl12",
@@ -1399,7 +1477,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl13",
@@ -1415,7 +1494,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl14",
@@ -1432,7 +1512,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl15",
@@ -1449,7 +1530,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "xl16",
@@ -1466,7 +1548,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "xl17",
@@ -1482,7 +1565,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl18",
@@ -1499,7 +1583,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl19",
@@ -1515,7 +1600,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "xl20",
@@ -1531,7 +1617,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl21",
@@ -1549,7 +1636,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl22",
@@ -1565,7 +1653,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "xl23",
@@ -1582,7 +1671,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "xl24",
@@ -1599,7 +1689,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "xl25",
@@ -1616,7 +1707,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "xl26",
@@ -1633,7 +1725,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "xl27",
@@ -1650,7 +1743,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "xl28",
@@ -1666,7 +1760,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl29",
@@ -1682,7 +1777,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "xl30",
@@ -1698,7 +1794,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "xl31",
@@ -1714,7 +1811,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "xl32",
@@ -1731,7 +1829,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl33",
@@ -1748,7 +1847,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl34",
@@ -1764,7 +1864,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl35",
@@ -1780,7 +1881,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl36",
@@ -1797,7 +1899,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl37",
@@ -1813,7 +1916,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl38",
@@ -1829,7 +1933,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": false
   },
   {
     "id": "xl39",
@@ -1845,7 +1950,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "xl40",
@@ -1861,7 +1967,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl41",
@@ -1877,7 +1984,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl42",
@@ -1893,7 +2001,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl43",
@@ -1909,7 +2018,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl44",
@@ -1925,7 +2035,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "xl45",
@@ -1941,7 +2052,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 2
+    "priority": 2,
+    "geocoded": true
   },
   {
     "id": "cl01",
@@ -1955,7 +2067,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "cl02",
@@ -1969,7 +2082,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "cl03",
@@ -1983,7 +2097,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "cl04",
@@ -1997,7 +2112,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "cl05",
@@ -2012,7 +2128,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "cl06",
@@ -2027,7 +2144,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "cl07",
@@ -2041,7 +2159,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "cl08",
@@ -2055,7 +2174,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "cl09",
@@ -2070,7 +2190,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "cl10",
@@ -2084,7 +2205,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "cl11",
@@ -2098,7 +2220,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "cl12",
@@ -2112,7 +2235,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "cl13",
@@ -2127,7 +2251,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "cl14",
@@ -2142,7 +2267,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "cl15",
@@ -2157,7 +2283,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "cl16",
@@ -2172,7 +2299,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "cl17",
@@ -2187,7 +2315,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "cl18",
@@ -2202,7 +2331,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt02",
@@ -2217,7 +2347,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt03",
@@ -2233,7 +2364,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt04",
@@ -2249,7 +2381,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt05",
@@ -2265,7 +2398,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt07",
@@ -2281,7 +2415,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt08",
@@ -2296,7 +2431,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt09",
@@ -2312,7 +2448,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt10",
@@ -2328,7 +2465,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt11",
@@ -2344,7 +2482,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt12",
@@ -2360,7 +2499,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt13",
@@ -2376,7 +2516,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt14",
@@ -2392,7 +2533,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt15",
@@ -2408,7 +2550,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt16",
@@ -2424,7 +2567,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt17",
@@ -2439,7 +2583,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt18",
@@ -2454,7 +2599,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt19",
@@ -2469,7 +2615,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt20",
@@ -2484,7 +2631,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt21",
@@ -2499,7 +2647,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt22",
@@ -2514,7 +2663,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt23",
@@ -2529,7 +2679,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt24",
@@ -2544,7 +2695,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt25",
@@ -2559,7 +2711,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt26",
@@ -2574,7 +2727,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt27",
@@ -2589,7 +2743,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt28",
@@ -2604,7 +2759,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt29",
@@ -2619,7 +2775,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt30",
@@ -2634,7 +2791,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt31",
@@ -2649,7 +2807,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt32",
@@ -2664,7 +2823,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt33",
@@ -2679,7 +2839,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt37",
@@ -2694,7 +2855,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt38",
@@ -2709,7 +2871,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "tt39",
@@ -2724,7 +2887,8 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": false,
-    "priority": 3
+    "priority": 3,
+    "geocoded": false
   },
   {
     "id": "stay-airbnb",
@@ -2740,6 +2904,7 @@ export const places: Place[] = [
     "favorite": false,
     "visited": false,
     "planned": true,
-    "priority": 1
+    "priority": 1,
+    "geocoded": true
   }
 ]

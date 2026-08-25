@@ -7,31 +7,42 @@ declare global {
   }
 }
 
-let loadStarted = false
+let loadPromise: Promise<void> | null = null
 
-function injectScript(apiKey: string) {
-  if (loadStarted) return
-  loadStarted = true
+function ensureLoaded(apiKey: string): Promise<void> {
+  if (loadPromise) return loadPromise
 
-  const script = document.createElement('script')
-  script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&loading=async&callback=__onGoogleMapsLoaded`
-  script.async = true
-  document.head.appendChild(script)
+  loadPromise = new Promise((resolve) => {
+    if (window.google?.maps) {
+      resolve()
+      return
+    }
+    window.__onGoogleMapsLoaded = () => resolve()
+    const script = document.createElement('script')
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&loading=async&callback=__onGoogleMapsLoaded`
+    script.async = true
+    document.head.appendChild(script)
+  })
+
+  return loadPromise
 }
 
-/** True once `window.google.maps` is available. Injects the SDK script itself, once. */
+/**
+ * True once `window.google.maps` is available. Safe to call from multiple
+ * components at once — they all resolve off the same shared load promise, so
+ * only one script tag is ever injected and every caller still gets notified.
+ */
 export function useGoogleMapsReady(apiKey: string | undefined): boolean {
   const [ready, setReady] = useState(() => Boolean(window.google?.maps))
 
   useEffect(() => {
     if (ready || !apiKey) return
-
-    window.__onGoogleMapsLoaded = () => setReady(true)
-    injectScript(apiKey)
-
+    let cancelled = false
+    ensureLoaded(apiKey).then(() => {
+      if (!cancelled) setReady(true)
+    })
     return () => {
-      // Leave the script and global in place — Google's loader doesn't support
-      // clean teardown, and other pages/instances may still depend on it.
+      cancelled = true
     }
   }, [ready, apiKey])
 

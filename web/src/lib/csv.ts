@@ -124,6 +124,7 @@ export function recordsToPlaces(records: Record<string, string>[]): Place[] {
         visited: false,
         planned: false,
         priority: 3,
+        geocoded: false,
       } satisfies Place
     })
 }

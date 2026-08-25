@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useAppState } from '../state/AppStateContext'
-import { MapView } from '../map/MapProvider'
+import { MapView, useMapReady } from '../map/MapProvider'
+import { useGeocodeMissingPlaces } from '../map/useGeocodeMissingPlaces'
 import { categoryColor } from '../lib/categories'
 import { SearchBar } from '../components/places/SearchBar'
 import { CategoryChipsRow } from '../components/places/CategoryChipsRow'
@@ -13,7 +14,9 @@ import { LocateIcon } from '../layout/icons'
 const SEOUL_BOUNDS = { minLat: 37.44, maxLat: 37.61, minLng: 126.88, maxLng: 127.15 }
 
 export function PlacesPage() {
-  const { places } = useAppState()
+  const { places, updatePlaceCoordinates } = useAppState()
+  const mapReady = useMapReady()
+  useGeocodeMissingPlaces(places, mapReady, updatePlaceCoordinates)
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState<string | null>(null)
   const [neighborhoods, setNeighborhoods] = useState<Set<string>>(new Set())

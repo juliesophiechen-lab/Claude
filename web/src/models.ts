@@ -89,6 +89,8 @@ export type Place = {
   visited: boolean
   planned: boolean
   priority: 1 | 2 | 3
+  /** False/undefined = latitude/longitude is a neighborhood-fallback guess, not a real geocode. */
+  geocoded?: boolean
 }
 
 export type ItineraryItemType =

@@ -71,17 +71,17 @@ detail-sheet code cares which one is active.
    markers colored by category (`lib/categories.ts`) and calls `fitBounds` so
    all visible places frame themselves automatically.
 
-### Geocoding (not wired up yet)
+### Geocoding
 
 ~70 of the 165 real places didn't come with coordinates in the source export
-(see the `priority: 3` entries in `data/mockPlaces.ts`) and currently sit at a
-jittered neighborhood-center fallback. The CSV import flow
-(`lib/csv.ts`'s `recordsToPlaces`) has the same limitation for freshly
-imported rows. Both are exactly where a real geocoder plugs in: once the Maps
-JS API is loaded, `new google.maps.Geocoder().geocode({ address }, callback)`
-runs client-side in the *user's* browser (no server needed) and can replace
-the placeholder coordinate — likely batched with a small delay between
-requests to stay within Google's rate limits.
+and CSV imports never do either — both start with a jittered
+neighborhood-center fallback (`geocoded: false` on the `Place`). Once a
+Google Maps key is configured, `map/useGeocodeMissingPlaces.ts` runs
+automatically: it geocodes every non-`geocoded` place client-side via
+`google.maps.Geocoder` (paced with a short delay between requests), caches
+results in localStorage by address, and patches each place's real
+coordinates into app state (`updatePlaceCoordinates`) as they resolve — pins
+quietly snap to their real position on the map without a page reload.
 
 ## CSV import
 

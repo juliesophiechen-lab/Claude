@@ -81,6 +81,12 @@ export function GoogleMapView({ markers, onSelectMarker, bounds }: MapViewProps)
       if (!gMarker) return
       gMarker.setIcon(markerIcon(google, marker.color, marker.selected))
       gMarker.setZIndex(marker.selected ? 200 : 100)
+      // Picks up e.g. a geocoding result landing after the marker was first
+      // created (same id, so the effect above won't have re-run for it).
+      const pos = gMarker.getPosition()
+      if (!pos || pos.lat() !== marker.lat || pos.lng() !== marker.lng) {
+        gMarker.setPosition({ lat: marker.lat, lng: marker.lng })
+      }
     })
   }, [markers])
 

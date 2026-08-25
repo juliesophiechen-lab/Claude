@@ -21,6 +21,11 @@ export type MapViewComponent = (props: MapViewProps) => React.JSX.Element
 
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string | undefined
 
+/** True once the real Google Maps SDK (not the mock) is loaded and ready. */
+export function useMapReady(): boolean {
+  return useGoogleMapsReady(GOOGLE_MAPS_API_KEY)
+}
+
 /**
  * Swappable map renderer. Falls back to the mock placeholder map whenever no
  * `VITE_GOOGLE_MAPS_API_KEY` is configured (or while the SDK is still
