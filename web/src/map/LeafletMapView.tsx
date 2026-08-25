@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
+import 'leaflet.markercluster'
+import 'leaflet.markercluster/dist/MarkerCluster.css'
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 import type { MapViewProps } from './MapProvider'
 
 function circleMarkerOptions(color: string, selected: boolean): L.CircleMarkerOptions {
@@ -13,9 +16,10 @@ function circleMarkerOptions(color: string, selected: boolean): L.CircleMarkerOp
   }
 }
 
-export function LeafletMapView({ markers, onSelectMarker, bounds }: MapViewProps) {
+export function LeafletMapView({ markers, onSelectMarker, bounds, recenterSignal }: MapViewProps) {
   const mapRef = useRef<HTMLDivElement>(null)
   const mapInstanceRef = useRef<L.Map | null>(null)
+  const clusterGroupRef = useRef<L.MarkerClusterGroup | null>(null)
   const leafletMarkersRef = useRef<Map<string, L.CircleMarker>>(new Map())
 
   useEffect(() => {
@@ -33,20 +37,30 @@ export function LeafletMapView({ markers, onSelectMarker, bounds }: MapViewProps
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map)
 
+    const clusterGroup = L.markerClusterGroup({
+      maxClusterRadius: 44,
+      spiderfyOnMaxZoom: true,
+      showCoverageOnHover: false,
+    })
+    map.addLayer(clusterGroup)
+    clusterGroupRef.current = clusterGroup
+
     mapInstanceRef.current = map
 
     return () => {
       map.remove()
       mapInstanceRef.current = null
+      clusterGroupRef.current = null
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     const map = mapInstanceRef.current
-    if (!map) return
+    const clusterGroup = clusterGroupRef.current
+    if (!map || !clusterGroup) return
 
-    leafletMarkersRef.current.forEach((m) => m.remove())
+    clusterGroup.clearLayers()
     leafletMarkersRef.current = new Map()
 
     const points: L.LatLngExpression[] = []
@@ -55,8 +69,9 @@ export function LeafletMapView({ markers, onSelectMarker, bounds }: MapViewProps
       const leafletMarker = L.circleMarker(
         [marker.lat, marker.lng],
         circleMarkerOptions(marker.color, marker.selected),
-      ).addTo(map)
+      )
       leafletMarker.on('click', () => onSelectMarker(marker.id))
+      clusterGroup.addLayer(leafletMarker)
       leafletMarkersRef.current.set(marker.id, leafletMarker)
       points.push([marker.lat, marker.lng])
     })
@@ -64,10 +79,10 @@ export function LeafletMapView({ markers, onSelectMarker, bounds }: MapViewProps
     if (points.length > 0) {
       map.fitBounds(L.latLngBounds(points), { padding: [48, 48] })
     }
-    // Re-run only when the marker set changes; position/selection updates for
-    // existing markers are handled in the effect below.
+    // Re-run when the marker set changes or the user taps "recenter"; per-marker
+    // selection styling is handled in the effect below.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [markers.map((m) => m.id).join(',')])
+  }, [markers.map((m) => m.id).join(','), recenterSignal])
 
   useEffect(() => {
     markers.forEach((marker) => {

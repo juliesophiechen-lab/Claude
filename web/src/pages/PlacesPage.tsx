@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useAppState } from '../state/AppStateContext'
-import { MapView, useMapReady } from '../map/MapProvider'
-import { useGeocodeMissingPlaces } from '../map/useGeocodeMissingPlaces'
+import { MapView } from '../map/MapProvider'
 import { categoryColor } from '../lib/categories'
 import { SearchBar } from '../components/places/SearchBar'
 import { CategoryChipsRow } from '../components/places/CategoryChipsRow'
@@ -14,9 +13,7 @@ import { LocateIcon } from '../layout/icons'
 const SEOUL_BOUNDS = { minLat: 37.44, maxLat: 37.61, minLng: 126.88, maxLng: 127.15 }
 
 export function PlacesPage() {
-  const { places, updatePlaceCoordinates } = useAppState()
-  const mapReady = useMapReady()
-  useGeocodeMissingPlaces(places, mapReady, updatePlaceCoordinates)
+  const { places } = useAppState()
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState<string | null>(null)
   const [neighborhoods, setNeighborhoods] = useState<Set<string>>(new Set())
@@ -25,6 +22,7 @@ export function PlacesPage() {
   const [importOpen, setImportOpen] = useState(false)
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [detailId, setDetailId] = useState<string | null>(null)
+  const [recenterSignal, setRecenterSignal] = useState(0)
 
   const availableNeighborhoods = useMemo(
     () => Array.from(new Set(places.map((p) => p.neighborhood))).sort(),
@@ -86,6 +84,7 @@ export function PlacesPage() {
       <MapView
         markers={markers}
         bounds={SEOUL_BOUNDS}
+        recenterSignal={recenterSignal}
         onSelectMarker={(id) => {
           setSelectedId(id)
           setDetailId(id)
@@ -105,8 +104,9 @@ export function PlacesPage() {
       </div>
 
       <button
+        onClick={() => setRecenterSignal((n) => n + 1)}
         className="absolute bottom-[240px] right-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white text-ink-soft shadow-[0_1px_2px_rgba(18,18,20,0.08),0_8px_24px_-10px_rgba(18,18,20,0.35)]"
-        aria-label="Locate"
+        aria-label="Recenter map on visible places"
       >
         <LocateIcon className="h-5 w-5" />
       </button>

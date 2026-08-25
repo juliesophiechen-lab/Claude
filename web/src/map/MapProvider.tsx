@@ -15,14 +15,11 @@ export interface MapViewProps {
   onSelectMarker: (id: string) => void
   /** Bounding box hint so the provider can frame all markers. */
   bounds: { minLat: number; maxLat: number; minLng: number; maxLng: number }
+  /** Bump this (e.g. on a "recenter" button tap) to re-fit the view to the current markers. */
+  recenterSignal?: number
 }
 
 export type MapViewComponent = (props: MapViewProps) => React.JSX.Element
-
-/** True once OpenStreetMap's tile server is confirmed reachable (no key/account needed either way). */
-export function useMapReady(): boolean {
-  return useTileServerReachable() === true
-}
 
 /**
  * Swappable map renderer. Uses a real OpenStreetMap tile map via Leaflet —

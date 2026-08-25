@@ -48,7 +48,10 @@ renderer at runtime based on whether OpenStreetMap's tile server responds
 
 - **Checking** → a small "Loading map…" placeholder.
 - **Reachable** → `LeafletMapView.tsx`, a real OpenStreetMap map (Leaflet +
-  the free public OSM tile server — no key, no account, ever).
+  the free public OSM tile server — no key, no account, ever). Markers cluster
+  (`leaflet.markercluster`) so 165 pins stay tappable instead of overlapping;
+  a "recenter" button (`recenterSignal` prop) re-fits the view to whatever's
+  currently visible.
 - **Not reachable** (offline, or a restrictive network) → `MockMapView.tsx`,
   a CSS/SVG placeholder map, so the product never hard-fails on a blank
   screen.
@@ -62,15 +65,22 @@ detail-sheet code cares which one is active.
 ~70 of the 165 real places didn't come with coordinates in the source export
 and CSV imports never do either — both start with a jittered
 neighborhood-center fallback (`geocoded: false` on the `Place`).
-`map/useGeocodeMissingPlaces.ts` runs automatically once the tile server is
-reachable: it geocodes every non-`geocoded` place client-side via
-**Nominatim** (OpenStreetMap's free geocoder — no key needed, paced at
-~1 request/second per its usage policy), caches results in localStorage by
-address, and patches each place's real coordinates into app state
-(`updatePlaceCoordinates`) as they resolve — pins quietly snap to their real
-position on the map without a page reload. Nominatim's address coverage for
+
+Geocoding those runs as a **one-time script, not live in the browser**:
+
+```bash
+node scripts/geocode-places.mjs
+```
+
+It geocodes every non-`geocoded` place via **Nominatim** (OpenStreetMap's
+free geocoder — no key needed), paced at ~1 request/second per Nominatim's
+usage policy with a proper `User-Agent` header, and writes the real
+coordinates straight into `web/src/data/mockPlaces.ts` — commit that file
+afterward. (Nominatim doesn't reliably support being called directly from a
+browser — no CORS headers, and it rate-limits browser-pattern requests hard
+— so this has to run from Node, not `useEffect`.) Its address coverage for
 exact Korean building addresses is spottier than Google's/Naver's, so some
-places may still land on the neighborhood fallback.
+places may still land on the neighborhood fallback even after running it.
 
 ## CSV import
 
