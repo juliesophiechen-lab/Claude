@@ -4,14 +4,25 @@ import { dateRangeDays, formatDayMonth } from '../lib/dates'
 import { fullOverlapDates } from '../lib/trip'
 import { StayTimeline } from '../components/people/StayTimeline'
 import { ParticipantCard } from '../components/people/ParticipantCard'
+import { useIdentity } from '../state/IdentityContext'
 
 export function PeoplePage() {
   const days = dateRangeDays(trip.startDate, trip.endDate)
   const overlap = fullOverlapDates(participants)
+  const { me, clearMe } = useIdentity()
 
   return (
     <div className="pb-6">
       <h1 className="px-5 pb-1 pt-6 text-2xl font-semibold tracking-tight text-ink">People</h1>
+
+      {me && (
+        <p className="px-5 text-[13px] text-ink-soft">
+          Du bist <span className="font-semibold text-ink">{me.name}</span> ·{' '}
+          <button onClick={clearMe} className="font-medium text-accent">
+            wechseln
+          </button>
+        </p>
+      )}
 
       {overlap.length > 0 && (
         <div className="mx-5 mt-3 rounded-2xl bg-ink px-5 py-4 text-white">

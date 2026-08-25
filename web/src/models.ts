@@ -116,6 +116,8 @@ export type ItineraryItem = {
   notes?: string
   /** Marks the item Home's "next plan" card should feature, if any. */
   featured?: boolean
+  /** Participant id who added/suggested this item, for shared-itinerary attribution. */
+  addedBy?: string
 }
 
 export const DICTIONARY_CATEGORIES = ['Basics', 'Restaurant', 'Café', 'Airport', 'Taxi', 'Shopping'] as const

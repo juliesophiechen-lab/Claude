@@ -5,11 +5,13 @@ import { sortedItineraryDates, itemsForDate } from '../lib/trip'
 import { DayGroup } from '../components/itinerary/DayGroup'
 import { ItineraryItemSheet } from '../components/itinerary/ItineraryItemSheet'
 import { PlusIcon } from '../layout/icons'
+import type { ItineraryItem } from '../models'
 
 export function ItineraryPage() {
   const { itineraryItems, places } = useAppState()
   const [sheetOpen, setSheetOpen] = useState(false)
   const [presetDate, setPresetDate] = useState<string | undefined>(undefined)
+  const [editItem, setEditItem] = useState<ItineraryItem | null>(null)
 
   const dates = sortedItineraryDates(itineraryItems)
 
@@ -41,15 +43,20 @@ export function ItineraryPage() {
               setPresetDate(d)
               setSheetOpen(true)
             }}
+            onEditItem={setEditItem}
           />
         ))}
       </div>
 
       <ItineraryItemSheet
-        open={sheetOpen}
-        onClose={() => setSheetOpen(false)}
+        open={sheetOpen || editItem !== null}
+        onClose={() => {
+          setSheetOpen(false)
+          setEditItem(null)
+        }}
         presetDate={presetDate}
         presetType={presetDate ? 'idea' : undefined}
+        editItem={editItem}
       />
     </div>
   )

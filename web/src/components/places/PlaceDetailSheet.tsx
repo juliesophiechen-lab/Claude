@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { Place } from '../../models'
 import { useAppState } from '../../state/AppStateContext'
+import { useLikes } from '../../state/useLikes'
 import { BottomSheet } from '../common/BottomSheet'
 import { PlaceThumb } from './PlaceThumb'
 import { ItineraryItemSheet } from '../itinerary/ItineraryItemSheet'
@@ -23,18 +24,25 @@ function naverMapUrl(place: Place): string {
 
 export function PlaceDetailSheet({ place, open, onClose }: PlaceDetailSheetProps) {
   const { toggleFavorite, toggleVisited } = useAppState()
+  const { counts: likeCounts, likedByMe, toggleLike } = useLikes()
   const [addOpen, setAddOpen] = useState(false)
 
   if (!place) return null
 
   const profileUrl = instagramProfileUrl(place.creator)
+  const likeCount = likeCounts[place.id] ?? 0
+  const iLiked = likedByMe.has(place.id)
 
   return (
     <>
       <BottomSheet open={open && !addOpen} onClose={onClose}>
         <div className="pb-8">
           <div className="relative mx-5 h-40 overflow-hidden rounded-2xl">
-            <PlaceThumb category={place.category} className="h-full w-full" />
+            {place.sourceThumbnail ? (
+              <img src={place.sourceThumbnail} alt="" className="h-full w-full object-cover" />
+            ) : (
+              <PlaceThumb category={place.category} className="h-full w-full" />
+            )}
             <button
               onClick={() => toggleFavorite(place.id)}
               className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-accent shadow"
@@ -55,6 +63,18 @@ export function PlaceDetailSheet({ place, open, onClose }: PlaceDetailSheetProps
               {place.neighborhood} · {place.category}
               {place.subcategory ? ` · ${place.subcategory}` : ''}
             </p>
+
+            <button
+              onClick={() => toggleLike(place.id)}
+              className={`mt-2.5 flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold ${
+                iLiked ? 'border-accent bg-accent-soft text-accent-ink' : 'border-line text-ink-soft'
+              }`}
+            >
+              <HeartIcon className="h-3.5 w-3.5" filled={iLiked} />
+              {likeCount > 0
+                ? `${likeCount} ${likeCount === 1 ? 'person likes' : 'people like'} this`
+                : 'Be the first to like this'}
+            </button>
 
             {place.description && <p className="mt-3 text-[15px] leading-relaxed text-ink">{place.description}</p>}
 

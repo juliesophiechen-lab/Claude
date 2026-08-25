@@ -12,12 +12,17 @@ interface DayGroupProps {
   places: Place[]
   participants: Participant[]
   onAddIdea: (date: string) => void
+  onEditItem: (item: ItineraryItem) => void
 }
 
-export function DayGroup({ date, items, places, participants, onAddIdea }: DayGroupProps) {
+export function DayGroup({ date, items, places, participants, onAddIdea, onEditItem }: DayGroupProps) {
   const confirmedItems = items.filter((i) => i.status === 'confirmed')
   const openItems = items.filter((i) => i.status === 'open')
   const present = participantsOnDate(participants, date)
+
+  function participantFor(item: ItineraryItem) {
+    return item.addedBy ? participants.find((p) => p.id === item.addedBy) : undefined
+  }
 
   return (
     <section className="px-5 py-5">
@@ -39,7 +44,12 @@ export function DayGroup({ date, items, places, participants, onAddIdea }: DayGr
         <div className="rounded-2xl bg-white px-3 shadow-[0_1px_2px_rgba(18,18,20,0.06)]">
           {confirmedItems.map((item, i) => (
             <div key={item.id} className={i === confirmedItems.length - 1 ? '[&>div>span:last-child]:hidden' : ''}>
-              <ItineraryItemRow item={item} place={places.find((p) => p.id === item.placeId)} />
+              <ItineraryItemRow
+                item={item}
+                place={places.find((p) => p.id === item.placeId)}
+                addedByParticipant={participantFor(item)}
+                onEdit={() => onEditItem(item)}
+              />
             </div>
           ))}
         </div>
@@ -48,7 +58,12 @@ export function DayGroup({ date, items, places, participants, onAddIdea }: DayGr
       {openItems.length > 0 && (
         <div className="mt-3 space-y-2">
           {openItems.map((item) => (
-            <OpenItemCard key={item.id} item={item} />
+            <OpenItemCard
+              key={item.id}
+              item={item}
+              addedByParticipant={participantFor(item)}
+              onEdit={() => onEditItem(item)}
+            />
           ))}
         </div>
       )}

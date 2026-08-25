@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { ItineraryItemType, Place } from '../../models'
+import type { ItineraryItem, ItineraryItemType, Place } from '../../models'
 import { trip } from '../../data/mockTrip'
 import { dateRangeDays, formatDayMonth, formatWeekday } from '../../lib/dates'
 import { useAppState } from '../../state/AppStateContext'
@@ -21,16 +21,26 @@ interface ItineraryItemSheetProps {
   place?: Place | null
   presetDate?: string
   presetType?: ItineraryItemType
+  editItem?: ItineraryItem | null
 }
 
-export function ItineraryItemSheet({ open, onClose, place, presetDate, presetType }: ItineraryItemSheetProps) {
-  const { addItineraryItem } = useAppState()
+export function ItineraryItemSheet({
+  open,
+  onClose,
+  place,
+  presetDate,
+  presetType,
+  editItem,
+}: ItineraryItemSheetProps) {
+  const { addItineraryItem, updateItineraryItem, deleteItineraryItem } = useAppState()
   const showToast = useToast()
   const tripDates = dateRangeDays(trip.startDate, trip.endDate)
-  const [date, setDate] = useState<string>(presetDate ?? tripDates[1] ?? tripDates[0])
-  const [time, setTime] = useState('')
-  const [type, setType] = useState<ItineraryItemType>(presetType ?? (place ? 'activity' : 'idea'))
-  const [title, setTitle] = useState('')
+  const [date, setDate] = useState<string>(editItem?.date ?? presetDate ?? tripDates[1] ?? tripDates[0])
+  const [time, setTime] = useState(editItem?.time ?? '')
+  const [type, setType] = useState<ItineraryItemType>(
+    editItem?.type ?? presetType ?? (place ? 'activity' : 'idea'),
+  )
+  const [title, setTitle] = useState(editItem?.title ?? '')
 
   if (!open) return null
 
@@ -39,23 +49,38 @@ export function ItineraryItemSheet({ open, onClose, place, presetDate, presetTyp
 
   function handleAdd() {
     if (!canSubmit) return
-    addItineraryItem({
+    const input = {
       date,
       time: time || undefined,
       title: resolvedTitle.trim(),
       type,
-      placeId: place?.id,
-    })
-    showToast(`Added to ${formatDayMonth(date)}`)
+      placeId: place?.id ?? editItem?.placeId,
+    }
+    if (editItem) {
+      updateItineraryItem(editItem.id, input)
+      showToast('Änderung gespeichert')
+    } else {
+      addItineraryItem(input)
+      showToast(`Added to ${formatDayMonth(date)}`)
+    }
     setTitle('')
     setTime('')
+    onClose()
+  }
+
+  function handleDelete() {
+    if (!editItem) return
+    deleteItineraryItem(editItem.id)
+    showToast('Eintrag gelöscht')
     onClose()
   }
 
   return (
     <BottomSheet open={open} onClose={onClose} maxHeightClass="max-h-[85%]">
       <div className="px-5 pb-8">
-        <h2 className="text-lg font-semibold text-ink">{place ? 'Add to itinerary' : 'New itinerary item'}</h2>
+        <h2 className="text-lg font-semibold text-ink">
+          {editItem ? 'Eintrag bearbeiten' : place ? 'Add to itinerary' : 'New itinerary item'}
+        </h2>
 
         {place ? (
           <p className="mt-0.5 text-sm text-ink-soft">{place.name}</p>
@@ -107,8 +132,17 @@ export function ItineraryItemSheet({ open, onClose, place, presetDate, presetTyp
           disabled={!canSubmit}
           className="mt-7 w-full rounded-full bg-accent py-3.5 text-sm font-semibold text-white disabled:opacity-40"
         >
-          Add to {formatDayMonth(date)}
+          {editItem ? 'Änderungen speichern' : `Add to ${formatDayMonth(date)}`}
         </button>
+
+        {editItem && (
+          <button
+            onClick={handleDelete}
+            className="mt-2.5 w-full rounded-full border border-line py-3 text-sm font-semibold text-ink-soft"
+          >
+            Eintrag löschen
+          </button>
+        )}
       </div>
     </BottomSheet>
   )

@@ -5,10 +5,14 @@ flights, who's around when, a day-by-day itinerary, a map of saved places
 with their original source videos, and a Korean phrasebook.
 
 **Status:** running on the real trip data (real flights, 5 travelers, the
-real day-by-day plan, 165 real saved places). State is local/localStorage —
-no backend or auth yet. The map is a real **OpenStreetMap** map via Leaflet —
-no API key, no billing account, no console setup, ever. Just `npm install &&
-npm run dev` and it works.
+real day-by-day plan, 165 real saved places). The map is a real
+**OpenStreetMap** map via Leaflet — no API key, no billing account, no
+console setup, ever. Just `npm install && npm run dev` and it works.
+
+Favorites/visited status stay local to each phone, but **likes, the
+itinerary, and uploaded screenshots are shared live across all 5 travelers**
+via a small Firebase backend (see below) — no login required, just picking
+your name once.
 
 ## Running it
 
@@ -34,7 +38,10 @@ data/places.csv          Older saved-places export (Google My Maps), used by
 web/src/
   models.ts               Trip, Participant, Place, ItineraryItem, DictionaryPhrase types
   data/mock*.ts            Real trip, participants, places, itinerary, phrases
-  state/AppStateContext.tsx  Itinerary items + place favorite/visited/imported state (localStorage)
+  lib/firebase.ts          Firebase app/Firestore/Storage init (shared backend, see below)
+  state/AppStateContext.tsx  Places (local) + itinerary items (shared via Firestore)
+  state/IdentityContext.tsx  "Who are you" picker, so shared actions can be attributed
+  state/useLikes.ts        Shared like counts + "did I like this" (Firestore)
   state/ToastContext.tsx    Lightweight confirmation toasts
   map/                     Swappable map abstraction (see below)
   layout/                  AppShell, BottomNav, icons
@@ -84,6 +91,64 @@ browser — no CORS headers, and it rate-limits browser-pattern requests hard
 — so this has to run from Node, not `useEffect`.) Its address coverage for
 exact Korean building addresses is spottier than Google's/Naver's, so some
 places may still land on the neighborhood fallback even after running it.
+
+## Shared backend (Firebase)
+
+`lib/firebase.ts` holds the Firebase project config (public by design —
+Firebase's client config isn't a secret; access control is entirely in the
+Firestore/Storage rules, not in hiding these values). It backs three shared
+features:
+
+- **Identity** (`state/IdentityContext.tsx`): on first load, everyone picks
+  their name from the 5 travelers (stored in `localStorage`, one popup per
+  phone) so likes/itinerary edits/uploads can be attributed.
+- **Likes** (`state/useLikes.ts`): a `likes` doc per (place, person) plus a
+  `likeCounts/{placeId}.count` maintained via an atomic transaction — so
+  "X people like this" and the Gallery's "Most liked" sort read a live,
+  already-aggregated number instead of counting 165 places' worth of docs
+  client-side.
+- **Itinerary** (`state/AppStateContext.tsx`): `itineraryItems` is a
+  Firestore collection (one-time seeded from `data/mockItinerary.ts`), synced
+  live via `onSnapshot` — anyone can add, tap-to-edit, or delete an item, and
+  it shows "Vorgeschlagen von <name>" for who added it.
+- **Screenshot uploads** (`components/places/ScreenshotUploadSheet.tsx`):
+  uploads to Firebase Storage, writes a `suggestedPlaces` doc, and merges into
+  everyone's Gallery/Places list with the screenshot itself as the thumbnail.
+  These don't have a real address, so they sit at the Seoul-center fallback
+  on the map (same `geocoded: false` treatment as any other unlocated place).
+
+**Firestore/Storage rules:** the console's default "test mode" rules expire
+after 30 days and everything shared here would silently stop working. In the
+Firebase console, under **Firestore Database → Rules**, replace the rules
+with:
+
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /itineraryItems/{id} { allow read, write: if true; }
+    match /likes/{id} { allow read, write: if true; }
+    match /likeCounts/{id} { allow read, write: if true; }
+    match /suggestedPlaces/{id} { allow read, write: if true; }
+    match /meta/{id} { allow read, write: if true; }
+  }
+}
+```
+
+and under **Storage → Rules**:
+
+```
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /screenshots/{fileName} { allow read, write: if true; }
+  }
+}
+```
+
+These don't expire, and (since there's no login system) anyone with the app's
+URL can read/write this data — fine for a private trip link shared with 5
+people, but worth knowing.
 
 ## CSV import
 

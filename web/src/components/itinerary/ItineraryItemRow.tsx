@@ -1,11 +1,23 @@
 import { Link } from 'react-router-dom'
-import type { ItineraryItem, Place } from '../../models'
+import type { ItineraryItem, Participant, Place } from '../../models'
 import { ITINERARY_TYPE_META } from '../../lib/itineraryTypes'
 
-export function ItineraryItemRow({ item, place }: { item: ItineraryItem; place?: Place }) {
+interface ItineraryItemRowProps {
+  item: ItineraryItem
+  place?: Place
+  addedByParticipant?: Participant
+  onEdit?: () => void
+}
+
+export function ItineraryItemRow({ item, place, addedByParticipant, onEdit }: ItineraryItemRowProps) {
   const meta = ITINERARY_TYPE_META[item.type]
   return (
-    <div className="flex gap-3 py-2.5">
+    <div
+      onClick={onEdit}
+      role={onEdit ? 'button' : undefined}
+      tabIndex={onEdit ? 0 : undefined}
+      className="flex w-full gap-3 py-2.5 text-left"
+    >
       <div className="flex w-12 shrink-0 flex-col items-end pt-0.5">
         {item.time && <span className="text-[13px] font-semibold text-ink">{item.time}</span>}
       </div>
@@ -18,11 +30,18 @@ export function ItineraryItemRow({ item, place }: { item: ItineraryItem; place?:
       <div className="min-w-0 flex-1 pb-1">
         <p className="text-[15px] font-medium leading-snug text-ink">{item.title}</p>
         {place && (
-          <Link to="/places" className="mt-0.5 inline-block text-xs font-medium text-ink-soft underline-offset-2 hover:underline">
+          <Link
+            to="/places"
+            onClick={(e) => e.stopPropagation()}
+            className="mt-0.5 inline-block text-xs font-medium text-ink-soft underline-offset-2 hover:underline"
+          >
             {place.neighborhood} · {place.category}
           </Link>
         )}
         {item.notes && <p className="mt-1 text-xs text-ink-faint">{item.notes}</p>}
+        {addedByParticipant && (
+          <p className="mt-1 text-[11px] text-ink-faint">Vorgeschlagen von {addedByParticipant.name}</p>
+        )}
       </div>
     </div>
   )
