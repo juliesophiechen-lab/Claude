@@ -10,7 +10,7 @@ interface BottomSheetProps {
 export function BottomSheet({ open, onClose, children, maxHeightClass = 'max-h-[85%]' }: BottomSheetProps) {
   if (!open) return null
   return (
-    <div className="absolute inset-0 z-30">
+    <div className="absolute inset-0 z-[1100]">
       <div className="animate-fade-in absolute inset-0 bg-ink/35" onClick={onClose} />
       <div
         className={`animate-sheet-up absolute inset-x-0 bottom-0 flex ${maxHeightClass} flex-col rounded-t-[26px] bg-white shadow-[0_-8px_30px_rgba(18,18,20,0.2)]`}

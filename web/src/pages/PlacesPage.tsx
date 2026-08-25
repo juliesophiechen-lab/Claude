@@ -9,6 +9,7 @@ import { PlaceResultsCarousel } from '../components/places/PlaceResultsCarousel'
 import { PlaceDetailSheet } from '../components/places/PlaceDetailSheet'
 import { CsvImportSheet } from '../components/places/CsvImportSheet'
 import { LocateIcon } from '../layout/icons'
+import { filterPlaces } from '../lib/places'
 
 const SEOUL_BOUNDS = { minLat: 37.44, maxLat: 37.61, minLng: 126.88, maxLng: 127.15 }
 
@@ -29,25 +30,10 @@ export function PlacesPage() {
     [places],
   )
 
-  const filtered = useMemo(() => {
-    const q = search.trim().toLowerCase()
-    return places.filter((p) => {
-      if (category && p.category !== category) return false
-      if (neighborhoods.size > 0 && !neighborhoods.has(p.neighborhood)) return false
-      if (statuses.size > 0) {
-        const matchesStatus =
-          (statuses.has('Favorite') && p.favorite) ||
-          (statuses.has('Planned') && p.planned) ||
-          (statuses.has('Visited') && p.visited)
-        if (!matchesStatus) return false
-      }
-      if (q) {
-        const haystack = `${p.name} ${p.neighborhood} ${p.category} ${p.subcategory ?? ''}`.toLowerCase()
-        if (!haystack.includes(q)) return false
-      }
-      return true
-    })
-  }, [places, category, neighborhoods, statuses, search])
+  const filtered = useMemo(
+    () => filterPlaces(places, { category, neighborhoods, statuses, search }),
+    [places, category, neighborhoods, statuses, search],
+  )
 
   const markers = filtered.map((p) => ({
     id: p.id,
@@ -91,7 +77,7 @@ export function PlacesPage() {
         }}
       />
 
-      <div className="absolute inset-x-0 top-0 z-10 space-y-2.5 pt-4">
+      <div className="absolute inset-x-0 top-0 z-[1050] space-y-2.5 pt-4">
         <div className="px-5">
           <SearchBar value={search} onChange={setSearch} onOpenImport={() => setImportOpen(true)} />
         </div>
@@ -105,13 +91,13 @@ export function PlacesPage() {
 
       <button
         onClick={() => setRecenterSignal((n) => n + 1)}
-        className="absolute bottom-[240px] right-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white text-ink-soft shadow-[0_1px_2px_rgba(18,18,20,0.08),0_8px_24px_-10px_rgba(18,18,20,0.35)]"
+        className="absolute bottom-[240px] right-4 z-[1050] flex h-11 w-11 items-center justify-center rounded-full bg-white text-ink-soft shadow-[0_1px_2px_rgba(18,18,20,0.08),0_8px_24px_-10px_rgba(18,18,20,0.35)]"
         aria-label="Recenter map on visible places"
       >
         <LocateIcon className="h-5 w-5" />
       </button>
 
-      <div className="absolute inset-x-0 bottom-0 z-10 rounded-t-[26px] bg-white/97 pt-1 shadow-[0_-8px_24px_rgba(18,18,20,0.12)] backdrop-blur">
+      <div className="absolute inset-x-0 bottom-0 z-[1050] rounded-t-[26px] bg-white/97 pt-1 shadow-[0_-8px_24px_rgba(18,18,20,0.12)] backdrop-blur">
         <div className="flex justify-center pt-2">
           <span className="h-1 w-9 rounded-full bg-line" />
         </div>

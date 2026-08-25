@@ -20,7 +20,10 @@ npm run dev
 
 Open the printed local URL on your phone or in a narrow browser window — the
 app is mobile-first (bottom tab bar: Home, People, Itinerary, Places,
-Korean). It also renders as a centered phone-width column on desktop.
+Gallery, Korean). It also renders as a centered phone-width column on
+desktop. **Places** is the map view; **Gallery** is the same 165 places as a
+browsable grid of cards (search + category filters included) — tap a card
+for the same detail sheet the map uses (description, source video, actions).
 
 ## Project structure
 

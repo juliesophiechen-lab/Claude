@@ -40,6 +40,17 @@ export function ItineraryIcon({ className }: IconProps) {
   )
 }
 
+export function GalleryIcon({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className}>
+      <rect x="3.5" y="4" width="8" height="8" rx="1.6" stroke="currentColor" strokeWidth="1.8" />
+      <rect x="12.5" y="4" width="8" height="8" rx="1.6" stroke="currentColor" strokeWidth="1.8" />
+      <rect x="3.5" y="13" width="8" height="7" rx="1.6" stroke="currentColor" strokeWidth="1.8" />
+      <rect x="12.5" y="13" width="8" height="7" rx="1.6" stroke="currentColor" strokeWidth="1.8" />
+    </svg>
+  )
+}
+
 export function PlacesIcon({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" className={className}>

@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { HomeIcon, ItineraryIcon, KoreanIcon, PeopleIcon, PlacesIcon } from './icons'
+import { GalleryIcon, HomeIcon, ItineraryIcon, KoreanIcon, PeopleIcon, PlacesIcon } from './icons'
 
 type Tab = {
   to: string
@@ -14,6 +14,7 @@ const TABS: Tab[] = [
   { to: '/people', label: 'People', Icon: PeopleIcon, end: false, emphasize: false },
   { to: '/itinerary', label: 'Itinerary', Icon: ItineraryIcon, end: false, emphasize: false },
   { to: '/places', label: 'Places', Icon: PlacesIcon, end: false, emphasize: true },
+  { to: '/gallery', label: 'Gallery', Icon: GalleryIcon, end: false, emphasize: false },
   { to: '/korean', label: 'Korean', Icon: KoreanIcon, end: false, emphasize: false },
 ]
 
