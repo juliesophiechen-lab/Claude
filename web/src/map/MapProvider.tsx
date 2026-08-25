@@ -1,4 +1,6 @@
 import { MockMapView } from './MockMapView'
+import { GoogleMapView } from './GoogleMapView'
+import { useGoogleMapsReady } from './useGoogleMapsReady'
 
 export interface MapMarkerData {
   id: string
@@ -17,12 +19,26 @@ export interface MapViewProps {
 
 export type MapViewComponent = (props: MapViewProps) => React.JSX.Element
 
+const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string | undefined
+
 /**
- * Swappable map renderer. Phase 1 always resolves to the mock placeholder map
- * so the product never depends on a live Naver Maps key. A real
- * `NaverMapView` implementing the same `MapViewComponent` signature can be
- * dropped in later (see map/README.md) without touching any Places UI code.
+ * Swappable map renderer. Falls back to the mock placeholder map whenever no
+ * `VITE_GOOGLE_MAPS_API_KEY` is configured (or while the SDK is still
+ * loading), so the product never hard-depends on a live Maps key. Set the key
+ * in `.local/.env` to switch to the real Google Map — see the root README.
  */
-export function resolveMapView(): MapViewComponent {
-  return MockMapView
+export function MapView(props: MapViewProps) {
+  const ready = useGoogleMapsReady(GOOGLE_MAPS_API_KEY)
+
+  if (!GOOGLE_MAPS_API_KEY) return <MockMapView {...props} />
+  if (!ready) return <MapLoadingPlaceholder />
+  return <GoogleMapView {...props} />
+}
+
+function MapLoadingPlaceholder() {
+  return (
+    <div className="flex h-full w-full items-center justify-center bg-canvas-sunk text-sm font-medium text-ink-faint">
+      Loading map…
+    </div>
+  )
 }

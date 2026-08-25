@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useAppState } from '../state/AppStateContext'
-import { resolveMapView } from '../map/MapProvider'
+import { MapView } from '../map/MapProvider'
 import { categoryColor } from '../lib/categories'
 import { SearchBar } from '../components/places/SearchBar'
 import { CategoryChipsRow } from '../components/places/CategoryChipsRow'
@@ -11,8 +11,6 @@ import { CsvImportSheet } from '../components/places/CsvImportSheet'
 import { LocateIcon } from '../layout/icons'
 
 const SEOUL_BOUNDS = { minLat: 37.44, maxLat: 37.61, minLng: 126.88, maxLng: 127.15 }
-
-const MapView = resolveMapView()
 
 export function PlacesPage() {
   const { places } = useAppState()

@@ -58,10 +58,6 @@ button {
   font-family: inherit;
 }
 
-.naver-map img {
-  max-width: none;
-}
-
 /* Hide scrollbars on horizontally-scrolling chip rows / carousels */
 .no-scrollbar {
   scrollbar-width: none;

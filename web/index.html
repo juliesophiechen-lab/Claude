@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Seoul Guide</title>
     <!--
-      The Naver Maps SDK script is intentionally NOT loaded here. Phase 1 uses
-      a mock map by default so the app never depends on a live ncpKeyId. When
-      a real key is configured, NaverMapProvider injects this script itself:
-      https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=...&submodules=geocoder
+      The Google Maps SDK script is intentionally NOT loaded here. The app
+      falls back to a mock placeholder map so it never depends on a live key.
+      When VITE_GOOGLE_MAPS_API_KEY is set, map/useGoogleMapsReady.ts injects
+      the script itself (https://maps.googleapis.com/maps/api/js?key=...).
     -->
   </head>
   <body>

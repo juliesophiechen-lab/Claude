@@ -1,13 +1,14 @@
 # Seoul Trip Guide
 
-A personal travel companion for a Seoul trip: countdown + flights, who's
-around when, a day-by-day itinerary, a map of saved places with their
-original source videos, and a Korean phrasebook.
+A personal travel companion for the October 2026 Seoul trip: countdown +
+flights, who's around when, a day-by-day itinerary, a map of saved places
+with their original source videos, and a Korean phrasebook.
 
-**Status: Phase 1 — clickable mockup.** Everything runs on mock data and
-local/localStorage state. No backend, auth, or live Naver Maps integration
-yet — see [Naver Maps / MCP integration](#naver-maps--mcp-integration-phase-2)
-below for what Phase 2 needs.
+**Status:** running on the real trip data (real flights, 5 travelers, the
+real day-by-day plan, 165 real saved places). State is local/localStorage —
+no backend or auth yet. The map has a real **Google Maps** provider that
+activates once you add an API key (falls back to a mock placeholder map
+otherwise) — see [Google Maps setup](#google-maps-setup) below.
 
 ## Running it
 
@@ -24,12 +25,12 @@ Korean). It also renders as a centered phone-width column on desktop.
 ## Project structure
 
 ```
-data/places.csv          Real saved-places export (Google My Maps), used by
+data/places.csv          Older saved-places export (Google My Maps), used by
                           the Places tab's "Try with sample file" CSV import
-                          demo — not the Phase 1 seed data itself.
+                          demo — not the seed data itself.
 web/src/
   models.ts               Trip, Participant, Place, ItineraryItem, DictionaryPhrase types
-  data/mock*.ts            Mock trip, participants, ~24 hand-placed places, itinerary, phrases
+  data/mock*.ts            Real trip, participants, places, itinerary, phrases
   state/AppStateContext.tsx  Itinerary items + place favorite/visited/imported state (localStorage)
   state/ToastContext.tsx    Lightweight confirmation toasts
   map/                     Swappable map abstraction (see below)
@@ -41,12 +42,46 @@ web/src/
 
 ## Map abstraction
 
-`map/MapProvider.tsx` defines a `MapViewComponent` interface (markers + bounds
-in, marker-tap callback out). Phase 1 always resolves to `MockMapView.tsx`, a
-CSS/SVG placeholder map (no tiles, no key, no network) so the product never
-depends on a live Naver Maps key while designing the UX. A real
-`NaverMapView` implementing the same interface can be swapped in later
-without touching any Places screen code.
+`map/MapProvider.tsx` exports a single `<MapView>` component that picks the
+renderer at runtime:
+
+- **No `VITE_GOOGLE_MAPS_API_KEY` configured** → `MockMapView.tsx`, a CSS/SVG
+  placeholder map (no tiles, no key, no network) — the product never
+  hard-depends on a live Maps key.
+- **Key configured, SDK still loading** → a small "Loading map…" placeholder.
+- **Key configured and ready** → `GoogleMapView.tsx`, a real Google Map.
+
+Both real and mock renderers implement the same `MapViewComponent` interface
+(markers in, a marker-tap callback out), so none of the Places screen/filter/
+detail-sheet code cares which one is active.
+
+## Google Maps setup
+
+1. In the [Google Cloud Console](https://console.cloud.google.com), create a
+   project (or reuse one) and enable the **Maps JavaScript API** under
+   *APIs & Services*.
+2. Create an API key under *APIs & Services > Credentials*. For local dev
+   you can leave it unrestricted; once you know your deployed domain, restrict
+   the key to that **HTTP referrer**.
+3. `cp .local/.env.example .local/.env` and set
+   `VITE_GOOGLE_MAPS_API_KEY=your_key`. This file is gitignored — never
+   commit a real key.
+4. Restart `npm run dev`. `map/useGoogleMapsReady.ts` injects the SDK script
+   itself once the key is present; `map/GoogleMapView.tsx` then renders
+   markers colored by category (`lib/categories.ts`) and calls `fitBounds` so
+   all visible places frame themselves automatically.
+
+### Geocoding (not wired up yet)
+
+~70 of the 165 real places didn't come with coordinates in the source export
+(see the `priority: 3` entries in `data/mockPlaces.ts`) and currently sit at a
+jittered neighborhood-center fallback. The CSV import flow
+(`lib/csv.ts`'s `recordsToPlaces`) has the same limitation for freshly
+imported rows. Both are exactly where a real geocoder plugs in: once the Maps
+JS API is loaded, `new google.maps.Geocoder().geocode({ address }, callback)`
+runs client-side in the *user's* browser (no server needed) and can replace
+the placeholder coordinate — likely batched with a small delay between
+requests to stay within Google's rate limits.
 
 ## CSV import
 
@@ -54,43 +89,4 @@ The Places tab's upload button (`components/places/CsvImportSheet.tsx`) is
 genuinely functional, not just a mocked animation: it parses a real CSV
 client-side (`lib/csv.ts`), previews the matched rows, and imports them into
 app state on confirm. Try it with your own file or the bundled
-`data/places.csv` sample (150 real saved places) via "Try with sample file".
-Imported places get **placeholder coordinates** (no geocoding happens client
-side yet) — see below for what real geocoding needs.
-
-## Naver Maps / MCP integration (Phase 2)
-
-To swap `MockMapView` for a real Naver Map:
-
-1. **NCP account + credentials.** Register at [console.ncloud.com](https://console.ncloud.com)
-   under **Application Services > Maps** (not "AI·NAVER API") → **Register
-   Application** → **Web Dynamic Map**. Also enable **Geocoding** on the same
-   application if imported/CSV places need addresses turned into
-   coordinates. Register the web service host (no port) under **Web Service
-   URL**. Copy the **Client ID** (`ncpKeyId`).
-2. **Loading the SDK.** Inject
-   `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=...&submodules=geocoder`
-   at runtime (only when a key is configured, so the app degrades to the mock
-   map otherwise) — see the note in `web/index.html`.
-3. **A `NaverMapView` implementing `MapViewComponent`.** Same props as
-   `MockMapView`: markers (id/lat/lng/color/selected) and bounds in, a
-   `onSelectMarker(id)` callback out. Internally: `new naver.maps.Map(...)`,
-   one `naver.maps.Marker` per place (colored via custom HTML icon content,
-   matching `lib/categories.ts`), `naver.maps.Event.addListener(marker,
-   'click', ...)` wired to `onSelectMarker`. `map/MapProvider.tsx`'s
-   `resolveMapView()` picks this over the mock when `VITE_NAVER_MAP_CLIENT_ID`
-   is set.
-4. **Geocoding CSV/imported places.** `lib/csv.ts`'s `recordsToPlaces` and
-   `mockCoordinate` are exactly where this plugs in: replace the placeholder
-   coordinate with a real `naver.maps.Service.geocode({ query: address },
-   callback)` call (needs the `geocoder` submodule from step 2), likely
-   batched with a small delay between requests. This runs in the *user's*
-   browser at import time, not at build time, so it needs no server.
-5. **What stays inside the app either way:** all filtering (category/
-   neighborhood/status/search), the results carousel, the place detail sheet,
-   source-video display, favorite/visited/planned state, and the
-   add-to-itinerary flow are all UI/state concerns independent of the map
-   provider — none of that needs to change.
-
-No other Phase 2 item (persistence, CSV production-hardening, auth) touches
-the map abstraction.
+`data/places.csv` sample via "Try with sample file".
