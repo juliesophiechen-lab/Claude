@@ -1,11 +1,10 @@
 import { useState } from 'react'
 import type { Place } from '../../models'
 import { useAppState } from '../../state/AppStateContext'
-import { useToast } from '../../state/ToastContext'
 import { BottomSheet } from '../common/BottomSheet'
 import { PlaceThumb } from './PlaceThumb'
 import { ItineraryItemSheet } from '../itinerary/ItineraryItemSheet'
-import { CheckIcon, HeartIcon, PlayIcon, PlusIcon } from '../../layout/icons'
+import { CheckIcon, ExternalLinkIcon, HeartIcon, MapPinIcon, PlayIcon, PlusIcon } from '../../layout/icons'
 
 interface PlaceDetailSheetProps {
   place: Place | null
@@ -13,12 +12,22 @@ interface PlaceDetailSheetProps {
   onClose: () => void
 }
 
+function instagramProfileUrl(creator?: string): string | null {
+  if (!creator?.startsWith('@')) return null
+  return `https://www.instagram.com/${creator.slice(1)}/`
+}
+
+function naverMapUrl(place: Place): string {
+  return `https://map.naver.com/p/search/${encodeURIComponent(`${place.name} ${place.address}`)}`
+}
+
 export function PlaceDetailSheet({ place, open, onClose }: PlaceDetailSheetProps) {
   const { toggleFavorite, toggleVisited } = useAppState()
-  const showToast = useToast()
   const [addOpen, setAddOpen] = useState(false)
 
   if (!place) return null
+
+  const profileUrl = instagramProfileUrl(place.creator)
 
   return (
     <>
@@ -66,19 +75,40 @@ export function PlaceDetailSheet({ place, open, onClose }: PlaceDetailSheetProps
                     {place.creator && <p className="truncate text-xs text-ink-soft">{place.creator}</p>}
                   </div>
                   {place.sourceUrl && (
-                    <button
-                      onClick={() =>
-                        showToast(`Mock: would open the original ${place.sourceType} here`)
-                      }
+                    <a
+                      href={place.sourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="flex shrink-0 items-center gap-1.5 rounded-full bg-ink px-3.5 py-2 text-xs font-semibold text-white"
                     >
                       <PlayIcon className="h-3 w-3" /> Watch source
-                    </button>
+                    </a>
                   )}
                 </div>
               ) : (
                 <p className="text-sm text-ink-soft">{place.creator ?? 'No source saved for this place.'}</p>
               )}
+            </div>
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              {profileUrl && (
+                <a
+                  href={profileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 rounded-full border border-line px-3.5 py-2 text-xs font-semibold text-ink"
+                >
+                  <ExternalLinkIcon className="h-3.5 w-3.5" /> Instagram profile
+                </a>
+              )}
+              <a
+                href={naverMapUrl(place)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 rounded-full border border-line px-3.5 py-2 text-xs font-semibold text-ink"
+              >
+                <MapPinIcon className="h-3.5 w-3.5" /> Open in Naver Map
+              </a>
             </div>
           </div>
 
