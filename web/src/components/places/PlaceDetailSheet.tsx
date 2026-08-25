@@ -65,14 +65,16 @@ export function PlaceDetailSheet({ place, open, onClose }: PlaceDetailSheetProps
                     <p className="text-sm font-semibold text-ink">{place.sourceType}</p>
                     {place.creator && <p className="truncate text-xs text-ink-soft">{place.creator}</p>}
                   </div>
-                  <button
-                    onClick={() =>
-                      showToast(`Mock: would open the original ${place.sourceType} here`)
-                    }
-                    className="flex shrink-0 items-center gap-1.5 rounded-full bg-ink px-3.5 py-2 text-xs font-semibold text-white"
-                  >
-                    <PlayIcon className="h-3 w-3" /> Watch source
-                  </button>
+                  {place.sourceUrl && (
+                    <button
+                      onClick={() =>
+                        showToast(`Mock: would open the original ${place.sourceType} here`)
+                      }
+                      className="flex shrink-0 items-center gap-1.5 rounded-full bg-ink px-3.5 py-2 text-xs font-semibold text-white"
+                    >
+                      <PlayIcon className="h-3 w-3" /> Watch source
+                    </button>
+                  )}
                 </div>
               ) : (
                 <p className="text-sm text-ink-soft">{place.creator ?? 'No source saved for this place.'}</p>

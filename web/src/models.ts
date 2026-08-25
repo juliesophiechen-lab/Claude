@@ -19,6 +19,12 @@ export type Trip = {
   startDate: string // ISO date
   endDate: string // ISO date
   flights: FlightLeg[]
+  /** Known-incomplete leg (e.g. return flight not booked yet) shown as a TBD card instead of a full FlightCard. */
+  pendingFlight?: {
+    date: string
+    from: string
+    note: string
+  }
 }
 
 export type Participant = {
@@ -56,7 +62,13 @@ export const NEIGHBORHOODS = [
 
 export type Neighborhood = (typeof NEIGHBORHOODS)[number] | (string & {})
 
-export type SourceType = 'Instagram Reel' | 'TikTok' | 'YouTube' | 'Blog' | 'Recommendation'
+export type SourceType =
+  | 'Instagram Reel'
+  | 'Instagram Post'
+  | 'TikTok'
+  | 'YouTube'
+  | 'Blog'
+  | 'Recommendation'
 
 export type Place = {
   id: string

@@ -56,24 +56,3 @@ export function FlightCard({ flight }: { flight: FlightLeg }) {
     </div>
   )
 }
-
-export function FlightSummaryRow({ flight }: { flight: FlightLeg }) {
-  return (
-    <div className="flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-[0_1px_2px_rgba(18,18,20,0.06)]">
-      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-canvas-sunk text-ink-soft">
-        <PlaneIcon className="h-3.5 w-3.5 rotate-90" />
-      </div>
-      <div className="min-w-0 flex-1">
-        <p className="truncate text-sm font-semibold text-ink">
-          {flight.from} → {flight.to}
-        </p>
-        <p className="text-xs text-ink-soft">
-          {formatDayMonth(flight.date)} · {flight.departTime}
-        </p>
-      </div>
-      <span className="text-xs text-ink-faint">
-        {flight.airline} {flight.flightNumber}
-      </span>
-    </div>
-  )
-}

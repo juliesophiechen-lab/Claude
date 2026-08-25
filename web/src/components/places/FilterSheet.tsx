@@ -1,4 +1,3 @@
-import { NEIGHBORHOODS } from '../../models'
 import { BottomSheet } from '../common/BottomSheet'
 import { Chip } from '../common/Chip'
 
@@ -8,6 +7,7 @@ const STATUSES: StatusFilter[] = ['Favorite', 'Planned', 'Visited']
 interface FilterSheetProps {
   open: boolean
   onClose: () => void
+  availableNeighborhoods: string[]
   neighborhoods: Set<string>
   onToggleNeighborhood: (n: string) => void
   statuses: Set<StatusFilter>
@@ -18,6 +18,7 @@ interface FilterSheetProps {
 export function FilterSheet({
   open,
   onClose,
+  availableNeighborhoods,
   neighborhoods,
   onToggleNeighborhood,
   statuses,
@@ -36,7 +37,7 @@ export function FilterSheet({
 
         <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-ink-faint">Neighborhood</p>
         <div className="mb-6 flex flex-wrap gap-2">
-          {NEIGHBORHOODS.map((n) => (
+          {availableNeighborhoods.map((n) => (
             <Chip key={n} label={n} active={neighborhoods.has(n)} onClick={() => onToggleNeighborhood(n)} />
           ))}
         </div>

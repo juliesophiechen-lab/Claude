@@ -1,130 +1,62 @@
 import type { ItineraryItem } from '../models'
 
 export const itineraryItems: ItineraryItem[] = [
+  // Oct 8 — outbound flights
+  { id: 'plf1', date: '2026-10-08', time: '10:00', title: 'Abflug Luca, Nisha & Julie · MUC → Doha (QR 060)', type: 'flight', status: 'confirmed' },
+  { id: 'plf2', date: '2026-10-08', time: '15:55', title: 'Abflug Sofia & Jojo · MUC → ICN (LH 718)', type: 'flight', status: 'confirmed' },
+
+  // Oct 9 — arrivals
+  { id: 'plf3', date: '2026-10-09', time: '09:55', title: 'Ankunft Sofia & Jojo · ICN (LH 718)', type: 'flight', status: 'confirmed' },
+  { id: 'plf4', date: '2026-10-09', time: '10:30', title: 'Ankunft Luca, Nisha & Julie · ICN Terminal 1 (QR 862)', type: 'flight', status: 'confirmed' },
+  { id: 'pl202610090', date: '2026-10-09', title: 'Ankunft 11:30 >> airbnb', type: 'transport', status: 'confirmed' },
+  { id: 'pl202610091', date: '2026-10-09', title: 'Wie kommen wir vom Flughafen zur airbnb?', type: 'open', status: 'open' },
+  { id: 'pl202610092', date: '2026-10-09', title: 'Ankommen & chillen', type: 'activity', status: 'confirmed' },
+  { id: 'pl202610093', date: '2026-10-09', title: 'Hop-on Hop-off bus tour', type: 'activity', status: 'confirmed' },
+  { id: 'pl202610094', date: '2026-10-09', title: 'Anbieter?', type: 'open', status: 'open' },
   {
-    id: 'it-01',
-    date: '2026-10-19',
-    time: '10:00',
-    title: 'Head to MUC airport',
-    type: 'transport',
-    status: 'confirmed',
-  },
-  {
-    id: 'it-02',
-    date: '2026-10-19',
-    time: '13:20',
-    title: 'Flight MUC → ICN',
-    type: 'flight',
-    status: 'confirmed',
-  },
-  {
-    id: 'it-03',
-    date: '2026-10-20',
-    time: '08:10',
-    title: 'Arrival ICN',
-    type: 'flight',
-    status: 'confirmed',
-  },
-  {
-    id: 'it-04',
-    date: '2026-10-20',
-    time: '11:00',
-    title: 'Hotel check-in',
-    type: 'confirmed',
-    status: 'confirmed',
-  },
-  {
-    id: 'it-05',
-    date: '2026-10-20',
-    time: '14:00',
-    title: 'Explore Seongsu',
-    type: 'activity',
-    status: 'confirmed',
-    placeId: 'pl-07',
-  },
-  {
-    id: 'it-06',
-    date: '2026-10-20',
-    time: '19:30',
-    title: 'Dinner in Seongsu',
-    type: 'reservation',
-    status: 'confirmed',
-    placeId: 'pl-07',
-    featured: true,
-  },
-  {
-    id: 'it-07',
-    date: '2026-10-21',
-    time: '10:00',
-    title: 'Bukchon Hanok Village',
-    type: 'activity',
-    status: 'confirmed',
-    placeId: 'pl-21',
-  },
-  {
-    id: 'it-08',
-    date: '2026-10-21',
-    title: 'Find a good brunch spot',
-    type: 'idea',
-    status: 'open',
-  },
-  {
-    id: 'it-09',
-    date: '2026-10-23',
-    time: '11:00',
-    title: 'Gangnam shopping afternoon',
-    type: 'activity',
-    status: 'confirmed',
-    placeId: 'pl-05',
-  },
-  {
-    id: 'it-10',
-    date: '2026-10-23',
-    title: 'Dinner in Itaewon?',
+    id: 'plf7',
+    date: '2026-10-09',
+    title: 'Achtung: in eurer Timetable steht Ankunft 11:30, laut Buchungen ist es 09:55 und 10:30',
     type: 'open',
     status: 'open',
-    notes: 'Everyone free after 7pm.',
   },
+
+  // Oct 10
+  { id: 'pl202610100', date: '2026-10-10', time: '10:00', title: 'Consultation Skin clinic Sminskin (Gangnam)', type: 'activity', status: 'confirmed' },
+  { id: 'pl202610101', date: '2026-10-10', title: 'Starfield Library', type: 'activity', status: 'confirmed', placeId: 'xl03' },
+
+  // Oct 11
+  { id: 'pl202610110', date: '2026-10-11', title: 'Tempel in Jongno', type: 'activity', status: 'confirmed' },
+  { id: 'pl202610111', date: '2026-10-11', title: 'Bukchon hanok village', type: 'activity', status: 'confirmed', placeId: 'bukc' },
+
+  // Oct 12
+  { id: 'pl202610120', date: '2026-10-12', title: 'Shopping Myeongdong', type: 'activity', status: 'confirmed' },
+
+  // Oct 13
+  { id: 'pl202610130', date: '2026-10-13', title: '1/2 day Wanderung?', type: 'idea', status: 'confirmed' },
+  { id: 'pl202610131', date: '2026-10-13', title: 'Empfehlungen suchen', type: 'open', status: 'open' },
+
+  // Oct 15
+  { id: 'pl202610150', date: '2026-10-15', title: 'Day Trip Nordkorea?', type: 'idea', status: 'confirmed' },
+  { id: 'pl202610151', date: '2026-10-15', title: 'Anbieter?', type: 'open', status: 'open' },
+
+  // Oct 18 — Sofia & Jojo depart
   {
-    id: 'it-11',
-    date: '2026-10-25',
-    time: '10:00',
-    title: 'Pottery workshop',
-    type: 'activity',
-    status: 'confirmed',
-    placeId: 'pl-22',
-  },
-  {
-    id: 'it-12',
-    date: '2026-10-25',
-    time: '19:00',
-    title: 'Group dinner, all three together',
-    type: 'reservation',
+    id: 'plf5',
+    date: '2026-10-18',
+    title: 'Sofia & Jojo reisen ab. Rückflug startet in Shanghai, die Strecke Seoul nach Shanghai fehlt noch',
+    type: 'flight',
     status: 'open',
-    notes: 'First night with Anna — pick somewhere that takes a booking for 3.',
   },
+
+  // Oct 19 — Luca & Nisha depart, Julie's return still open
+  { id: 'pl202610190', date: '2026-10-19', time: '11:40', title: 'Abflug', type: 'flight', status: 'confirmed' },
+  { id: 'plf6', date: '2026-10-19', time: '11:40', title: 'Abflug Luca & Nisha · ICN → MUC (LH 719)', type: 'flight', status: 'confirmed' },
   {
-    id: 'it-13',
-    date: '2026-10-29',
-    time: '09:00',
-    title: 'Max flies home',
+    id: 'it-julie-return',
+    date: '2026-10-19',
+    title: 'Your return flight — not booked yet',
     type: 'flight',
-    status: 'confirmed',
-  },
-  {
-    id: 'it-14',
-    date: '2026-11-03',
-    time: '09:30',
-    title: 'Anna flies home',
-    type: 'flight',
-    status: 'confirmed',
-  },
-  {
-    id: 'it-15',
-    date: '2026-11-08',
-    time: '20:30',
-    title: 'Flight ICN → MUC',
-    type: 'flight',
-    status: 'confirmed',
+    status: 'open',
   },
 ]

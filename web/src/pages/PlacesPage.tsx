@@ -10,7 +10,7 @@ import { PlaceDetailSheet } from '../components/places/PlaceDetailSheet'
 import { CsvImportSheet } from '../components/places/CsvImportSheet'
 import { LocateIcon } from '../layout/icons'
 
-const SEOUL_BOUNDS = { minLat: 37.49, maxLat: 37.595, minLng: 126.915, maxLng: 127.065 }
+const SEOUL_BOUNDS = { minLat: 37.44, maxLat: 37.61, minLng: 126.88, maxLng: 127.15 }
 
 const MapView = resolveMapView()
 
@@ -24,6 +24,11 @@ export function PlacesPage() {
   const [importOpen, setImportOpen] = useState(false)
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [detailId, setDetailId] = useState<string | null>(null)
+
+  const availableNeighborhoods = useMemo(
+    () => Array.from(new Set(places.map((p) => p.neighborhood))).sort(),
+    [places],
+  )
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase()
@@ -124,6 +129,7 @@ export function PlacesPage() {
       <FilterSheet
         open={filterSheetOpen}
         onClose={() => setFilterSheetOpen(false)}
+        availableNeighborhoods={availableNeighborhoods}
         neighborhoods={neighborhoods}
         onToggleNeighborhood={toggleNeighborhood}
         statuses={statuses}
