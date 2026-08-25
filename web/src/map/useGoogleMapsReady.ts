@@ -33,7 +33,7 @@ function loadGoogleMaps(): Promise<void> {
     window.__onGoogleMapsLoaded = () => resolve()
 
     const script = document.createElement('script')
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&loading=async&callback=__onGoogleMapsLoaded`
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places&loading=async&callback=__onGoogleMapsLoaded`
     script.async = true
     script.onerror = () => reject(new Error('Failed to load the Google Maps script'))
     document.head.appendChild(script)

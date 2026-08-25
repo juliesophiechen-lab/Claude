@@ -1,11 +1,21 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { Place } from '../../models'
 import { useAppState } from '../../state/AppStateContext'
 import { useLikes } from '../../state/useLikes'
+import { findGooglePlace, type GooglePlaceInfo } from '../../lib/googlePlaces'
 import { BottomSheet } from '../common/BottomSheet'
 import { PlaceThumb } from './PlaceThumb'
 import { ItineraryItemSheet } from '../itinerary/ItineraryItemSheet'
-import { CheckIcon, ExternalLinkIcon, HeartIcon, MapPinIcon, PlayIcon, PlusIcon } from '../../layout/icons'
+import {
+  CheckIcon,
+  ExternalLinkIcon,
+  HeartIcon,
+  MapPinIcon,
+  PhoneIcon,
+  PlayIcon,
+  PlusIcon,
+  StarIcon,
+} from '../../layout/icons'
 
 interface PlaceDetailSheetProps {
   place: Place | null
@@ -22,7 +32,8 @@ function naverMapUrl(place: Place): string {
   return `https://map.naver.com/p/search/${encodeURIComponent(`${place.name} ${place.address}`)}`
 }
 
-function googleMapsLinkFor(place: Place): string {
+function googleMapsLinkFor(place: Place, googleInfo: GooglePlaceInfo | null): string {
+  if (googleInfo?.googleMapsUrl) return googleInfo.googleMapsUrl
   if (place.googleMapsUrl) return place.googleMapsUrl
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${place.name} ${place.address}`)}`
 }
@@ -31,6 +42,31 @@ export function PlaceDetailSheet({ place, open, onClose }: PlaceDetailSheetProps
   const { toggleFavorite, toggleVisited } = useAppState()
   const { counts: likeCounts, likedByMe, toggleLike } = useLikes()
   const [addOpen, setAddOpen] = useState(false)
+  const [googleInfo, setGoogleInfo] = useState<GooglePlaceInfo | null>(null)
+  const [googleLoading, setGoogleLoading] = useState(false)
+
+  useEffect(() => {
+    if (!open || !place) {
+      setGoogleInfo(null)
+      return
+    }
+    let cancelled = false
+    setGoogleInfo(null)
+    setGoogleLoading(true)
+    findGooglePlace(place.name, place.address)
+      .then((info) => {
+        if (!cancelled) setGoogleInfo(info)
+      })
+      .finally(() => {
+        if (!cancelled) setGoogleLoading(false)
+      })
+    return () => {
+      cancelled = true
+    }
+    // Re-run only when the sheet opens for a (possibly) different place, not
+    // on every re-render of the underlying places array.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, place?.id])
 
   if (!place) return null
 
@@ -43,8 +79,8 @@ export function PlaceDetailSheet({ place, open, onClose }: PlaceDetailSheetProps
       <BottomSheet open={open && !addOpen} onClose={onClose}>
         <div className="pb-8">
           <div className="relative mx-5 h-40 overflow-hidden rounded-2xl">
-            {place.sourceThumbnail ? (
-              <img src={place.sourceThumbnail} alt="" className="h-full w-full object-cover" />
+            {googleInfo?.photoUrl || place.sourceThumbnail ? (
+              <img src={googleInfo?.photoUrl ?? place.sourceThumbnail} alt="" className="h-full w-full object-cover" />
             ) : (
               <PlaceThumb category={place.category} className="h-full w-full" />
             )}
@@ -68,6 +104,49 @@ export function PlaceDetailSheet({ place, open, onClose }: PlaceDetailSheetProps
               {place.neighborhood} · {place.category}
               {place.subcategory ? ` · ${place.subcategory}` : ''}
             </p>
+
+            {googleLoading && <p className="mt-2 text-xs text-ink-faint">Checking Google Maps…</p>}
+
+            {googleInfo && (
+              <div className="mt-2.5 rounded-2xl bg-canvas-soft p-3">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                  {googleInfo.rating != null && (
+                    <span className="flex items-center gap-1 text-sm font-semibold text-ink">
+                      <StarIcon className="h-3.5 w-3.5 text-[#f2b01e]" /> {googleInfo.rating.toFixed(1)}
+                      {googleInfo.userRatingsTotal != null && (
+                        <span className="font-normal text-ink-soft">({googleInfo.userRatingsTotal})</span>
+                      )}
+                    </span>
+                  )}
+                  {googleInfo.phoneNumber && (
+                    <a
+                      href={`tel:${googleInfo.phoneNumber}`}
+                      className="flex items-center gap-1 text-xs font-medium text-ink-soft"
+                    >
+                      <PhoneIcon className="h-3.5 w-3.5" /> {googleInfo.phoneNumber}
+                    </a>
+                  )}
+                  {googleInfo.websiteUrl && (
+                    <a
+                      href={googleInfo.websiteUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1 text-xs font-medium text-ink-soft underline underline-offset-2"
+                    >
+                      <ExternalLinkIcon className="h-3.5 w-3.5" /> Website
+                    </a>
+                  )}
+                </div>
+                {googleInfo.openingHours && googleInfo.openingHours.length > 0 && (
+                  <ul className="mt-2 space-y-0.5 text-[12px] text-ink-soft">
+                    {googleInfo.openingHours.map((line) => (
+                      <li key={line}>{line}</li>
+                    ))}
+                  </ul>
+                )}
+                <p className="mt-2 text-[11px] text-ink-faint">Matched to a real place on Google Maps</p>
+              </div>
+            )}
 
             <button
               onClick={() => toggleLike(place.id)}
@@ -135,7 +214,7 @@ export function PlaceDetailSheet({ place, open, onClose }: PlaceDetailSheetProps
                 <MapPinIcon className="h-3.5 w-3.5" /> Open in Naver Map
               </a>
               <a
-                href={googleMapsLinkFor(place)}
+                href={googleMapsLinkFor(place, googleInfo)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-1.5 rounded-full border border-line px-3.5 py-2 text-xs font-semibold text-ink"

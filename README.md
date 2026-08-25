@@ -92,7 +92,8 @@ code cares which one is active.
 
 Copy `web/.env.example` to `web/.env.local` and set `VITE_GOOGLE_MAPS_API_KEY`
 to a key from `console.cloud.google.com/google/maps-apis` with the "Maps
-JavaScript API" enabled. **Restrict it** (Application restrictions → HTTP
+JavaScript API" **and "Places API"** enabled (the second one powers the
+real-place matching below). **Restrict it** (Application restrictions → HTTP
 referrers) to your Vercel domain(s) — an unrestricted key can be used by
 anyone who reads it out of the JS bundle, which is a real cost/abuse risk
 once billing is active on the project. On Vercel, add the same variable
@@ -102,6 +103,21 @@ If the key's project is still billing-restricted (the `InvalidKeyMapError` /
 `gm_authFailure` this ran into before), the app falls back to the Leaflet map
 automatically rather than breaking — check the browser console for the exact
 error to see what's actually blocking it.
+
+### Matching places to real Google Maps data
+
+Opening a place's detail sheet (`PlaceDetailSheet.tsx`) tries, live, to match
+it to a real place on Google Maps: `lib/googlePlaces.ts` runs a text search
+on the name + address, then fetches details for the top match — rating,
+review count, a real photo, opening hours, phone, website, and a genuine
+`google.com/maps/place/...` link (all shown in place of/alongside the
+curated notes). Many of the 165 saved places are deliberately vague
+(neighborhood names, generic activities like "Karaoke", placeholder entries
+like repeated "beauty spa" rows with no confirmed business) — those won't
+match anything, and the sheet just falls back to the original curated
+content, same as always. No offline batching or extra data files: the
+lookup happens on demand each time a place is opened, using the same key/
+billing as the map itself.
 
 ### Geocoding
 

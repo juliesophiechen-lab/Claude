@@ -178,6 +178,27 @@ export function ExternalLinkIcon({ className }: IconProps) {
   )
 }
 
+export function StarIcon({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M12 3.5l2.6 5.6 6.1.6-4.6 4.1 1.3 6-5.4-3.1-5.4 3.1 1.3-6-4.6-4.1 6.1-.6L12 3.5Z" />
+    </svg>
+  )
+}
+
+export function PhoneIcon({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className}>
+      <path
+        d="M5.5 4h3l1.4 4.2-2 1.6a11.5 11.5 0 0 0 5.3 5.3l1.6-2L19 14.5v3a1.5 1.5 0 0 1-1.6 1.5A15 15 0 0 1 4 5.6 1.5 1.5 0 0 1 5.5 4Z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 export function UploadIcon({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" className={className}>
