@@ -1,6 +1,6 @@
 import { MockMapView } from './MockMapView'
-import { GoogleMapView } from './GoogleMapView'
-import { useGoogleMapsReady } from './useGoogleMapsReady'
+import { LeafletMapView } from './LeafletMapView'
+import { useTileServerReachable } from './useTileServerReachable'
 
 export interface MapMarkerData {
   id: string
@@ -19,25 +19,23 @@ export interface MapViewProps {
 
 export type MapViewComponent = (props: MapViewProps) => React.JSX.Element
 
-const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string | undefined
-
-/** True once the real Google Maps SDK (not the mock) is loaded and ready. */
+/** True once OpenStreetMap's tile server is confirmed reachable (no key/account needed either way). */
 export function useMapReady(): boolean {
-  return useGoogleMapsReady(GOOGLE_MAPS_API_KEY)
+  return useTileServerReachable() === true
 }
 
 /**
- * Swappable map renderer. Falls back to the mock placeholder map whenever no
- * `VITE_GOOGLE_MAPS_API_KEY` is configured (or while the SDK is still
- * loading), so the product never hard-depends on a live Maps key. Set the key
- * in `.local/.env` to switch to the real Google Map — see the root README.
+ * Swappable map renderer. Uses a real OpenStreetMap tile map via Leaflet —
+ * no API key, no billing account, no console setup. Falls back to the mock
+ * placeholder map only if the tile server can't be reached (offline, or a
+ * restrictive network), so the product never hard-fails on a blank screen.
  */
 export function MapView(props: MapViewProps) {
-  const ready = useGoogleMapsReady(GOOGLE_MAPS_API_KEY)
+  const reachable = useTileServerReachable()
 
-  if (!GOOGLE_MAPS_API_KEY) return <MockMapView {...props} />
-  if (!ready) return <MapLoadingPlaceholder />
-  return <GoogleMapView {...props} />
+  if (reachable === null) return <MapLoadingPlaceholder />
+  if (!reachable) return <MockMapView {...props} />
+  return <LeafletMapView {...props} />
 }
 
 function MapLoadingPlaceholder() {

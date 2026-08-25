@@ -2,10 +2,13 @@ import { useEffect, useRef } from 'react'
 import type { Place } from '../models'
 
 // Client-side geocoding for places that only carry a neighborhood-fallback
-// position (geocoded !== true). Runs once Google Maps is ready, paced with a
-// small delay between requests, and caches results in localStorage by
-// address so repeat app loads don't re-geocode the same places.
+// position (geocoded !== true). Runs once the map's tile server is reachable,
+// paced at ~1 request/second per Nominatim's usage policy, and caches results
+// in localStorage by address so repeat app loads don't re-geocode the same
+// places. No API key needed — Nominatim (OpenStreetMap's free geocoder) is a
+// public, unauthenticated service.
 const CACHE_KEY = 'seoul-guide-geocode-cache-v1'
+const REQUEST_DELAY_MS = 1100
 
 type CacheEntry = { lat: number; lng: number } | null
 
@@ -25,17 +28,17 @@ function saveCache(cache: Record<string, CacheEntry>) {
   }
 }
 
-function geocodeOne(geocoder: any, address: string): Promise<CacheEntry> {
-  return new Promise((resolve) => {
-    geocoder.geocode({ address }, (results: any[], status: string) => {
-      if (status !== 'OK' || !results || results.length === 0) {
-        resolve(null)
-        return
-      }
-      const loc = results[0].geometry.location
-      resolve({ lat: loc.lat(), lng: loc.lng() })
-    })
-  })
+async function geocodeOne(address: string): Promise<CacheEntry> {
+  const url = `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(address)}`
+  try {
+    const res = await fetch(url)
+    if (!res.ok) return null
+    const results = await res.json()
+    if (!Array.isArray(results) || results.length === 0) return null
+    return { lat: parseFloat(results[0].lat), lng: parseFloat(results[0].lon) }
+  } catch {
+    return null
+  }
 }
 
 export function useGeocodeMissingPlaces(
@@ -56,7 +59,6 @@ export function useGeocodeMissingPlaces(
     if (!ready || startedRef.current) return
     startedRef.current = true
 
-    const geocoder = new window.google.maps.Geocoder()
     const cache = loadCache()
 
     async function run() {
@@ -66,10 +68,10 @@ export function useGeocodeMissingPlaces(
       for (const place of todo) {
         let entry = cache[place.address]
         if (entry === undefined) {
-          entry = await geocodeOne(geocoder, place.address)
+          entry = await geocodeOne(place.address)
           cache[place.address] = entry
           cacheDirty = true
-          await new Promise((r) => setTimeout(r, 200))
+          await new Promise((r) => setTimeout(r, REQUEST_DELAY_MS))
         }
         if (entry) onResolvedRef.current(place.id, entry.lat, entry.lng)
       }
