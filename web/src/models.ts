@@ -84,6 +84,8 @@ export type Place = {
   sourceType?: SourceType
   sourceUrl?: string
   sourceThumbnail?: string
+  /** Raw Google Maps link, when a place was added by pasting one. */
+  googleMapsUrl?: string
   creator?: string
   favorite: boolean
   visited: boolean

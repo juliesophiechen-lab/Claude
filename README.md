@@ -26,8 +26,15 @@ Open the printed local URL on your phone or in a narrow browser window — the
 app is mobile-first (bottom tab bar: Home, People, Itinerary, Places,
 Gallery, Korean). It also renders as a centered phone-width column on
 desktop. **Places** is the map view; **Gallery** is the same 165 places as a
-browsable grid of cards (search + category filters included) — tap a card
-for the same detail sheet the map uses (description, source video, actions).
+text-forward, browsable list (thumbnail + name + a mini description snippet,
+search + category filters included) — tap a row for the same detail sheet
+the map uses (description, source video, Naver/Google Maps links, actions).
+
+A round **+** button, anchored above the bottom tab bar on every screen, opens
+**Ort hinzufügen** ("Add place") — a 3-tab panel to contribute a new place by
+screenshot, by pasting any link (Instagram/TikTok/website), or by pasting a
+Google Maps link (coordinates are read directly out of the URL — no API key).
+New places show up for everyone in the Gallery/map right away.
 
 ## Project structure
 
@@ -113,14 +120,20 @@ even for near-zero usage. It backs three shared features:
   Firestore collection (one-time seeded from `data/mockItinerary.ts`), synced
   live via `onSnapshot` — anyone can add, tap-to-edit, or delete an item, and
   it shows "Vorgeschlagen von <name>" for who added it.
-- **Screenshot uploads** (`components/places/ScreenshotUploadSheet.tsx`):
-  `lib/image.ts` resizes/compresses the picked image client-side (canvas,
+- **Add place** (`components/places/AddPlaceSheet.tsx`, opened from the
+  floating **+** button): three ways to contribute a place, all writing to
+  the shared `suggestedPlaces` collection. **Screenshot** uses
+  `lib/image.ts` to resize/compress the picked image client-side (canvas,
   down to ~900px wide JPEG, backing off quality/size until it fits) into a
-  data URL small enough to store directly as a Firestore field, then writes
-  a `suggestedPlaces` doc that merges into everyone's Gallery/Places list
-  with the screenshot itself as the thumbnail. These don't have a real
-  address, so they sit at the Seoul-center fallback on the map (same
-  `geocoded: false` treatment as any other unlocated place).
+  data URL small enough to store directly as a Firestore field, with the
+  screenshot itself as the thumbnail. **Link** just stores whatever URL was
+  pasted (Instagram/TikTok/website) as the place's source. **Google Maps**
+  (`lib/googleMapsLink.ts`) reads coordinates and a name straight out of a
+  pasted Google Maps URL (`@lat,lng` and `/place/<name>/`) — no API key,
+  since that's just string parsing. Short `maps.app.goo.gl` links can't be
+  resolved client-side (no readable redirect), so those fall back to no
+  coordinates. Places without real coordinates sit at the Seoul-center
+  fallback (same `geocoded: false` treatment as any other unlocated place).
 
 **Firestore rules:** the console's default "test mode" rules expire after 30
 days and everything shared here would silently stop working. In the Firebase

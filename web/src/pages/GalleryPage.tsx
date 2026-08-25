@@ -7,7 +7,6 @@ import { CategoryChipsRow } from '../components/places/CategoryChipsRow'
 import { FilterSheet, type StatusFilter } from '../components/places/FilterSheet'
 import { PlaceGalleryCard } from '../components/places/PlaceGalleryCard'
 import { PlaceDetailSheet } from '../components/places/PlaceDetailSheet'
-import { ScreenshotUploadSheet } from '../components/places/ScreenshotUploadSheet'
 
 export function GalleryPage() {
   const { places } = useAppState()
@@ -19,7 +18,6 @@ export function GalleryPage() {
   const [filterSheetOpen, setFilterSheetOpen] = useState(false)
   const [detailId, setDetailId] = useState<string | null>(null)
   const [sortMostLiked, setSortMostLiked] = useState(false)
-  const [uploadOpen, setUploadOpen] = useState(false)
 
   const availableNeighborhoods = useMemo(
     () => Array.from(new Set(places.map((p) => p.neighborhood))).sort(),
@@ -59,13 +57,7 @@ export function GalleryPage() {
       <div className="flex h-full flex-col">
         <div className="space-y-2.5 px-5 pb-2 pt-6">
           <h1 className="text-2xl font-semibold tracking-tight text-ink">Gallery</h1>
-          <SearchBar
-            value={search}
-            onChange={setSearch}
-            placeholder="Search the gallery..."
-            onOpenImport={() => setUploadOpen(true)}
-            importAriaLabel="Screenshot hochladen"
-          />
+          <SearchBar value={search} onChange={setSearch} placeholder="Search the gallery..." />
         </div>
         <div className="pb-2">
           <CategoryChipsRow
@@ -88,7 +80,7 @@ export function GalleryPage() {
               Most liked
             </button>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="flex flex-col gap-2.5">
             {filtered.map((place) => (
               <PlaceGalleryCard
                 key={place.id}
@@ -119,8 +111,6 @@ export function GalleryPage() {
       />
 
       <PlaceDetailSheet place={detailPlace} open={detailId !== null} onClose={() => setDetailId(null)} />
-
-      <ScreenshotUploadSheet open={uploadOpen} onClose={() => setUploadOpen(false)} />
     </div>
   )
 }

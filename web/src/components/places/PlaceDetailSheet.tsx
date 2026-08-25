@@ -22,6 +22,11 @@ function naverMapUrl(place: Place): string {
   return `https://map.naver.com/p/search/${encodeURIComponent(`${place.name} ${place.address}`)}`
 }
 
+function googleMapsLinkFor(place: Place): string {
+  if (place.googleMapsUrl) return place.googleMapsUrl
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${place.name} ${place.address}`)}`
+}
+
 export function PlaceDetailSheet({ place, open, onClose }: PlaceDetailSheetProps) {
   const { toggleFavorite, toggleVisited } = useAppState()
   const { counts: likeCounts, likedByMe, toggleLike } = useLikes()
@@ -128,6 +133,14 @@ export function PlaceDetailSheet({ place, open, onClose }: PlaceDetailSheetProps
                 className="flex items-center gap-1.5 rounded-full border border-line px-3.5 py-2 text-xs font-semibold text-ink"
               >
                 <MapPinIcon className="h-3.5 w-3.5" /> Open in Naver Map
+              </a>
+              <a
+                href={googleMapsLinkFor(place)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 rounded-full border border-line px-3.5 py-2 text-xs font-semibold text-ink"
+              >
+                <MapPinIcon className="h-3.5 w-3.5" /> Open in Google Maps
               </a>
             </div>
           </div>

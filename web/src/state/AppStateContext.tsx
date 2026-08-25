@@ -42,21 +42,27 @@ function saveStored(state: StoredState) {
 const SEOUL_CENTER = { latitude: 37.55607, longitude: 126.97236 }
 
 function suggestedPlaceFromDoc(id: string, data: Record<string, unknown>): Place {
+  const hasRealCoords = typeof data.latitude === 'number' && typeof data.longitude === 'number'
+  const sourceUrl = data.sourceUrl as string | undefined
   return {
     id,
     name: (data.name as string) || 'Suggested place',
     category: 'Suggested',
     address: 'Seoul, Seoul, South Korea',
-    ...SEOUL_CENTER,
+    latitude: hasRealCoords ? (data.latitude as number) : SEOUL_CENTER.latitude,
+    longitude: hasRealCoords ? (data.longitude as number) : SEOUL_CENTER.longitude,
     neighborhood: 'Seoul',
     description: data.note as string | undefined,
     sourceThumbnail: data.imageUrl as string | undefined,
+    sourceType: sourceUrl ? 'Recommendation' : undefined,
+    sourceUrl,
+    googleMapsUrl: data.googleMapsUrl as string | undefined,
     creator: data.addedByName as string | undefined,
     favorite: false,
     visited: false,
     planned: false,
     priority: 3,
-    geocoded: false,
+    geocoded: hasRealCoords,
   }
 }
 
