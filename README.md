@@ -60,23 +60,48 @@ web/src/
 
 ## Map abstraction
 
-`map/MapProvider.tsx` exports a single `<MapView>` component that picks the
-renderer at runtime based on whether OpenStreetMap's tile server responds
-(`useTileServerReachable`, a quick image-load probe with a 4s timeout):
+`map/MapProvider.tsx` exports a single `<MapView>` component that tries three
+renderers in order, each falling back to the next if it can't be used:
 
-- **Checking** → a small "Loading map…" placeholder.
-- **Reachable** → `LeafletMapView.tsx`, a real OpenStreetMap map (Leaflet +
-  the free public OSM tile server — no key, no account, ever). Markers cluster
-  (`leaflet.markercluster`) so 165 pins stay tappable instead of overlapping;
-  a "recenter" button (`recenterSignal` prop) re-fits the view to whatever's
-  currently visible.
-- **Not reachable** (offline, or a restrictive network) → `MockMapView.tsx`,
-  a CSS/SVG placeholder map, so the product never hard-fails on a blank
-  screen.
+1. **Google Maps** (`GoogleMapView.tsx`) — real Google Maps JS, with the
+   richer Korean business/POI data that was the whole reason to revisit this.
+   Only attempted if `VITE_GOOGLE_MAPS_API_KEY` is set (see below);
+   `useGoogleMapsReady` loads the script once (shared across every mount via
+   a module-level promise — an earlier version of this hook had each mounted
+   map instance stomp on the others' load callback, so only the last one
+   ever found out the script was ready) and times out after 8s if the script
+   never calls back at all, so a stuck/blocked load can't hang the map
+   forever.
+2. **Leaflet + OpenStreetMap** (`LeafletMapView.tsx`) — used if Google Maps
+   has no key, fails to load, or errors out (invalid key, billing/auth
+   issue — the real error always goes to the browser console). No key, no
+   account, ever. Markers cluster (`leaflet.markercluster`) so 165 pins stay
+   tappable instead of overlapping; a "recenter" button (`recenterSignal`
+   prop) re-fits the view to whatever's currently visible. Reachability is
+   checked with `useTileServerReachable`, a quick image-load probe with a
+   4s timeout.
+3. **Mock map** (`MockMapView.tsx`) — a CSS/SVG placeholder, used only if
+   even the OSM tile server is unreachable (offline, restrictive network),
+   so the product never hard-fails on a blank screen.
 
-Both real and mock renderers implement the same `MapViewComponent` interface
-(markers in, a marker-tap callback out), so none of the Places screen/filter/
-detail-sheet code cares which one is active.
+All three implement the same `MapViewComponent` interface (markers in, a
+marker-tap callback out), so none of the Places screen/filter/detail-sheet
+code cares which one is active.
+
+### Enabling Google Maps
+
+Copy `web/.env.example` to `web/.env.local` and set `VITE_GOOGLE_MAPS_API_KEY`
+to a key from `console.cloud.google.com/google/maps-apis` with the "Maps
+JavaScript API" enabled. **Restrict it** (Application restrictions → HTTP
+referrers) to your Vercel domain(s) — an unrestricted key can be used by
+anyone who reads it out of the JS bundle, which is a real cost/abuse risk
+once billing is active on the project. On Vercel, add the same variable
+under Project Settings → Environment Variables, then redeploy.
+
+If the key's project is still billing-restricted (the `InvalidKeyMapError` /
+`gm_authFailure` this ran into before), the app falls back to the Leaflet map
+automatically rather than breaking — check the browser console for the exact
+error to see what's actually blocking it.
 
 ### Geocoding
 
