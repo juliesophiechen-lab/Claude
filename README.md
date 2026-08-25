@@ -38,7 +38,8 @@ data/places.csv          Older saved-places export (Google My Maps), used by
 web/src/
   models.ts               Trip, Participant, Place, ItineraryItem, DictionaryPhrase types
   data/mock*.ts            Real trip, participants, places, itinerary, phrases
-  lib/firebase.ts          Firebase app/Firestore/Storage init (shared backend, see below)
+  lib/firebase.ts          Firebase app/Firestore init (shared backend, see below)
+  lib/image.ts             Client-side image resize/compress for screenshot uploads
   state/AppStateContext.tsx  Places (local) + itinerary items (shared via Firestore)
   state/IdentityContext.tsx  "Who are you" picker, so shared actions can be attributed
   state/useLikes.ts        Shared like counts + "did I like this" (Firestore)
@@ -96,8 +97,9 @@ places may still land on the neighborhood fallback even after running it.
 
 `lib/firebase.ts` holds the Firebase project config (public by design —
 Firebase's client config isn't a secret; access control is entirely in the
-Firestore/Storage rules, not in hiding these values). It backs three shared
-features:
+Firestore rules, not in hiding these values). Everything runs on **Firestore
+only** — no Firebase Storage, since that now requires the paid Blaze plan
+even for near-zero usage. It backs three shared features:
 
 - **Identity** (`state/IdentityContext.tsx`): on first load, everyone picks
   their name from the 5 travelers (stored in `localStorage`, one popup per
@@ -112,15 +114,17 @@ features:
   live via `onSnapshot` — anyone can add, tap-to-edit, or delete an item, and
   it shows "Vorgeschlagen von <name>" for who added it.
 - **Screenshot uploads** (`components/places/ScreenshotUploadSheet.tsx`):
-  uploads to Firebase Storage, writes a `suggestedPlaces` doc, and merges into
-  everyone's Gallery/Places list with the screenshot itself as the thumbnail.
-  These don't have a real address, so they sit at the Seoul-center fallback
-  on the map (same `geocoded: false` treatment as any other unlocated place).
+  `lib/image.ts` resizes/compresses the picked image client-side (canvas,
+  down to ~900px wide JPEG, backing off quality/size until it fits) into a
+  data URL small enough to store directly as a Firestore field, then writes
+  a `suggestedPlaces` doc that merges into everyone's Gallery/Places list
+  with the screenshot itself as the thumbnail. These don't have a real
+  address, so they sit at the Seoul-center fallback on the map (same
+  `geocoded: false` treatment as any other unlocated place).
 
-**Firestore/Storage rules:** the console's default "test mode" rules expire
-after 30 days and everything shared here would silently stop working. In the
-Firebase console, under **Firestore Database → Rules**, replace the rules
-with:
+**Firestore rules:** the console's default "test mode" rules expire after 30
+days and everything shared here would silently stop working. In the Firebase
+console, under **Firestore Database → Rules**, replace the rules with:
 
 ```
 rules_version = '2';
@@ -135,18 +139,7 @@ service cloud.firestore {
 }
 ```
 
-and under **Storage → Rules**:
-
-```
-rules_version = '2';
-service firebase.storage {
-  match /b/{bucket}/o {
-    match /screenshots/{fileName} { allow read, write: if true; }
-  }
-}
-```
-
-These don't expire, and (since there's no login system) anyone with the app's
+This doesn't expire, and (since there's no login system) anyone with the app's
 URL can read/write this data — fine for a private trip link shared with 5
 people, but worth knowing.
 

@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { collection, doc, serverTimestamp, setDoc } from 'firebase/firestore'
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
-import { db, storage } from '../../lib/firebase'
+import { db } from '../../lib/firebase'
+import { compressImageToDataUrl } from '../../lib/image'
 import { useIdentity } from '../../state/IdentityContext'
 import { useToast } from '../../state/ToastContext'
 import { BottomSheet } from '../common/BottomSheet'
@@ -48,9 +48,7 @@ export function ScreenshotUploadSheet({ open, onClose }: ScreenshotUploadSheetPr
     setUploading(true)
     try {
       const id = `sg-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
-      const storageRef = ref(storage, `screenshots/${id}`)
-      await uploadBytes(storageRef, file)
-      const imageUrl = await getDownloadURL(storageRef)
+      const imageUrl = await compressImageToDataUrl(file)
       await setDoc(doc(collection(db, 'suggestedPlaces'), id), {
         name: name.trim() || undefined,
         note: note.trim() || undefined,
@@ -63,7 +61,7 @@ export function ScreenshotUploadSheet({ open, onClose }: ScreenshotUploadSheetPr
       handleClose()
     } catch (err) {
       console.error('screenshot upload failed', err)
-      showToast('Upload fehlgeschlagen')
+      showToast('Bild konnte nicht verarbeitet werden — versuch ein kleineres Bild')
       setUploading(false)
     }
   }
