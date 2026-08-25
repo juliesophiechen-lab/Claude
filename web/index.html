@@ -4,8 +4,13 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Seoul Places</title>
-    <script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=%VITE_NAVER_MAP_CLIENT_ID%&submodules=geocoder"></script>
+    <title>Seoul Guide</title>
+    <!--
+      The Naver Maps SDK script is intentionally NOT loaded here. Phase 1 uses
+      a mock map by default so the app never depends on a live ncpKeyId. When
+      a real key is configured, NaverMapProvider injects this script itself:
+      https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=...&submodules=geocoder
+    -->
   </head>
   <body>
     <div id="root"></div>
