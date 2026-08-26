@@ -5,7 +5,7 @@ flights, who's around when, a day-by-day itinerary, a map of saved places
 with their original source videos, and a Korean phrasebook.
 
 **Status:** running on the real trip data (real flights, 5 travelers, the
-real day-by-day plan, 165 real saved places). The map is a real
+real day-by-day plan, 158 real saved places). The map is a real
 **OpenStreetMap** map via Leaflet — no API key, no billing account, no
 console setup, ever. Just `npm install && npm run dev` and it works.
 
@@ -25,7 +25,7 @@ npm run dev
 Open the printed local URL on your phone or in a narrow browser window — the
 app is mobile-first (bottom tab bar: Home, People, Itinerary, Places,
 Gallery, Korean). It also renders as a centered phone-width column on
-desktop. **Places** is the map view; **Gallery** is the same 165 places as a
+desktop. **Places** is the map view; **Gallery** is the same 158 places as a
 text-forward, browsable list (thumbnail + name + a mini description snippet,
 search + category filters included) — tap a row for the same detail sheet
 the map uses (description, source video, Naver/Google Maps links, actions).
@@ -75,7 +75,7 @@ renderers in order, each falling back to the next if it can't be used:
 2. **Leaflet + OpenStreetMap** (`LeafletMapView.tsx`) — used if Google Maps
    has no key, fails to load, or errors out (invalid key, billing/auth
    issue — the real error always goes to the browser console). No key, no
-   account, ever. Markers cluster (`leaflet.markercluster`) so 165 pins stay
+   account, ever. Markers cluster (`leaflet.markercluster`) so 158 pins stay
    tappable instead of overlapping; a "recenter" button (`recenterSignal`
    prop) re-fits the view to whatever's currently visible. Reachability is
    checked with `useTileServerReachable`, a quick image-load probe with a
@@ -111,7 +111,7 @@ it to a real place on Google Maps: `lib/googlePlaces.ts` runs a text search
 on the name + address, then fetches details for the top match — rating,
 review count, a real photo, opening hours, phone, website, and a genuine
 `google.com/maps/place/...` link (all shown in place of/alongside the
-curated notes). Many of the 165 saved places are deliberately vague
+curated notes). Many of the 158 saved places are deliberately vague
 (neighborhood names, generic activities like "Karaoke", placeholder entries
 like repeated "beauty spa" rows with no confirmed business) — those won't
 match anything, and the sheet just falls back to the original curated
@@ -121,9 +121,11 @@ billing as the map itself.
 
 ### Geocoding
 
-~70 of the 165 real places didn't come with coordinates in the source export
-and CSV imports never do either — both start with a jittered
-neighborhood-center fallback (`geocoded: false` on the `Place`).
+~76 of the 158 real places don't have confirmed coordinates yet (most of
+these had their address corrected/tightened in a data-quality pass and are
+due a fresh geocode), and CSV imports never come with coordinates either —
+both start with a jittered neighborhood-center fallback (`geocoded: false`
+on the `Place`).
 
 Geocoding those runs as a **one-time script, not live in the browser**:
 
@@ -155,7 +157,7 @@ even for near-zero usage. It backs three shared features:
 - **Likes** (`state/useLikes.ts`): a `likes` doc per (place, person) plus a
   `likeCounts/{placeId}.count` maintained via an atomic transaction — so
   "X people like this" and the Gallery's "Most liked" sort read a live,
-  already-aggregated number instead of counting 165 places' worth of docs
+  already-aggregated number instead of counting 158 places' worth of docs
   client-side.
 - **Itinerary** (`state/AppStateContext.tsx`): `itineraryItems` is a
   Firestore collection (one-time seeded from `data/mockItinerary.ts`), synced
