@@ -30,7 +30,7 @@ export function StayTimeline({ participants, days }: StayTimelineProps) {
               className="flex items-center gap-2 pr-2"
               style={{ height: ROW_HEIGHT }}
             >
-              <Avatar name={p.name} color={p.color} size={26} />
+              <Avatar name={p.name} color={p.color} image={p.image} size={26} />
               <span className="truncate text-[13px] font-medium text-ink">{p.name}</span>
             </div>
           ))}
@@ -113,7 +113,7 @@ export function StayTimeline({ participants, days }: StayTimelineProps) {
           <div className="mt-1.5 flex items-center gap-2">
             <div className="flex -space-x-1.5">
               {presentOnSelected.map((p) => (
-                <Avatar key={p.id} name={p.name} color={p.color} size={22} className="ring-2 ring-canvas-soft" />
+                <Avatar key={p.id} name={p.name} color={p.color} image={p.image} size={22} className="ring-2 ring-canvas-soft" />
               ))}
             </div>
             <p className="text-sm font-medium text-ink">

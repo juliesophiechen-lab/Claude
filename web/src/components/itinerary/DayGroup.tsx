@@ -34,7 +34,7 @@ export function DayGroup({ date, items, places, participants, onAddIdea, onEditI
         {present.length > 0 && (
           <div className="flex -space-x-1.5">
             {present.map((p) => (
-              <Avatar key={p.id} name={p.name} color={p.color} size={22} className="ring-2 ring-canvas-soft" />
+              <Avatar key={p.id} name={p.name} color={p.color} image={p.image} size={22} className="ring-2 ring-canvas-soft" />
             ))}
           </div>
         )}

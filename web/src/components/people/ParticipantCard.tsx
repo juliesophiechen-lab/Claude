@@ -6,7 +6,7 @@ import { Avatar } from '../common/Avatar'
 export function ParticipantCard({ participant }: { participant: Participant }) {
   return (
     <div className="flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-[0_1px_2px_rgba(18,18,20,0.06)]">
-      <Avatar name={participant.name} color={participant.color} size={38} />
+      <Avatar name={participant.name} color={participant.color} image={participant.image} size={38} />
       <div className="min-w-0 flex-1">
         <p className="text-sm font-semibold text-ink">{participant.name}</p>
         <p className="text-xs text-ink-soft">

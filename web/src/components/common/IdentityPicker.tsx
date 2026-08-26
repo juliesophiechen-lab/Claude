@@ -1,5 +1,6 @@
 import { participants } from '../../data/mockParticipants'
 import { useIdentity } from '../../state/IdentityContext'
+import { Avatar } from './Avatar'
 
 export function IdentityPicker() {
   const { me, setMe } = useIdentity()
@@ -20,12 +21,7 @@ export function IdentityPicker() {
               onClick={() => setMe(p.id)}
               className="flex items-center gap-3 rounded-2xl border border-line px-3.5 py-2.5 text-left active:bg-canvas-sunk"
             >
-              <span
-                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-semibold text-white"
-                style={{ background: p.color }}
-              >
-                {p.name.charAt(0)}
-              </span>
+              <Avatar name={p.name} color={p.color} image={p.image} size={44} />
               <span className="text-sm font-semibold text-ink">{p.name}</span>
             </button>
           ))}

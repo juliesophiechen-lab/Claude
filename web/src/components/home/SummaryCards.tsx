@@ -12,7 +12,7 @@ export function PeopleJoiningCard({ participants }: { participants: Participant[
     >
       <div className="flex -space-x-2">
         {participants.map((p) => (
-          <Avatar key={p.id} name={p.name} color={p.color} size={30} className="ring-2 ring-white" />
+          <Avatar key={p.id} name={p.name} color={p.color} image={p.image} size={30} className="ring-2 ring-white" />
         ))}
       </div>
       <div className="min-w-0 flex-1">
