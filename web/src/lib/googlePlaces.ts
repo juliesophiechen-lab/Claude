@@ -14,8 +14,18 @@ export interface GooglePlaceInfo {
 let serviceDiv: HTMLDivElement | null = null
 
 function getService(): google.maps.places.PlacesService | null {
-  if (!window.google?.maps?.places) return null
-  if (!serviceDiv) serviceDiv = document.createElement('div')
+  if (!window.google?.maps?.places) {
+    console.warn('Google Places: google.maps.places is not loaded (libraries=places missing, or script failed)')
+    return null
+  }
+  if (!serviceDiv) {
+    // Google's attribution requirement expects this node to actually be in
+    // the document, not just constructed — a detached div can silently
+    // misbehave.
+    serviceDiv = document.createElement('div')
+    serviceDiv.style.display = 'none'
+    document.body.appendChild(serviceDiv)
+  }
   return new google.maps.places.PlacesService(serviceDiv)
 }
 
@@ -24,7 +34,9 @@ function getService(): google.maps.places.PlacesService | null {
  * search, then full details) so the detail sheet can show Google's own
  * rating/photo/hours/links instead of just our curated notes. Resolves to
  * null if Google Maps isn't loaded or no confident match is found — callers
- * should fall back to their own data in that case.
+ * should fall back to their own data in that case. Every failure reason is
+ * logged (REQUEST_DENIED means the key's API restrictions don't include
+ * Places API; ZERO_RESULTS just means no match).
  */
 export function findGooglePlace(name: string, address: string): Promise<GooglePlaceInfo | null> {
   return new Promise((resolve) => {
@@ -39,6 +51,7 @@ export function findGooglePlace(name: string, address: string): Promise<GooglePl
       (results, status) => {
         const placeId = results?.[0]?.place_id
         if (status !== google.maps.places.PlacesServiceStatus.OK || !placeId) {
+          console.warn(`Google Places: no match for "${name}" (status: ${status})`)
           resolve(null)
           return
         }
@@ -60,6 +73,7 @@ export function findGooglePlace(name: string, address: string): Promise<GooglePl
           },
           (details, detailStatus) => {
             if (detailStatus !== google.maps.places.PlacesServiceStatus.OK || !details) {
+              console.warn(`Google Places: details lookup failed for "${name}" (status: ${detailStatus})`)
               resolve(null)
               return
             }
