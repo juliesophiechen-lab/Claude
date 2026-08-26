@@ -121,11 +121,10 @@ billing as the map itself.
 
 ### Geocoding
 
-~76 of the 158 real places don't have confirmed coordinates yet (most of
-these had their address corrected/tightened in a data-quality pass and are
-due a fresh geocode), and CSV imports never come with coordinates either —
-both start with a jittered neighborhood-center fallback (`geocoded: false`
-on the `Place`).
+All 158 real places now have confirmed real coordinates (`geocoded: true`).
+CSV imports never come with coordinates though, so freshly-imported places
+still start on a jittered neighborhood-center fallback (`geocoded: false`
+on the `Place`) until geocoded.
 
 Geocoding those runs as a **one-time script, not live in the browser**:
 

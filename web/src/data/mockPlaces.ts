@@ -10,8 +10,8 @@ export const places: Place[] = [
     "name": "O.glossy Aesthetics 오글로시",
     "category": "Beauty",
     "address": "2F, 4-13 Seongsuil-ro 3-gil, Seongdong-gu, Seoul, South Korea",
-    "latitude": 37.5447,
-    "longitude": 127.0557,
+    "latitude": 37.542431452586,
+    "longitude": 127.04828007631,
     "neighborhood": "Seongsu",
     "description": "Koreanische Skincare-Treatments in einem sehr schönen Space.",
     "notes": "Kein belastbarer öffentlicher Adresseintrag gefunden; bitte über Naver/Kakao oder den Instagram-Account verifizieren.",
@@ -22,7 +22,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "brsi",
@@ -83,8 +83,8 @@ export const places: Place[] = [
     "name": "Tapa Copa",
     "category": "Food",
     "address": "1F, 29 Hangang-daero 54-gil, Yongsan-gu, Seoul, South Korea",
-    "latitude": 37.527,
-    "longitude": 126.966,
+    "latitude": 37.532499266387,
+    "longitude": 126.97320949978,
     "neighborhood": "Yongsan",
     "description": "Spanische Tapas, jedes Gericht überzeugend, faire Preise.",
     "sourceType": "Instagram Post",
@@ -94,7 +94,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 2,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "taco",
@@ -102,8 +102,8 @@ export const places: Place[] = [
     "category": "Food",
     "subcategory": "Tacos",
     "address": "34 Sinheung-ro, Yongsan-gu, Seoul, South Korea",
-    "latitude": 37.5346,
-    "longitude": 126.9873,
+    "latitude": 37.541484546303,
+    "longitude": 126.98726260954,
     "neighborhood": "Haebangchon / Yongsan",
     "description": "Beste Tacos in Seoul laut Post. Am Wochenende sehr voll, unter der Woche gehen.",
     "sourceType": "Instagram Post",
@@ -113,7 +113,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 2,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "gbd",
@@ -194,8 +194,8 @@ export const places: Place[] = [
     "name": "Chompi",
     "category": "Food",
     "address": "55 Daesagwan-ro 34-gil, Yongsan-gu, Seoul, South Korea",
-    "latitude": 37.5326,
-    "longitude": 126.9906,
+    "latitude": 37.5309748,
+    "longitude": 127.0065214,
     "neighborhood": "Hannam",
     "description": "Eines der BTS-Lokale aus dem Reel. Ein Kommentar beschreibt Qualität und Geschmack allerdings als enttäuschend.",
     "sourceType": "Instagram Reel",
@@ -205,7 +205,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 2,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "ment",
@@ -213,8 +213,8 @@ export const places: Place[] = [
     "category": "Food",
     "subcategory": "Noodles",
     "address": "305 Samil-daero, Jung-gu, Seoul, South Korea",
-    "latitude": 37.5638,
-    "longitude": 126.9975,
+    "latitude": 37.56125,
+    "longitude": 126.98864,
     "neighborhood": "Jung-gu",
     "description": "Ist schnell ausverkauft, hat den Hype laut Post aber eingelöst. Empfehlung: gleich Nachschlag bestellen.",
     "notes": "Menten / 멘텐",
@@ -225,7 +225,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 2,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "goat",
@@ -252,8 +252,8 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Spa & Fitness",
     "address": "11 Seongchon 4-gil, Seocho-gu, Seoul, South Korea",
-    "latitude": 37.509,
-    "longitude": 127.0225,
+    "latitude": 37.467027616,
+    "longitude": 127.0218143335,
     "neighborhood": "Seocho",
     "description": "Technogym-Ausstattung plus Spa mit Felsenwasser aus 1.000 m Tiefe und Ice Bath. Luxus-Recovery-Programm.",
     "notes": "bestehende Adresse im Sheet scheint nicht zum aktuellen Place-Eintrag zu passen",
@@ -264,7 +264,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 2,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "star",
@@ -367,8 +367,8 @@ export const places: Place[] = [
     "name": "Aromatica Bukchon",
     "category": "Beauty",
     "address": "17-2 Bukchon-ro 11-gil, Jongno-gu, Seoul, South Korea",
-    "latitude": 37.5825,
-    "longitude": 126.984,
+    "latitude": 37.5818241,
+    "longitude": 126.9841249,
     "neighborhood": "Bukchon",
     "description": "Koreanische Heiltradition trifft Aromatherapie, inklusive professioneller Kopfhaut-Analyse. 10 Min ab Anguk Station Exit 2.",
     "notes": "Sheet hatte 17-4",
@@ -379,16 +379,16 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 2,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "eco",
     "name": "Eco Jardin Hongdae",
     "category": "Beauty",
     "subcategory": "Hair",
-    "address": "4F, 179-38 Donggyo-dong, Mapo-gu, Seoul, South Korea",
-    "latitude": 37.5563,
-    "longitude": 126.9236,
+    "address": "4F, 11 Sinchon-ro 4-gil, Mapo-gu, Seoul, South Korea",
+    "latitude": 37.5573673,
+    "longitude": 126.9287937,
     "neighborhood": "Hongdae",
     "description": "Hair und Make-up für einen Tag in Seoul, Make-up von @eco_mua_ymj.",
     "sourceType": "Instagram Reel",
@@ -398,7 +398,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 2,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "jenny",
@@ -426,8 +426,8 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Hair",
     "address": "3F, 13-5 Gangnam-daero 102-gil, Gangnam-gu, Seoul, South Korea",
-    "latitude": 37.5172,
-    "longitude": 127.0473,
+    "latitude": 37.502288731787,
+    "longitude": 127.02677167216,
     "neighborhood": "Gangnam",
     "description": "Hair- und Make-up-Studio aus dem K-Idol-Look-Guide.",
     "notes": "Place-Eintrag gefunden, aber ohne Straßennamen im strukturierten Datensatz; Suchtext mit Namen verwenden",
@@ -438,16 +438,16 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 2,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "woos",
     "name": "Woosun",
     "category": "Beauty",
     "subcategory": "Hair",
-    "address": "122-9 Cheongdam-dong, Gangnam-gu, Seoul, South Korea",
-    "latitude": 37.5172,
-    "longitude": 127.0473,
+    "address": "27 Apgujeong-ro 79-gil, Gangnam-gu, Seoul, South Korea",
+    "latitude": 37.5253943,
+    "longitude": 127.0493882,
     "neighborhood": "Cheongdam",
     "description": "Hair- und Make-up-Studio aus dem K-Idol-Look-Guide.",
     "sourceType": "Instagram Post",
@@ -457,7 +457,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 2,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "bitb",
@@ -1203,9 +1203,9 @@ export const places: Place[] = [
     "id": "myeo",
     "name": "Myeongwol 명월",
     "category": "Café",
-    "address": "490-123 Dapsimni-dong, Dongdaemun-gu, Seoul, South Korea",
-    "latitude": 35.2317,
-    "longitude": 128.879,
+    "address": "21 Jeonnong-ro, Dongdaemun-gu, Seoul, South Korea",
+    "latitude": 37.566926173969,
+    "longitude": 127.05633687257,
     "neighborhood": "Dapsimni",
     "description": "Hanok neu interpretiert: Café, Buchladen, Shop und 200-Pyeong-Moosgarten mit acht Wasserbecken und Nebelanlage. 11 bis 22 Uhr, montags zu.",
     "notes": "Adresse aus Instagram/Sheet, map-lesbar; konnte den genauen Place-Namen Myeongwol öffentlich nicht eindeutig bestätigen",
@@ -1216,7 +1216,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 2,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "olive",
@@ -1411,8 +1411,8 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Hair",
     "address": "651 Samseong-ro, Gangnam-gu, Seoul, South Korea",
-    "latitude": 37.5172,
-    "longitude": 127.0473,
+    "latitude": 37.5183513056476,
+    "longitude": 127.050036535644,
     "neighborhood": "Cheongdam",
     "description": "Aus eurer Excel-Liste.",
     "notes": "Park Jun Beauty Lab Cheongdam",
@@ -1421,7 +1421,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 2,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "xl15",
@@ -1429,8 +1429,8 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Spa & Fitness",
     "address": "B1, 252 UN Village-gil, Yongsan-gu, Seoul, South Korea",
-    "latitude": 37.55607,
-    "longitude": 126.97236,
+    "latitude": 37.535632929989,
+    "longitude": 127.01186388891,
     "neighborhood": "Hannam / Yongsan",
     "description": "Premium Head Spa, im Original als \"zendaya head spa\" gespeichert. Der hinterlegte Instagram-Link führt zu Christian unv.",
     "notes": "\"zendaya head spa\" konnte nicht als eindeutiger Salonname verifiziert werden; möglicherweise Social-Media-Bezeichnung statt Geschäftsname.",
@@ -1440,7 +1440,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "xl16",
@@ -1448,8 +1448,8 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Hair",
     "address": "3F, 404 Dosan-daero, Gangnam-gu, Seoul, South Korea",
-    "latitude": 37.55607,
-    "longitude": 126.97236,
+    "latitude": 37.5229272,
+    "longitude": 127.0398603,
     "neighborhood": "Cheongdam / Gangnam",
     "description": "Aus eurer Excel-Liste.",
     "notes": "\"atnown hair\" konnte nicht eindeutig verifiziert werden; möglicher Tippfehler/Instagram-Name.",
@@ -1458,7 +1458,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "xl17",
@@ -1501,8 +1501,8 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Hair",
     "address": "5F, Solaria Nishitetsu Hotel, 27 Myeongdong 8-gil, Jung-gu, Seoul, South Korea",
-    "latitude": 37.55792,
-    "longitude": 126.92614,
+    "latitude": 37.562481238399,
+    "longitude": 126.98487892472,
     "neighborhood": "Myeongdong",
     "description": "Hair salon / Head Spa. Im Original war Hongdae als Area eingetragen, der hinterlegte Link hairmyeongdong.com gehört jedoch zur Myeongdong-Filiale.",
     "notes": "Park Jun Beauty Lab Hongdae ist im Sheet genannt, aber aktueller eindeutiger Filial-Pin konnte nicht sicher bestätigt werden. Cheongdam ist separat verifiziert.",
@@ -1512,7 +1512,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "xl20",
@@ -1556,8 +1556,8 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Spa & Fitness",
     "address": "3F, 42 Myeongdong 4-gil, Jung-gu, Seoul, South Korea",
-    "latitude": 37.55607,
-    "longitude": 126.97236,
+    "latitude": 37.561835136337,
+    "longitude": 126.98398846114,
     "neighborhood": "Myeongdong",
     "description": "Women-only Korean body scrub / seshin. Der ursprüngliche Eintrag hieß nur \"scrub\".",
     "notes": "\"scrub\" ist eine Aktivität, kein eindeutig benannter Ort.",
@@ -1567,16 +1567,16 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "xl23",
     "name": "Salon de Dr. Tune's Clinic",
     "category": "Beauty",
     "subcategory": "Clinic",
-    "address": "1F-2F, 88-18 Cheongdam-dong, Gangnam-gu, Seoul, South Korea",
-    "latitude": 37.55607,
-    "longitude": 126.97236,
+    "address": "1F-2F, 14-3 Seolleung-ro 158-gil, Gangnam-gu, Seoul, South Korea",
+    "latitude": 37.52503523677,
+    "longitude": 127.04102187932,
     "neighborhood": "Cheongdam",
     "description": "Private skin and anti-aging clinic. Der ursprüngliche Eintrag hieß nur \"beauty spa\".",
     "notes": "\"beauty spa\" ist generisch, kein eindeutiger Ort.",
@@ -1586,7 +1586,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "xl24",
@@ -1594,8 +1594,8 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Clinic",
     "address": "5F & 7F, 166 Yanghwa-ro, Mapo-gu, Seoul, South Korea",
-    "latitude": 37.55607,
-    "longitude": 126.97236,
+    "latitude": 37.55680518812,
+    "longitude": 126.92412988226,
     "neighborhood": "Hongdae",
     "description": "Dermatology / aesthetic clinic. Der ursprüngliche Eintrag hieß nur \"beauty spa\".",
     "notes": "\"beauty spa\" ist generisch, kein eindeutiger Ort.",
@@ -1605,7 +1605,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "xl25",
@@ -1613,8 +1613,8 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Clinic",
     "address": "2F, 22 Dosan-daero 57-gil, Gangnam-gu, Seoul, South Korea",
-    "latitude": 37.55607,
-    "longitude": 126.97236,
+    "latitude": 37.525118472646,
+    "longitude": 127.04162209637,
     "neighborhood": "Cheongdam",
     "description": "Aesthetic / dermatology clinic. Der ursprüngliche Eintrag hieß nur \"beauty spa\".",
     "notes": "\"beauty spa\" ist generisch, kein eindeutiger Ort.",
@@ -1624,7 +1624,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "xl26",
@@ -1632,8 +1632,8 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Clinic",
     "address": "4F-5F, K-Square Building, 10 Gangnam-daero 94-gil, Gangnam-gu, Seoul, South Korea",
-    "latitude": 37.55607,
-    "longitude": 126.97236,
+    "latitude": 37.499113758483,
+    "longitude": 127.02809975348,
     "neighborhood": "Gangnam",
     "description": "Plastic surgery and skin treatment clinic. Der ursprüngliche Eintrag hieß nur \"beauty spa\".",
     "notes": "\"beauty spa\" ist generisch, kein eindeutiger Ort.",
@@ -1643,7 +1643,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "xl27",
@@ -1651,8 +1651,8 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Clinic",
     "address": "13F-14F, 349 Gangnam-daero, Seocho-gu, Seoul, South Korea",
-    "latitude": 37.55607,
-    "longitude": 126.97236,
+    "latitude": 37.493978207878,
+    "longitude": 127.02917320652,
     "neighborhood": "Gangnam",
     "description": "Aus eurer Excel-Liste.",
     "notes": "Pria Clinic konnte nicht eindeutig einem aktuellen Seoul-Place zugeordnet werden; möglicher Tippfehler/anderer Markenname.",
@@ -1661,7 +1661,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "xl28",
@@ -1686,8 +1686,8 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Personal Color",
     "address": "5F, 54 Bongeunsa-ro 30-gil, Gangnam-gu, Seoul, South Korea",
-    "latitude": 37.55607,
-    "longitude": 126.97236,
+    "latitude": 37.504053078679,
+    "longitude": 127.03623663985,
     "neighborhood": "Yeoksam / Gangnam",
     "description": "Personal color and image consulting. Im Original als \"color analysis color palace\" bezeichnet.",
     "notes": "\"Color Palace\" konnte nicht sicher als aktueller Place mit Adresse bestätigt werden; möglicherweise gemeint: Color Place. Nicht geraten.",
@@ -1697,16 +1697,16 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "xl30",
     "name": "Colorful Hyejin | COLOR.JPG Studio",
     "category": "Beauty",
     "subcategory": "Personal Color",
-    "address": "824-25 Yeoksam-dong, Gangnam-gu, Seoul, South Korea",
-    "latitude": 37.55607,
-    "longitude": 126.97236,
+    "address": "33 Gangnam-daero 84-gil, Gangnam-gu, Seoul, South Korea",
+    "latitude": 37.4972828577,
+    "longitude": 127.03121388335,
     "neighborhood": "Yeoksam / Gangnam",
     "description": "Personal color analysis. Der ursprüngliche Eintrag hieß nur \"color analysis\".",
     "notes": "\"color analysis\" ist generische Aktivität, kein einzelner Ort.",
@@ -1716,15 +1716,15 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "xl31",
     "name": "COLOR OF YOU Seoul",
     "category": "Beauty",
     "address": "3F, Yongpyeong Building, 209 Donggyo-ro, Mapo-gu, Seoul, South Korea",
-    "latitude": 37.55607,
-    "longitude": 126.97236,
+    "latitude": 37.558679813602,
+    "longitude": 126.92336292172,
     "neighborhood": "Hongdae / Yeonnam",
     "description": "Aus eurer Excel-Liste. 220 für 2 pax",
     "notes": "\"Color For You\" konnte nicht eindeutig einem aktuellen Seoul-Place zugeordnet werden.",
@@ -1733,7 +1733,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "xl32",
@@ -1759,8 +1759,8 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Hair",
     "address": "2F, 23 Dosan-daero 17-gil, Gangnam-gu, Seoul, South Korea",
-    "latitude": 37.5172,
-    "longitude": 127.0473,
+    "latitude": 37.520201685344,
+    "longitude": 127.02434874504,
     "neighborhood": "Garosu-gil / Sinsa",
     "description": "Aus eurer Excel-Liste. $130/pp für colour analysis + makeup analysis",
     "notes": "Mood Collect Sinsa/Garosugil öffentlich bestätigt, aber exakte Hausnummer in den verfügbaren Quellen nicht sicher gefunden",
@@ -1769,7 +1769,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 2,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "xl34",
@@ -1777,8 +1777,8 @@ export const places: Place[] = [
     "category": "Sightseeing",
     "subcategory": "Hanbok Rental",
     "address": "133-3 Sajik-ro, Jongno-gu, Seoul, South Korea",
-    "latitude": 37.5735,
-    "longitude": 126.979,
+    "latitude": 37.57612121811,
+    "longitude": 126.97338977711,
     "neighborhood": "Gyeongbokgung / Jongno",
     "description": "Hanbok rental with complimentary hairstyling. Der Trazy-Link nennt Jin Hanbok ausdrücklich als Treffpunkt.",
     "notes": "Trazy-Angebot nahe Gyeongbokgung; ohne konkreten Rental-Shop im Sheet Gyeongbokgung als Treff-/Gebietspunkt",
@@ -1788,7 +1788,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 2,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "xl35",
@@ -1865,8 +1865,8 @@ export const places: Place[] = [
     "category": "Shopping",
     "subcategory": "Food Hall / Grocery",
     "address": "442 Dosan-daero, Gangnam-gu, Seoul, South Korea",
-    "latitude": 37.5177,
-    "longitude": 127.0473,
+    "latitude": 37.523487345628,
+    "longitude": 127.04416920279,
     "neighborhood": "Cheongdam / Gangnam",
     "description": "Premium food hall / grocery concept, häufig als \"Erewhon of Seoul\" beschrieben. Der Instagram-Link war in der Notiz hinterlegt.",
     "notes": "\"Twelve\" in Gangnam konnte nicht eindeutig als aktueller Store/Market identifiziert werden.",
@@ -1876,7 +1876,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "xl40",
@@ -1985,60 +1985,60 @@ export const places: Place[] = [
     "name": "Toxnfill (Gangnam)",
     "category": "Beauty",
     "address": "8F, 10F-11F, 415 Gangnam-daero, Seocho-gu, Seoul, South Korea",
-    "latitude": 37.50073,
-    "longitude": 127.02638,
+    "latitude": 37.499641724088,
+    "longitude": 127.02643201379,
     "neighborhood": "Gangnam",
     "description": "Google 4.9 bei 3760 Bewertungen · Preisniveau ₩ · Budget Botox, fillers, skin boosters with transparent quotes · All prices published on website (eng.toxnfill1.com); known for cheap Botox/filler; competitive event pricing · Buchung: Website / WhatsApp / Instagram; 1–3 days ahead, walk-ins when space allows · Sonntag: No · Tel. +82 2-537-4842",
     "favorite": false,
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "cl02",
     "name": "Lienjang (Hongdae)",
     "category": "Beauty",
     "address": "6F, 3 Yanghwa-ro 18-gil, Mapo-gu, Seoul, South Korea",
-    "latitude": 37.55792,
-    "longitude": 126.92614,
+    "latitude": 37.556945288549,
+    "longitude": 126.92446905096,
     "neighborhood": "Hongdae",
     "description": "Google 4.9 bei 2689 Bewertungen · Preisniveau ₩–₩₩ · Skin analysis + facial + Botox combos; most-loved Lienjang branch · Full English price list online: Rejuran face 1mL ₩320k, Potenza booster ₩320k, PRP from ₩200k; monthly promos via DM · Buchung: Instagram @lienjang_english (send face photo + concerns); 2–7 days ahead · Sonntag: Yes (11–5) · Tel. +82 2-333-3625",
     "favorite": false,
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "cl03",
     "name": "PPEUM Global (Myeongdong)",
     "category": "Beauty",
     "address": "3F-5F, 84 Namdaemun-ro, Jung-gu, Seoul, South Korea",
-    "latitude": 37.5609,
-    "longitude": 126.98638,
+    "latitude": 37.5646814161054,
+    "longitude": 126.98284068814,
     "neighborhood": "Myeongdong",
     "description": "Google 4.7 bei 2617 Bewertungen · Preisniveau ₩ · Rock-bottom event pricing, fast efficient chain, multilingual · Famous event prices: Rejuran Healer 2cc + Derma Shine ~US$72, Ulthera Prime 300 shots ~US$944, Fillroad 1cc ~US$50 · Buchung: Website global.ppeum.com / Instagram @ppeum_eng; 1–5 days ahead · Sonntag: Yes · Tel. +82 2-752-8887",
     "favorite": false,
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "cl04",
     "name": "Beauty Lounge (Hongdae Global)",
     "category": "Beauty",
-    "address": "5F, 162-3 Donggyo-dong, Mapo-gu, Seoul, South Korea",
-    "latitude": 37.55792,
-    "longitude": 126.92614,
+    "address": "5F, 15 Hongik-ro 6-gil, Mapo-gu, Seoul, South Korea",
+    "latitude": 37.555287738088,
+    "longitude": 126.9226683956,
     "neighborhood": "Hongdae",
     "description": "Google 4.9 bei 1348 Bewertungen · Preisniveau ₩₩ · Premium-feel service without luxury prices; no hard-sell · Transparent consults, mid-range pricing; treats acne (incl. teens), Thermage, LDM · Buchung: Website / Instagram / phone; 1–4 days ahead (next-day often fine) · Sonntag: Yes · Tel. +82 2-2068-8801",
     "favorite": false,
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "cl05",
@@ -2046,15 +2046,15 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Clinic",
     "address": "5F, 830 Seolleung-ro, Gangnam-gu, Seoul, South Korea",
-    "latitude": 37.52618,
-    "longitude": 127.0285,
+    "latitude": 37.5260162,
+    "longitude": 127.0404584,
     "neighborhood": "Cheongdam",
     "description": "Google 4.9 bei 1226 Bewertungen · Preisniveau ₩₩ · VIP-style personal care, lifting treatments, good follow-up · Mid-range; Thermage / Ulthera Prime with 1:1 care — no factory queue · Buchung: WhatsApp / phone +82 10-3165-4842; 3–7 days ahead (small team) · Sonntag: No · Tel. +82 10-3165-4842",
     "favorite": false,
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "cl06",
@@ -2062,45 +2062,45 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Clinic",
     "address": "1F-2F, 11 Seocho-daero 73-gil, Seocho-gu, Seoul, South Korea",
-    "latitude": 37.50073,
-    "longitude": 127.02638,
+    "latitude": 37.498503512269,
+    "longitude": 127.0252194712,
     "neighborhood": "Gangnam",
     "description": "Google 4.9 bei 1209 Bewertungen · Preisniveau ₩–₩₩ · Anti-aging packages with on-site translators · Event promotions incl. Ulthera 600 shots + free LDM; Potenza + Juvelook packages · Buchung: Website / Instagram / phone; 2–5 days ahead, can arrange within hours · Sonntag: No · Tel. +82 2-1544-0377",
     "favorite": false,
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "cl07",
     "name": "Beauty Blossom (Hongdae-Hapjeong)",
     "category": "Beauty",
     "address": "6F & 8F, 66 Yanghwa-ro, Mapo-gu, Seoul, South Korea",
-    "latitude": 37.55792,
-    "longitude": 126.92614,
+    "latitude": 37.550593,
+    "longitude": 126.9160813,
     "neighborhood": "Hongdae / Hapjeong",
     "description": "Google 5.0 bei 861 Bewertungen · Preisniveau ₩₩ · Calm, personal experience; sensitive/nervous first-timers · Mid-range; Ultherapy, Onda, skin Botox — personal pacing, not factory-style · Buchung: Instagram / phone; 2–5 days ahead · Sonntag: Yes · Tel. +82 2-336-7511",
     "favorite": false,
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "cl08",
     "name": "PPEUM Global (Hongdae)",
     "category": "Beauty",
     "address": "4F, H-Cube Building, 140 Yanghwa-ro, Mapo-gu, Seoul, South Korea",
-    "latitude": 37.55792,
-    "longitude": 126.92614,
+    "latitude": 37.5551033,
+    "longitude": 126.9221464,
     "neighborhood": "Hongdae",
     "description": "Google 4.8 bei 1130 Bewertungen · Preisniveau ₩ · Layover / arrival-day treatments at event prices · Same PPEUM event pricing; free masks/drinks; luggage storage + chargers (1 stop from airport line) · Buchung: Website / Instagram; 1–5 days ahead, squeezes in short-notice visitors · Sonntag: Yes · Tel. +82 2-322-3366",
     "favorite": false,
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "cl09",
@@ -2108,36 +2108,36 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Clinic",
     "address": "2F-5F, 452 Gangnam-daero, Gangnam-gu, Seoul, South Korea",
-    "latitude": 37.50073,
-    "longitude": 127.02638,
+    "latitude": 37.5028579,
+    "longitude": 127.0257154,
     "neighborhood": "Gangnam",
     "description": "Google 4.6 bei 1502 Bewertungen · Preisniveau ₩–₩₩ · First-timers who want to compare full price menu before booking · Comprehensive public price menu on website; facial ~₩88–97k; LDM + Inmode Forma combos far below US prices · Buchung: Website booking or Instagram @museclinic_gn; 2–5 days ahead; expect ~2h on site · Sonntag: Yes · Tel. +82 1544-2994",
     "favorite": false,
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "cl10",
     "name": "Lienjang (Gangnam Main)",
     "category": "Beauty",
     "address": "403 Gangnam-daero, Seocho-gu, Seoul, South Korea",
-    "latitude": 37.50073,
-    "longitude": 127.02638,
+    "latitude": 37.4984782,
+    "longitude": 127.0268146,
     "neighborhood": "Gangnam",
     "description": "Google 4.6 bei 1476 Bewertungen · Preisniveau ₩–₩₩ · Premium flagship feel at chain prices; stem-cell & exclusive treatments · Same English price list; e.g. traveler paid ~US$230 for a full treatment set (~90% less than LA); Botox from ~US$25/area · Buchung: Instagram @lienjang_english / enlienjang.com; 2–7 days ahead · Sonntag: Yes (11–5) · Tel. +82 2-591-3625",
     "favorite": false,
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "cl11",
     "name": "Timeless Dermatology (Mapo/Sinchon)",
     "category": "Beauty",
-    "address": "2F, 16 Sinchon-ro 33-gil, Seodaemun-gu, Seoul, South Korea",
+    "address": "2F, Hessen Smart The Central, 16 Sinchon-ro 33-gil, Seodaemun-gu, Seoul, South Korea",
     "latitude": 37.55515,
     "longitude": 126.93691,
     "neighborhood": "Sinchon",
@@ -2146,22 +2146,22 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "cl12",
     "name": "Toxnfill (Myeongdong)",
     "category": "Beauty",
     "address": "8F, 84 Namdaemun-ro, Jung-gu, Seoul, South Korea",
-    "latitude": 37.5609,
-    "longitude": 126.98638,
+    "latitude": 37.5646814161054,
+    "longitude": 126.98284068814,
     "neighborhood": "Myeongdong",
     "description": "Google 4.7 bei 1006 Bewertungen · Preisniveau ₩ · Last-minute Botox/fillers while sightseeing in Myeongdong · Transparent quotes for injectables & basic skincare; great-price feedback from tourists · Buchung: Pre-book online 1–3 days ahead; genuine walk-in flexibility · Sonntag: Yes · Tel. +82 10-3442-7629",
     "favorite": false,
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "cl13",
@@ -2169,15 +2169,15 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Clinic",
     "address": "621 Gangnam-daero, Seocho-gu, Seoul, South Korea",
-    "latitude": 37.51611,
-    "longitude": 127.01952,
+    "latitude": 37.517200365799,
+    "longitude": 127.01885683818,
     "neighborhood": "Sinsa / Gangnam",
     "description": "Google 4.7 bei 859 Bewertungen · Preisniveau ₩₩ · Easy self-serve online booking with real availability · Straightforward pricing; Potenza & acne care; honest 'don't-need-it' consults reported · Buchung: Book directly on thefineclinic.com; 1–4 days ahead, flexible changes · Sonntag: No · Tel. +82 2-514-8484",
     "favorite": false,
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "cl14",
@@ -2185,15 +2185,15 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Clinic",
     "address": "10F, 140 Yanghwa-ro, Mapo-gu, Seoul, South Korea",
-    "latitude": 37.55792,
-    "longitude": 126.92614,
+    "latitude": 37.5551033,
+    "longitude": 126.9221464,
     "neighborhood": "Hongdae",
     "description": "Google 4.9 bei 599 Bewertungen · Preisniveau ₩–₩₩ · Walk-in friendly (bring passport); ONDA/lifting; private rooms · Prices listed on website — pick treatments before you arrive to save consult time · Buchung: Walk-in OK or book via website; 0–3 days ahead · Sonntag: Yes · Tel. +82 2-6958-7536",
     "favorite": false,
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "cl15",
@@ -2201,15 +2201,15 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Clinic",
     "address": "1F, 652 Gangnam-daero, Gangnam-gu, Seoul, South Korea",
-    "latitude": 37.51611,
-    "longitude": 127.01952,
+    "latitude": 37.5196035,
+    "longitude": 127.0190762,
     "neighborhood": "Sinsa",
     "description": "Google 5.0 bei 416 Bewertungen · Preisniveau ₩₩–₩₩₩ · Best boutique experience on your list — private rooms, superb interpreters · Transparent per-treatment prices in consult; premium but fair for boutique 1:1 care · Buchung: WhatsApp / Instagram; book 5–10 days ahead (small clinic, fills fast) · Sonntag: No · Tel. +82 2-541-9790",
     "favorite": false,
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "cl16",
@@ -2217,15 +2217,15 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Clinic",
     "address": "6F-7F, 363 Gangnam-daero, Seocho-gu, Seoul, South Korea",
-    "latitude": 37.50073,
-    "longitude": 127.02638,
+    "latitude": 37.4951158,
+    "longitude": 127.0284696,
     "neighborhood": "Gangnam",
     "description": "Google 4.7 bei 602 Bewertungen · Preisniveau ₩–₩₩ · Honest consults with multi-language translators · Competitive multi-treatment quotes (Aqua Peel + Excel V + Capri combos) · Buchung: Website / phone; 2–4 days ahead · Sonntag: No · Tel. +82 1661-3209",
     "favorite": false,
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "cl17",
@@ -2233,15 +2233,15 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Clinic",
     "address": "4F K-TOWER, 621 Gangnam-daero, Seocho-gu, Seoul, South Korea",
-    "latitude": 37.51611,
-    "longitude": 127.01952,
+    "latitude": 37.517200365799,
+    "longitude": 127.01885683818,
     "neighborhood": "Sinsa / Gangnam",
     "description": "Google 4.9 bei 349 Bewertungen · Preisniveau ₩₩ · Early-morning slots for packed itineraries; hand rejuvenation, Onda · Mid-range; detailed skin analysis with take-home QR report; opens 8 AM · Buchung: Website en.dewydclinic.com / WhatsApp; 1–4 days ahead · Sonntag: No · Tel. +82 10-4831-0108",
     "favorite": false,
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "cl18",
@@ -2249,15 +2249,15 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Clinic",
     "address": "6F, 613 Gangnam-daero, Seocho-gu, Seoul, South Korea",
-    "latitude": 37.51611,
-    "longitude": 127.01952,
+    "latitude": 37.5164669,
+    "longitude": 127.0190764,
     "neighborhood": "Sinsa / Gangnam",
     "description": "Google 4.8 bei 358 Bewertungen · Preisniveau ₩₩ · Efficient multi-treatment packages tailored to a set budget · Signature package (Thermage + Softwave + Rejuran + BBL) done in ~4h; consults adapt to your budget · Buchung: Website eggclinic.co.kr / Instagram; 2–5 days ahead · Sonntag: Yes · Tel. +82 2-542-5540",
     "favorite": false,
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt02",
@@ -2273,7 +2273,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt03",
@@ -2281,8 +2281,8 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Hair",
     "address": "2F, 14 Itaewon-ro 45-gil, Yongsan-gu, Seoul, South Korea",
-    "latitude": 37.52945,
-    "longitude": 127.00924,
+    "latitude": 37.5361,
+    "longitude": 126.9996,
     "neighborhood": "Hannam / Itaewon",
     "description": "Neu eröffnetes Hair-Wellness-Studio, 18-Schritte-Head-Spa in den Varianten A, B und C, mit Styling zum Abschluss. Laut Creatrip eher Wellness-Retreat als Salon. Zeitweise 20 Prozent Eröffnungsrabatt.",
     "creator": "@creatrip",
@@ -2290,7 +2290,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt04",
@@ -2298,8 +2298,8 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Hair",
     "address": "17-3 Dosan-daero 75-gil, Gangnam-gu, Seoul, South Korea",
-    "latitude": 37.55607,
-    "longitude": 126.97236,
+    "latitude": 37.525154400015,
+    "longitude": 127.04555492982,
     "neighborhood": "Cheongdam",
     "description": "Bekannter Hair-Salon mit Rundum-Programm: Snacks, Gesichtsvermessung und persönliche Farbanalyse zur Haarfarbe. Auch als CHAHONG ADER genannt.",
     "creator": "@chahong_official",
@@ -2307,7 +2307,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt05",
@@ -2315,8 +2315,8 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Hair",
     "address": "B1, 35 Daesagwan-ro, Yongsan-gu, Seoul, South Korea",
-    "latitude": 37.5345,
-    "longitude": 126.99437,
+    "latitude": 37.533716990365,
+    "longitude": 127.00199326303,
     "neighborhood": "Hannam / Itaewon",
     "description": "Haarsalon, im Post als feste Korea-Tradition beschrieben. Stylistin: Jungin.",
     "creator": "@jinabaobina",
@@ -2324,7 +2324,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt07",
@@ -2332,8 +2332,8 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Hair",
     "address": "57 Dosan-daero 81-gil, Gangnam-gu, Seoul, South Korea",
-    "latitude": 37.55607,
-    "longitude": 126.97236,
+    "latitude": 37.52602,
+    "longitude": 127.04804,
     "neighborhood": "Cheongdam",
     "description": "Make-up-Schule und Studio. Zwei Creatorinnen haben dort Kurse gemacht und beschreiben echte Techniken statt Show.",
     "creator": "@kenzzzzza",
@@ -2341,15 +2341,15 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt08",
     "name": "MYCOLORLAB Seoul",
     "category": "Beauty",
     "address": "803, 28 Namdaemun-ro 10-gil, Jung-gu, Seoul, South Korea",
-    "latitude": 37.5609,
-    "longitude": 126.98638,
+    "latitude": 37.567487999906,
+    "longitude": 126.98421067679,
     "neighborhood": "Myeongdong",
     "description": "Farbanalyse bei Dr. Jiwoon.",
     "creator": "@kaypopkov",
@@ -2357,7 +2357,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt09",
@@ -2365,8 +2365,8 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Hair",
     "address": "2F, 10 Dosan-daero 53-gil, Gangnam-gu, Seoul, South Korea",
-    "latitude": 37.55607,
-    "longitude": 126.97236,
+    "latitude": 37.52375,
+    "longitude": 127.03855,
     "neighborhood": "Sinsa / Apgujeong",
     "description": "Haarsalon, in zwei unabhängigen Videos empfohlen.",
     "creator": "@jo.inseoul",
@@ -2374,7 +2374,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt11",
@@ -2382,8 +2382,8 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Clinic",
     "address": "8F-9F, 458 Gangnam-daero, Gangnam-gu, Seoul, South Korea",
-    "latitude": 37.55607,
-    "longitude": 126.97236,
+    "latitude": 37.5034,
+    "longitude": 127.0257,
     "neighborhood": "Gangnam",
     "description": "Hautklinik, im Post für die Juvelook-Behandlung empfohlen.",
     "creator": "@heylina2484",
@@ -2391,7 +2391,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt12",
@@ -2399,8 +2399,8 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Clinic",
     "address": "2F-3F, SGF Cheongdam Tower, 327 Dosan-daero, Gangnam-gu, Seoul, South Korea",
-    "latitude": 37.55607,
-    "longitude": 126.97236,
+    "latitude": 37.523034868937,
+    "longitude": 127.0376008789,
     "neighborhood": "Cheongdam",
     "description": "Hautklinik. Mehrere Behandlungen an einem Tag, höchster Schmerzpegel laut Creatorin 4 von 10. Ärztin: Dr. Kim.",
     "creator": "@izzychen",
@@ -2408,7 +2408,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt13",
@@ -2416,8 +2416,8 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Clinic",
     "address": "6F, Apgujeong Building, 842 Nonhyeon-ro, Gangnam-gu, Seoul, South Korea",
-    "latitude": 37.55607,
-    "longitude": 126.97236,
+    "latitude": 37.524136479355,
+    "longitude": 127.02863718254,
     "neighborhood": "Apgujeong",
     "description": "Hautklinik, im Post im Zusammenhang mit Rejuran genannt.",
     "creator": "@madeinkorea____",
@@ -2425,7 +2425,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt14",
@@ -2433,8 +2433,8 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Clinic",
     "address": "7F-9F, S-Tower, 111 Dosan-daero, Gangnam-gu, Seoul, South Korea",
-    "latitude": 37.55607,
-    "longitude": 126.97236,
+    "latitude": 37.516923720952,
+    "longitude": 127.02074007679,
     "neighborhood": "Sinsa",
     "description": "Klinik mit Fokus auf natürliche Lippen statt Volumen.",
     "creator": "@belloclinic",
@@ -2442,7 +2442,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt15",
@@ -2450,8 +2450,8 @@ export const places: Place[] = [
     "category": "Beauty",
     "subcategory": "Spa & Fitness",
     "address": "124-15 Samseong-dong, Gangnam-gu, Seoul, South Korea",
-    "latitude": 37.55607,
-    "longitude": 126.97236,
+    "latitude": 37.5159,
+    "longitude": 127.0503,
     "neighborhood": "Samseong",
     "description": "Pilates in kleinen Gruppen, englischsprachige Stunden, Buchung per DM.",
     "creator": "@coremuseums_seoul",
@@ -2459,7 +2459,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt16",
@@ -2467,8 +2467,8 @@ export const places: Place[] = [
     "category": "Shopping",
     "subcategory": "Beauty",
     "address": "1F, 75 Seongsui-ro, Seongdong-gu, Seoul, South Korea",
-    "latitude": 37.54457,
-    "longitude": 127.0561,
+    "latitude": 37.541838170653,
+    "longitude": 127.05596752557,
     "neighborhood": "Seongsu",
     "description": "K-Beauty-Apotheke, laut Post der One-Stop-Shop in Seongsu. Personal spricht Englisch, kuratierte Bundles und Wellness-Produkte.",
     "creator": "@joanainkorea",
@@ -2476,7 +2476,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt17",
@@ -2492,15 +2492,15 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt18",
     "name": "Rieti Kinfolk Seongsu",
     "category": "Shopping",
     "address": "1F, 33 Yeonmujang-gil, Seongdong-gu, Seoul, South Korea",
-    "latitude": 37.54457,
-    "longitude": 127.0561,
+    "latitude": 37.543128949474,
+    "longitude": 127.05328401473,
     "neighborhood": "Seongsu",
     "description": "Brillen-Store. Bekannt für die Brille, die BTS V in Seoul getragen hat.",
     "creator": "@baifangirls",
@@ -2508,15 +2508,15 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt19",
     "name": "Olive Young N Seongsu",
     "category": "Shopping",
     "address": "13 Yeonmujang 7-gil, Seongdong-gu, Seoul, South Korea",
-    "latitude": 37.54457,
-    "longitude": 127.0561,
+    "latitude": 37.5441832964048,
+    "longitude": 127.05448273353,
     "neighborhood": "Seongsu",
     "description": "Die große Olive-Young-Filiale in Seongsu, laut Post mit wechselnden Pop-ups.",
     "creator": "@drsean.skin",
@@ -2524,15 +2524,15 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt20",
     "name": "Camel Coffee (Seochon)",
     "category": "Café",
     "address": "31 Hyoja-ro, Jongno-gu, Seoul, South Korea",
-    "latitude": 37.59275,
-    "longitude": 126.99819,
+    "latitude": 37.5787909,
+    "longitude": 126.9737191,
     "neighborhood": "Seochon",
     "description": "Aus der persönlichen Seoul-Empfehlungsliste von @summerkittt.",
     "creator": "@summerkittt",
@@ -2540,15 +2540,15 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt21",
     "name": "Sanctum / Saengteom",
     "category": "Café",
     "address": "20 Hannam-daero 21-gil, Yongsan-gu, Seoul, South Korea",
-    "latitude": 37.53822,
-    "longitude": 127.0074,
+    "latitude": 37.533956958603,
+    "longitude": 127.00621171504,
     "neighborhood": "Hannam",
     "description": "Café in Hannam, aus derselben Empfehlungsliste.",
     "creator": "@summerkittt",
@@ -2556,15 +2556,15 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt22",
     "name": "Sinsajeon",
     "category": "Nightlife",
     "address": "18 Dosan-daero 11-gil, Gangnam-gu, Seoul, South Korea",
-    "latitude": 37.55607,
-    "longitude": 126.97236,
+    "latitude": 37.518641,
+    "longitude": 127.0227176,
     "neighborhood": "Sinsa",
     "description": "Makgeolli-Bar mit Honigwaben-Makgeolli.",
     "creator": "@summerkittt",
@@ -2572,7 +2572,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt23",
@@ -2588,15 +2588,15 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt24",
     "name": "A Better Place (ABP) Sindang",
     "category": "Café",
     "address": "53 Toegye-ro 87-gil, Jung-gu, Seoul, South Korea",
-    "latitude": 37.5652,
-    "longitude": 127.01322,
+    "latitude": 37.5678952,
+    "longitude": 127.0208577,
     "neighborhood": "Sindang",
     "description": "Bäckerei und Café in Sindang, dazu gibt es die ABP Lounge.",
     "creator": "@summerkittt",
@@ -2604,15 +2604,15 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt25",
     "name": "Gosari Express",
     "category": "Food",
     "address": "12-10 Toegye-ro 85-gil, Jung-gu, Seoul, South Korea",
-    "latitude": 37.5652,
-    "longitude": 127.01322,
+    "latitude": 37.56745,
+    "longitude": 127.02125,
     "neighborhood": "Sindang",
     "description": "Aus der Sindang-Runde derselben Liste.",
     "creator": "@summerkittt",
@@ -2620,15 +2620,15 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt26",
     "name": "Ology",
     "category": "Café",
     "address": "701 Hwanghak-dong, Jung-gu, Seoul, South Korea",
-    "latitude": 37.5652,
-    "longitude": 127.01322,
+    "latitude": 37.56715,
+    "longitude": 127.02185,
     "neighborhood": "Sindang / Hwanghak",
     "description": "Espresso-Bar in Sindang.",
     "creator": "@summerkittt",
@@ -2636,15 +2636,15 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt27",
     "name": "Negi Live",
     "category": "Food",
-    "address": "5F, 315-108 Seongsu-dong 2-ga, Seongdong-gu, Seoul, South Korea",
-    "latitude": 37.55607,
-    "longitude": 126.97236,
+    "address": "5F, 97 Seongsui-ro, Seongdong-gu, Seoul, South Korea",
+    "latitude": 37.543638631506,
+    "longitude": 127.05672580504,
     "neighborhood": "Seongsu",
     "description": "Restaurant-Empfehlung aus dem Seoul-Guide mit Jennie für Chanel.",
     "creator": "@isaaclikes_",
@@ -2652,15 +2652,15 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt28",
     "name": "Casa Corona",
     "category": "Nightlife",
-    "address": "127-15 Itaewon-dong, Yongsan-gu, Seoul, South Korea",
-    "latitude": 37.5345,
-    "longitude": 126.99437,
+    "address": "7 Bogwang-ro 60-gil, Yongsan-gu, Seoul, South Korea",
+    "latitude": 37.534025203834,
+    "longitude": 126.99453490725,
     "neighborhood": "Itaewon",
     "description": "Nightlife-Spot in Itaewon, laut Post ein Ort, an den koreanische Influencer wirklich gehen.",
     "creator": "@lily_inseoul",
@@ -2668,15 +2668,15 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt29",
     "name": "MMCA Seoul",
     "category": "Culture",
     "address": "30 Samcheong-ro, Jongno-gu, Seoul, South Korea",
-    "latitude": 37.58069,
-    "longitude": 126.9828,
+    "latitude": 37.57862929,
+    "longitude": 126.9800889,
     "neighborhood": "Samcheong / Jongno",
     "description": "Nationalmuseum für moderne und zeitgenössische Kunst, aus der Empfehlungsliste.",
     "creator": "@summerkittt",
@@ -2684,15 +2684,15 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt30",
     "name": "Eunpyeong Hanok Village",
     "category": "Sightseeing",
     "address": "193-14 Jingwan-dong, Eunpyeong-gu, Seoul, South Korea",
-    "latitude": 37.6024,
-    "longitude": 126.9293,
+    "latitude": 37.64072,
+    "longitude": 126.93886,
     "neighborhood": "Eunpyeong",
     "description": "Hanok-Dorf im Norden, ruhiger als Bukchon.",
     "creator": "@summerkittt",
@@ -2700,7 +2700,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt31",
@@ -2748,7 +2748,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt37",
@@ -2764,7 +2764,7 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt38",
@@ -2780,15 +2780,15 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   },
   {
     "id": "tt39",
     "name": "The Shilla Seoul",
     "category": "Activity",
     "address": "249 Dongho-ro, Jung-gu, Seoul, South Korea",
-    "latitude": 37.56366,
-    "longitude": 126.99751,
+    "latitude": 37.5565,
+    "longitude": 127.0051,
     "neighborhood": "Jangchung / Jung-gu",
     "description": "Hotel-Empfehlung aus dem Seoul-Guide mit Jennie.",
     "creator": "@isaaclikes_",
@@ -2796,6 +2796,6 @@ export const places: Place[] = [
     "visited": false,
     "planned": false,
     "priority": 3,
-    "geocoded": false
+    "geocoded": true
   }
 ]
