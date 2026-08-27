@@ -27,7 +27,9 @@ const AUTO_NOTE_PREFIX = 'Koordinaten sind eine grobe Schätzung'
 
 function loadPlaces() {
   const raw = readFileSync(DATA_PATH, 'utf8')
-  const start = raw.indexOf('[')
+  // indexOf('[') would match the `Place[]` type annotation on the export
+  // line instead of the array literal itself — anchor on "[\n" instead.
+  const start = raw.indexOf('[\n')
   const end = raw.lastIndexOf(']')
   const header = raw.slice(0, start)
   const arrayText = raw.slice(start, end + 1)
