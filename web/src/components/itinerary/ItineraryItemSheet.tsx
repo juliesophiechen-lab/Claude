@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import type { ItineraryItem, ItineraryItemType, Place } from '../../models'
 import { trip } from '../../data/mockTrip'
 import { dateRangeDays, formatDayMonth, formatWeekday } from '../../lib/dates'
@@ -6,6 +6,8 @@ import { useAppState } from '../../state/AppStateContext'
 import { useToast } from '../../state/ToastContext'
 import { BottomSheet } from '../common/BottomSheet'
 import { Chip } from '../common/Chip'
+import { PlaceThumb } from '../places/PlaceThumb'
+import { SearchIcon } from '../../layout/icons'
 
 const TYPE_OPTIONS: { label: string; value: ItineraryItemType }[] = [
   { label: 'Activity', value: 'activity' },
@@ -32,7 +34,7 @@ export function ItineraryItemSheet({
   presetType,
   editItem,
 }: ItineraryItemSheetProps) {
-  const { addItineraryItem, updateItineraryItem, deleteItineraryItem } = useAppState()
+  const { places, addItineraryItem, updateItineraryItem, deleteItineraryItem } = useAppState()
   const showToast = useToast()
   const tripDates = dateRangeDays(trip.startDate, trip.endDate)
   const [date, setDate] = useState<string>(editItem?.date ?? presetDate ?? tripDates[1] ?? tripDates[0])
@@ -41,6 +43,16 @@ export function ItineraryItemSheet({
     editItem?.type ?? presetType ?? (place ? 'activity' : 'idea'),
   )
   const [title, setTitle] = useState(editItem?.title ?? '')
+  const [linkedPlaceId, setLinkedPlaceId] = useState<string | null>(editItem?.placeId ?? null)
+  const [placeQuery, setPlaceQuery] = useState('')
+
+  const linkedPlace = places.find((p) => p.id === linkedPlaceId)
+
+  const placeMatches = useMemo(() => {
+    const q = placeQuery.trim().toLowerCase()
+    if (!q) return []
+    return places.filter((p) => p.name.toLowerCase().includes(q)).slice(0, 6)
+  }, [places, placeQuery])
 
   if (!open) return null
 
@@ -49,7 +61,7 @@ export function ItineraryItemSheet({
 
   function handleAdd() {
     if (!canSubmit) return
-    const resolvedPlaceId = place?.id ?? editItem?.placeId
+    const resolvedPlaceId = place?.id ?? linkedPlaceId ?? undefined
     // Firestore's setDoc/updateDoc reject `undefined` field values outright, so
     // optional fields must be omitted entirely rather than set to undefined.
     const input = {
@@ -95,6 +107,64 @@ export function ItineraryItemSheet({
             placeholder="e.g. Where should we have dinner?"
             className="mt-3 w-full rounded-2xl border border-line bg-white px-4 py-3 text-sm text-ink placeholder:text-ink-faint focus:outline-none focus:ring-2 focus:ring-ink/20"
           />
+        )}
+
+        {!place && (
+          <>
+            <p className="mb-2 mt-5 text-[11px] font-semibold uppercase tracking-wide text-ink-faint">
+              Link to a place <span className="normal-case text-ink-faint/70">(optional)</span>
+            </p>
+            {linkedPlace ? (
+              <div className="flex items-center gap-2.5 rounded-2xl bg-canvas-soft py-2 pl-2 pr-3">
+                <PlaceThumb category={linkedPlace.category} className="h-9 w-9 shrink-0 rounded-xl" />
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-sm font-semibold text-ink">{linkedPlace.name}</p>
+                  <p className="truncate text-xs text-ink-soft">
+                    {linkedPlace.neighborhood} · {linkedPlace.category}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setLinkedPlaceId(null)}
+                  aria-label="Verknüpfung entfernen"
+                  className="shrink-0 px-1.5 text-lg leading-none text-ink-faint"
+                >
+                  ×
+                </button>
+              </div>
+            ) : (
+              <div className="relative">
+                <SearchIcon className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-faint" />
+                <input
+                  value={placeQuery}
+                  onChange={(e) => setPlaceQuery(e.target.value)}
+                  placeholder="Search saved places..."
+                  className="w-full rounded-2xl border border-line bg-white py-3 pl-10 pr-4 text-sm text-ink placeholder:text-ink-faint focus:outline-none focus:ring-2 focus:ring-ink/20"
+                />
+                {placeMatches.length > 0 && (
+                  <div className="mt-1.5 space-y-1 rounded-2xl border border-line bg-white p-1.5 shadow-[0_4px_16px_rgba(18,18,20,0.08)]">
+                    {placeMatches.map((p) => (
+                      <button
+                        key={p.id}
+                        onClick={() => {
+                          setLinkedPlaceId(p.id)
+                          setPlaceQuery('')
+                        }}
+                        className="flex w-full items-center gap-2.5 rounded-xl px-2 py-1.5 text-left active:bg-canvas-soft"
+                      >
+                        <PlaceThumb category={p.category} className="h-8 w-8 shrink-0 rounded-lg" />
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-sm font-medium text-ink">{p.name}</p>
+                          <p className="truncate text-[11px] text-ink-soft">
+                            {p.neighborhood} · {p.category}
+                          </p>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+          </>
         )}
 
         <p className="mb-2 mt-5 text-[11px] font-semibold uppercase tracking-wide text-ink-faint">Date</p>
