@@ -184,6 +184,20 @@ even for near-zero usage. It backs three shared features:
   coordinates. Places without real coordinates sit at the Seoul-center
   fallback (same `geocoded: false` treatment as any other unlocated place).
 
+**Weekly suggestion review:** submissions show up in the Gallery right away
+(generic category, Seoul-center pin), but a scheduled weekly pass reviews the
+`suggestedPlaces` collection (via the public Firestore REST API — the
+project's rules allow read/write without credentials, so no service account
+is needed), reads each screenshot directly, and merges the ones it can
+confidently identify into `data/mockPlaces.ts` with a real category and
+either real or neighborhood-fallback coordinates — same conventions as any
+other data-quality pass in this file's history. Each merged doc gets
+`processed: true` set on it afterward (kept as a record, not deleted) so
+`state/AppStateContext.tsx`'s subscription hides it once it's live in the
+real dataset. Submissions the pass can't confidently place (a plain link
+with no name typed in, for instance) are left as-is for the next run or for
+manual follow-up.
+
 **Firestore rules:** the console's default "test mode" rules expire after 30
 days and everything shared here would silently stop working. In the Firebase
 console, under **Firestore Database → Rules**, replace the rules with:

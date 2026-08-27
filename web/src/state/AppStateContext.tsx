@@ -41,6 +41,10 @@ function saveStored(state: StoredState) {
 
 const SEOUL_CENTER = { latitude: 37.55607, longitude: 126.97236 }
 
+// `processed: true` on a suggestedPlaces doc means the weekly review already
+// merged it into data/mockPlaces.ts with a real category/coordinates — it's
+// kept in Firestore as a record rather than deleted, but hidden here so it
+// doesn't show twice.
 function suggestedPlaceFromDoc(id: string, data: Record<string, unknown>): Place {
   const hasRealCoords = typeof data.latitude === 'number' && typeof data.longitude === 'number'
   const sourceUrl = data.sourceUrl as string | undefined
@@ -123,7 +127,11 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const unsub = onSnapshot(collection(db, 'suggestedPlaces'), (snap) => {
-      setSuggestedPlaces(snap.docs.map((d) => suggestedPlaceFromDoc(d.id, d.data())))
+      setSuggestedPlaces(
+        snap.docs
+          .filter((d) => !d.data().processed)
+          .map((d) => suggestedPlaceFromDoc(d.id, d.data())),
+      )
     })
     return unsub
   }, [])
