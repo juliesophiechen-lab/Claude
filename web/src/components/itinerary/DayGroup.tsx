@@ -13,9 +13,10 @@ interface DayGroupProps {
   participants: Participant[]
   onAddIdea: (date: string) => void
   onEditItem: (item: ItineraryItem) => void
+  onDeleteItem: (id: string) => void
 }
 
-export function DayGroup({ date, items, places, participants, onAddIdea, onEditItem }: DayGroupProps) {
+export function DayGroup({ date, items, places, participants, onAddIdea, onEditItem, onDeleteItem }: DayGroupProps) {
   const confirmedItems = items.filter((i) => i.status === 'confirmed')
   const openItems = items.filter((i) => i.status === 'open')
   const present = participantsOnDate(participants, date)
@@ -49,6 +50,7 @@ export function DayGroup({ date, items, places, participants, onAddIdea, onEditI
                 place={places.find((p) => p.id === item.placeId)}
                 addedByParticipant={participantFor(item)}
                 onEdit={() => onEditItem(item)}
+                onDelete={item.type === 'flight' ? undefined : () => onDeleteItem(item.id)}
               />
             </div>
           ))}
@@ -63,6 +65,7 @@ export function DayGroup({ date, items, places, participants, onAddIdea, onEditI
               item={item}
               addedByParticipant={participantFor(item)}
               onEdit={() => onEditItem(item)}
+              onDelete={() => onDeleteItem(item.id)}
             />
           ))}
         </div>

@@ -39,6 +39,12 @@ html,
 body,
 #root {
   height: 100%;
+  /* Belt-and-suspenders: the app shell manages its own internal scrolling
+     (AppShell's h-dvh container), so the page itself should never scroll or
+     bounce in either direction — without this, iOS Safari's elastic overscroll
+     can visibly "wobble" the whole layout sideways even when nothing actually
+     overflows. */
+  overflow-x: hidden;
 }
 
 body {
@@ -48,7 +54,7 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overscroll-behavior-y: none;
+  overscroll-behavior: none;
 }
 
 * {

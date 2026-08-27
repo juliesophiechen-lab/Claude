@@ -5,9 +5,10 @@ interface OpenItemCardProps {
   item: ItineraryItem
   addedByParticipant?: Participant
   onEdit?: () => void
+  onDelete?: () => void
 }
 
-export function OpenItemCard({ item, addedByParticipant, onEdit }: OpenItemCardProps) {
+export function OpenItemCard({ item, addedByParticipant, onEdit, onDelete }: OpenItemCardProps) {
   return (
     <div
       onClick={onEdit}
@@ -15,7 +16,21 @@ export function OpenItemCard({ item, addedByParticipant, onEdit }: OpenItemCardP
       tabIndex={onEdit ? 0 : undefined}
       className="rounded-2xl border border-dashed border-open/50 bg-open-soft/60 px-4 py-3 text-left"
     >
-      <p className="text-[10px] font-bold uppercase tracking-wider text-open">Open · to decide</p>
+      <div className="flex items-start justify-between gap-2">
+        <p className="text-[10px] font-bold uppercase tracking-wider text-open">Open · to decide</p>
+        {onDelete && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation()
+              onDelete()
+            }}
+            aria-label="Eintrag löschen"
+            className="-mt-1 shrink-0 px-1 text-base leading-none text-open/70"
+          >
+            ×
+          </button>
+        )}
+      </div>
       <p className="mt-1 text-[15px] font-medium text-ink">{item.title}</p>
       {item.notes && <p className="mt-1 text-xs text-ink-soft">{item.notes}</p>}
       {addedByParticipant && (

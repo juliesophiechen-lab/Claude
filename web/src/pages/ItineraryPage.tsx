@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useAppState } from '../state/AppStateContext'
+import { useToast } from '../state/ToastContext'
 import { participants } from '../data/mockParticipants'
 import { sortedItineraryDates, itemsForDate } from '../lib/trip'
 import { DayGroup } from '../components/itinerary/DayGroup'
@@ -8,12 +9,18 @@ import { PlusIcon } from '../layout/icons'
 import type { ItineraryItem } from '../models'
 
 export function ItineraryPage() {
-  const { itineraryItems, places } = useAppState()
+  const { itineraryItems, places, deleteItineraryItem } = useAppState()
+  const showToast = useToast()
   const [sheetOpen, setSheetOpen] = useState(false)
   const [presetDate, setPresetDate] = useState<string | undefined>(undefined)
   const [editItem, setEditItem] = useState<ItineraryItem | null>(null)
 
   const dates = sortedItineraryDates(itineraryItems)
+
+  function handleQuickDelete(id: string) {
+    deleteItineraryItem(id)
+    showToast('Eintrag gelöscht')
+  }
 
   return (
     <div className="pb-6">
@@ -44,6 +51,7 @@ export function ItineraryPage() {
               setSheetOpen(true)
             }}
             onEditItem={setEditItem}
+            onDeleteItem={handleQuickDelete}
           />
         ))}
       </div>

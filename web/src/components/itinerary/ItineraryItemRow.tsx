@@ -8,9 +8,10 @@ interface ItineraryItemRowProps {
   place?: Place
   addedByParticipant?: Participant
   onEdit?: () => void
+  onDelete?: () => void
 }
 
-export function ItineraryItemRow({ item, place, addedByParticipant, onEdit }: ItineraryItemRowProps) {
+export function ItineraryItemRow({ item, place, addedByParticipant, onEdit, onDelete }: ItineraryItemRowProps) {
   const meta = ITINERARY_TYPE_META[item.type]
   return (
     <div
@@ -29,7 +30,21 @@ export function ItineraryItemRow({ item, place, addedByParticipant, onEdit }: It
         <span className="mt-1 w-px flex-1 bg-line" />
       </div>
       <div className="min-w-0 flex-1 pb-1">
-        <p className="text-[15px] font-medium leading-snug text-ink">{item.title}</p>
+        <div className="flex items-start justify-between gap-2">
+          <p className="text-[15px] font-medium leading-snug text-ink">{item.title}</p>
+          {onDelete && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                onDelete()
+              }}
+              aria-label="Eintrag löschen"
+              className="shrink-0 px-1 text-base leading-none text-ink-faint"
+            >
+              ×
+            </button>
+          )}
+        </div>
         {place && (
           <Link
             to="/places"
