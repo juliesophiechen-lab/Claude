@@ -9,6 +9,7 @@ export interface MapMarkerData {
   lat: number
   lng: number
   color: string
+  emoji: string
   selected: boolean
 }
 

@@ -1,7 +1,6 @@
 import { trip } from '../data/mockTrip'
 import { participants } from '../data/mockParticipants'
 import { useAppState } from '../state/AppStateContext'
-import { daysUntil } from '../lib/dates'
 import { nextPlanItem, placeById } from '../lib/trip'
 import { CountdownHero } from '../components/home/CountdownHero'
 import { FlightCard } from '../components/home/FlightCard'
@@ -11,7 +10,8 @@ import { PeopleJoiningCard, NextPlanCard } from '../components/home/SummaryCards
 
 export function HomePage() {
   const { places, itineraryItems } = useAppState()
-  const daysToGo = daysUntil(trip.startDate)
+  const firstFlight = trip.flights[0]
+  const departureAt = new Date(`${firstFlight.date}T${firstFlight.departTime}:00`)
   const nextItem = nextPlanItem(itineraryItems)
   const nextItemPlace = placeById(places, nextItem?.placeId)
 
@@ -19,7 +19,7 @@ export function HomePage() {
     <div className="pb-6">
       <CountdownHero
         destination={trip.destination.toUpperCase()}
-        daysToGo={daysToGo}
+        departureAt={departureAt}
         startDate={trip.startDate}
         endDate={trip.endDate}
       />

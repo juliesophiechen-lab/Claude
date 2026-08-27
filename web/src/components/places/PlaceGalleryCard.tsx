@@ -1,22 +1,42 @@
-import type { Place } from '../../models'
+import type { Participant, Place } from '../../models'
+import { useGooglePlaceCache } from '../../lib/googlePlaceCache'
+import { Avatar } from '../common/Avatar'
 import { PlaceThumb } from './PlaceThumb'
-import { HeartIcon, PlayIcon } from '../../layout/icons'
+import { HeartIcon, PlayIcon, StarIcon } from '../../layout/icons'
 
 interface PlaceGalleryCardProps {
   place: Place
   onOpen: () => void
   likeCount?: number
+  liked?: boolean
+  onToggleLike?: () => void
+  likedByPeople?: Participant[]
 }
 
-export function PlaceGalleryCard({ place, onOpen, likeCount }: PlaceGalleryCardProps) {
+export function PlaceGalleryCard({
+  place,
+  onOpen,
+  likeCount,
+  liked,
+  onToggleLike,
+  likedByPeople = [],
+}: PlaceGalleryCardProps) {
+  const cached = useGooglePlaceCache(place.id)
+  const previewPhoto = cached?.photoUrl ?? place.sourceThumbnail
+
   return (
-    <button
+    <div
+      role="button"
+      tabIndex={0}
       onClick={onOpen}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') onOpen()
+      }}
       className="flex w-full items-start gap-3 rounded-2xl bg-white p-3 text-left shadow-[0_1px_2px_rgba(18,18,20,0.06)]"
     >
       <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl">
-        {place.sourceThumbnail ? (
-          <img src={place.sourceThumbnail} alt="" className="h-full w-full object-cover" />
+        {previewPhoto ? (
+          <img src={previewPhoto} alt="" className="h-full w-full object-cover" />
         ) : (
           <PlaceThumb category={place.category} className="h-full w-full" />
         )}
@@ -30,20 +50,52 @@ export function PlaceGalleryCard({ place, onOpen, likeCount }: PlaceGalleryCardP
       <div className="min-w-0 flex-1 pt-0.5">
         <div className="flex items-start justify-between gap-2">
           <p className="truncate text-[15px] font-semibold leading-snug text-ink">{place.name}</p>
-          {place.favorite && <HeartIcon className="h-4 w-4 shrink-0 text-accent" filled />}
+          <button
+            onClick={(e) => {
+              e.stopPropagation()
+              onToggleLike?.()
+            }}
+            className="shrink-0 p-0.5"
+            aria-label="Like this place"
+          >
+            <HeartIcon className={`h-4 w-4 ${liked ? 'text-accent' : 'text-ink-faint'}`} filled={liked} />
+          </button>
         </div>
         <p className="mt-0.5 text-[12px] text-ink-soft">
           {place.neighborhood} · {place.category}
+          {cached?.rating != null && (
+            <span className="ml-1.5 inline-flex items-center gap-0.5 font-medium text-ink">
+              <StarIcon className="h-3 w-3 text-[#f2b01e]" /> {cached.rating.toFixed(1)}
+            </span>
+          )}
         </p>
         {place.description && (
           <p className="mt-1 line-clamp-2 text-[12.5px] leading-snug text-ink-faint">{place.description}</p>
         )}
-        {!!likeCount && (
-          <p className="mt-1.5 flex items-center gap-1 text-[11px] font-medium text-ink-soft">
-            <HeartIcon className="h-3 w-3 text-accent" filled /> {likeCount}
-          </p>
+        {(!!likeCount || likedByPeople.length > 0) && (
+          <div className="mt-1.5 flex items-center gap-1.5">
+            {!!likeCount && (
+              <p className="flex items-center gap-1 text-[11px] font-medium text-ink-soft">
+                <HeartIcon className="h-3 w-3 text-accent" filled /> {likeCount}
+              </p>
+            )}
+            {likedByPeople.length > 0 && (
+              <div className="flex items-center">
+                {likedByPeople.slice(0, 4).map((p, i) => (
+                  <Avatar
+                    key={p.id}
+                    name={p.name}
+                    color={p.color}
+                    image={p.image}
+                    size={16}
+                    className={`ring-2 ring-white ${i > 0 ? '-ml-1.5' : ''}`}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
         )}
       </div>
-    </button>
+    </div>
   )
 }

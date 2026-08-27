@@ -16,6 +16,8 @@ const EMPTY_SET: Set<string> = new Set()
 
 export interface Likes {
   counts: Record<string, number>
+  /** placeId -> participant ids who liked it, for showing "who saved this". */
+  likedBy: Record<string, string[]>
   likedByMe: Set<string>
   toggleLike: (placeId: string) => void
 }
@@ -23,6 +25,7 @@ export interface Likes {
 export function useLikes(): Likes {
   const { me } = useIdentity()
   const [counts, setCounts] = useState<Record<string, number>>({})
+  const [likedBy, setLikedBy] = useState<Record<string, string[]>>({})
   const [likedByMe, setLikedByMe] = useState<Set<string>>(new Set())
 
   useEffect(() => {
@@ -32,6 +35,21 @@ export function useLikes(): Likes {
         next[d.id] = (d.data().count as number) ?? 0
       })
       setCounts(next)
+    })
+    return unsub
+  }, [])
+
+  useEffect(() => {
+    const unsub = onSnapshot(collection(db, 'likes'), (snap) => {
+      const next: Record<string, string[]> = {}
+      snap.forEach((d) => {
+        const data = d.data()
+        const placeId = data.placeId as string
+        const participantId = data.participantId as string
+        if (!next[placeId]) next[placeId] = []
+        next[placeId].push(participantId)
+      })
+      setLikedBy(next)
     })
     return unsub
   }, [])
@@ -61,5 +79,5 @@ export function useLikes(): Likes {
     }).catch((err) => console.error('toggleLike failed', err))
   }
 
-  return { counts, likedByMe: me ? likedByMe : EMPTY_SET, toggleLike }
+  return { counts, likedBy, likedByMe: me ? likedByMe : EMPTY_SET, toggleLike }
 }

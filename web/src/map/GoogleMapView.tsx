@@ -1,6 +1,19 @@
 import { useEffect, useRef } from 'react'
 import type { MapViewProps } from './MapProvider'
 
+function emojiMarkerIcon(emoji: string, color: string, selected: boolean): google.maps.Icon {
+  const px = selected ? 40 : 32
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+    <circle cx="20" cy="20" r="18" fill="${color}" stroke="#ffffff" stroke-width="3" />
+    <text x="20" y="27" font-size="19" text-anchor="middle">${emoji}</text>
+  </svg>`
+  return {
+    url: `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`,
+    scaledSize: new google.maps.Size(px, px),
+    anchor: new google.maps.Point(px / 2, px / 2),
+  }
+}
+
 export function GoogleMapView({ markers, onSelectMarker, bounds, recenterSignal }: MapViewProps) {
   const mapRef = useRef<HTMLDivElement>(null)
   const mapInstanceRef = useRef<google.maps.Map | null>(null)
@@ -30,14 +43,7 @@ export function GoogleMapView({ markers, onSelectMarker, bounds, recenterSignal 
       seen.add(marker.id)
       let gMarker = existing.get(marker.id)
       const position = { lat: marker.lat, lng: marker.lng }
-      const icon: google.maps.Symbol = {
-        path: google.maps.SymbolPath.CIRCLE,
-        scale: marker.selected ? 11 : 7,
-        fillColor: marker.color,
-        fillOpacity: 1,
-        strokeColor: '#ffffff',
-        strokeWeight: 2,
-      }
+      const icon = emojiMarkerIcon(marker.emoji, marker.color, marker.selected)
 
       if (!gMarker) {
         gMarker = new google.maps.Marker({ map, position, icon })

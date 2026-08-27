@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useAppState } from '../state/AppStateContext'
 import { MapView } from '../map/MapProvider'
-import { categoryColor } from '../lib/categories'
+import { categoryColor, categoryEmoji } from '../lib/categories'
 import { SearchBar } from '../components/places/SearchBar'
 import { CategoryChipsRow } from '../components/places/CategoryChipsRow'
 import { FilterSheet, type StatusFilter } from '../components/places/FilterSheet'
@@ -40,6 +40,7 @@ export function PlacesPage() {
     lat: p.latitude,
     lng: p.longitude,
     color: categoryColor(p.category),
+    emoji: categoryEmoji(p.category),
     selected: p.id === selectedId,
   }))
 

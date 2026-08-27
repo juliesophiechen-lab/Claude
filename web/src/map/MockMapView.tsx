@@ -53,13 +53,17 @@ export function MockMapView({ markers, onSelectMarker, bounds }: MapViewProps) {
               />
             )}
             <span
-              className="block rounded-full border-2 border-white shadow-[0_1px_4px_rgba(0,0,0,0.35)] transition-all"
+              className="flex items-center justify-center rounded-full border-2 border-white shadow-[0_1px_4px_rgba(0,0,0,0.35)] transition-all"
               style={{
-                width: m.selected ? 22 : 14,
-                height: m.selected ? 22 : 14,
+                width: m.selected ? 30 : 22,
+                height: m.selected ? 30 : 22,
                 background: m.color,
+                fontSize: m.selected ? 16 : 12,
+                lineHeight: 1,
               }}
-            />
+            >
+              {m.emoji}
+            </span>
           </button>
         )
       })}

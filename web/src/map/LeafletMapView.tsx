@@ -6,21 +6,21 @@ import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 import type { MapViewProps } from './MapProvider'
 
-function circleMarkerOptions(color: string, selected: boolean): L.CircleMarkerOptions {
-  return {
-    radius: selected ? 11 : 7,
-    color: '#ffffff',
-    weight: 2,
-    fillColor: color,
-    fillOpacity: 1,
-  }
+function emojiDivIcon(emoji: string, color: string, selected: boolean): L.DivIcon {
+  const size = selected ? 34 : 26
+  return L.divIcon({
+    className: '',
+    html: `<div style="width:${size}px;height:${size}px;border-radius:9999px;background:${color};border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:${Math.round(size * 0.55)}px;line-height:1;box-shadow:0 1px 3px rgba(0,0,0,0.35);">${emoji}</div>`,
+    iconSize: [size, size],
+    iconAnchor: [size / 2, size / 2],
+  })
 }
 
 export function LeafletMapView({ markers, onSelectMarker, bounds, recenterSignal }: MapViewProps) {
   const mapRef = useRef<HTMLDivElement>(null)
   const mapInstanceRef = useRef<L.Map | null>(null)
   const clusterGroupRef = useRef<L.MarkerClusterGroup | null>(null)
-  const leafletMarkersRef = useRef<Map<string, L.CircleMarker>>(new Map())
+  const leafletMarkersRef = useRef<Map<string, L.Marker>>(new Map())
 
   useEffect(() => {
     if (!mapRef.current || mapInstanceRef.current) return
@@ -66,10 +66,9 @@ export function LeafletMapView({ markers, onSelectMarker, bounds, recenterSignal
     const points: L.LatLngExpression[] = []
 
     markers.forEach((marker) => {
-      const leafletMarker = L.circleMarker(
-        [marker.lat, marker.lng],
-        circleMarkerOptions(marker.color, marker.selected),
-      )
+      const leafletMarker = L.marker([marker.lat, marker.lng], {
+        icon: emojiDivIcon(marker.emoji, marker.color, marker.selected),
+      })
       leafletMarker.on('click', () => onSelectMarker(marker.id))
       clusterGroup.addLayer(leafletMarker)
       leafletMarkersRef.current.set(marker.id, leafletMarker)
@@ -88,12 +87,13 @@ export function LeafletMapView({ markers, onSelectMarker, bounds, recenterSignal
     markers.forEach((marker) => {
       const leafletMarker = leafletMarkersRef.current.get(marker.id)
       if (!leafletMarker) return
-      leafletMarker.setStyle(circleMarkerOptions(marker.color, marker.selected))
+      leafletMarker.setIcon(emojiDivIcon(marker.emoji, marker.color, marker.selected))
       const pos = leafletMarker.getLatLng()
       if (pos.lat !== marker.lat || pos.lng !== marker.lng) {
         leafletMarker.setLatLng([marker.lat, marker.lng])
       }
-      if (marker.selected) leafletMarker.bringToFront()
+      if (marker.selected) leafletMarker.setZIndexOffset(1000)
+      else leafletMarker.setZIndexOffset(0)
     })
   }, [markers])
 

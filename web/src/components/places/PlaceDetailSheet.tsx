@@ -2,8 +2,11 @@ import { useEffect, useState } from 'react'
 import type { Place } from '../../models'
 import { useAppState } from '../../state/AppStateContext'
 import { useLikes } from '../../state/useLikes'
-import { findGooglePlace, type GooglePlaceInfo } from '../../lib/googlePlaces'
+import type { GooglePlaceInfo } from '../../lib/googlePlaces'
+import { ensureGooglePlaceCached, useGooglePlaceCache } from '../../lib/googlePlaceCache'
+import { participants } from '../../data/mockParticipants'
 import { BottomSheet } from '../common/BottomSheet'
+import { Avatar } from '../common/Avatar'
 import { PlaceThumb } from './PlaceThumb'
 import { ItineraryItemSheet } from '../itinerary/ItineraryItemSheet'
 import {
@@ -40,39 +43,29 @@ function googleMapsLinkFor(place: Place, googleInfo: GooglePlaceInfo | null): st
 
 export function PlaceDetailSheet({ place, open, onClose }: PlaceDetailSheetProps) {
   const { toggleFavorite, toggleVisited } = useAppState()
-  const { counts: likeCounts, likedByMe, toggleLike } = useLikes()
+  const { counts: likeCounts, likedBy, likedByMe, toggleLike } = useLikes()
   const [addOpen, setAddOpen] = useState(false)
-  const [googleInfo, setGoogleInfo] = useState<GooglePlaceInfo | null>(null)
-  const [googleLoading, setGoogleLoading] = useState(false)
 
   useEffect(() => {
-    if (!open || !place) {
-      setGoogleInfo(null)
-      return
-    }
-    let cancelled = false
-    setGoogleInfo(null)
-    setGoogleLoading(true)
-    findGooglePlace(place.name, place.address)
-      .then((info) => {
-        if (!cancelled) setGoogleInfo(info)
-      })
-      .finally(() => {
-        if (!cancelled) setGoogleLoading(false)
-      })
-    return () => {
-      cancelled = true
-    }
+    if (!open || !place) return
+    ensureGooglePlaceCached(place.id, place.name, place.address)
     // Re-run only when the sheet opens for a (possibly) different place, not
     // on every re-render of the underlying places array.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, place?.id])
+
+  const cached = useGooglePlaceCache(place?.id ?? '')
+  const googleInfo: GooglePlaceInfo | null = cached ?? null
+  const googleLoading = open && cached === undefined
 
   if (!place) return null
 
   const profileUrl = instagramProfileUrl(place.creator)
   const likeCount = likeCounts[place.id] ?? 0
   const iLiked = likedByMe.has(place.id)
+  const likedByPeople = (likedBy[place.id] ?? [])
+    .map((id) => participants.find((p) => p.id === id))
+    .filter((p): p is (typeof participants)[number] => Boolean(p))
 
   return (
     <>
@@ -148,17 +141,33 @@ export function PlaceDetailSheet({ place, open, onClose }: PlaceDetailSheetProps
               </div>
             )}
 
-            <button
-              onClick={() => toggleLike(place.id)}
-              className={`mt-2.5 flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold ${
-                iLiked ? 'border-accent bg-accent-soft text-accent-ink' : 'border-line text-ink-soft'
-              }`}
-            >
-              <HeartIcon className="h-3.5 w-3.5" filled={iLiked} />
-              {likeCount > 0
-                ? `${likeCount} ${likeCount === 1 ? 'person likes' : 'people like'} this`
-                : 'Be the first to like this'}
-            </button>
+            <div className="mt-2.5 flex flex-wrap items-center gap-2">
+              <button
+                onClick={() => toggleLike(place.id)}
+                className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold ${
+                  iLiked ? 'border-accent bg-accent-soft text-accent-ink' : 'border-line text-ink-soft'
+                }`}
+              >
+                <HeartIcon className="h-3.5 w-3.5" filled={iLiked} />
+                {likeCount > 0
+                  ? `${likeCount} ${likeCount === 1 ? 'person likes' : 'people like'} this`
+                  : 'Be the first to like this'}
+              </button>
+              {likedByPeople.length > 0 && (
+                <div className="flex items-center">
+                  {likedByPeople.map((p, i) => (
+                    <Avatar
+                      key={p.id}
+                      name={p.name}
+                      color={p.color}
+                      image={p.image}
+                      size={24}
+                      className={`ring-2 ring-white ${i > 0 ? '-ml-2' : ''}`}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
 
             {place.description && <p className="mt-3 text-[15px] leading-relaxed text-ink">{place.description}</p>}
 

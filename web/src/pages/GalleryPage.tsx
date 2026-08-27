@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useAppState } from '../state/AppStateContext'
 import { useLikes } from '../state/useLikes'
+import { participants } from '../data/mockParticipants'
 import { filterPlaces } from '../lib/places'
 import { SearchBar } from '../components/places/SearchBar'
 import { CategoryChipsRow } from '../components/places/CategoryChipsRow'
@@ -10,7 +11,7 @@ import { PlaceDetailSheet } from '../components/places/PlaceDetailSheet'
 
 export function GalleryPage() {
   const { places } = useAppState()
-  const { counts: likeCounts } = useLikes()
+  const { counts: likeCounts, likedBy, likedByMe, toggleLike } = useLikes()
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState<string | null>(null)
   const [neighborhoods, setNeighborhoods] = useState<Set<string>>(new Set())
@@ -87,6 +88,11 @@ export function GalleryPage() {
                 place={place}
                 onOpen={() => setDetailId(place.id)}
                 likeCount={likeCounts[place.id]}
+                liked={likedByMe.has(place.id)}
+                onToggleLike={() => toggleLike(place.id)}
+                likedByPeople={(likedBy[place.id] ?? [])
+                  .map((id) => participants.find((p) => p.id === id))
+                  .filter((p): p is (typeof participants)[number] => Boolean(p))}
               />
             ))}
           </div>
