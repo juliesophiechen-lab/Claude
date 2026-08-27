@@ -1,7 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { useState } from 'react'
 import { GalleryIcon, HomeIcon, ItineraryIcon, KoreanIcon, PlacesIcon, PlusIcon } from './icons'
-import { AddPlaceSheet } from '../components/places/AddPlaceSheet'
 
 type Tab = {
   to: string
@@ -53,9 +51,11 @@ function NavTab({ to, label, Icon, end, emphasize }: Tab) {
   )
 }
 
-export function BottomNav() {
-  const [addOpen, setAddOpen] = useState(false)
+interface BottomNavProps {
+  onOpenAdd: () => void
+}
 
+export function BottomNav({ onOpenAdd }: BottomNavProps) {
   return (
     <nav className="z-40 shrink-0 border-t border-line bg-canvas/95 backdrop-blur pb-[env(safe-area-inset-bottom)]">
       <ul className="mx-auto flex max-w-xl items-stretch justify-between px-2">
@@ -64,7 +64,7 @@ export function BottomNav() {
         ))}
         <li className="flex flex-1 items-center justify-center">
           <button
-            onClick={() => setAddOpen(true)}
+            onClick={onOpenAdd}
             aria-label="Ort hinzufügen"
             className="flex h-12 w-12 -translate-y-2.5 items-center justify-center rounded-full bg-ink text-white shadow-[0_4px_14px_rgba(18,18,20,0.35)] active:scale-95"
           >
@@ -75,8 +75,6 @@ export function BottomNav() {
           <NavTab key={tab.to} {...tab} />
         ))}
       </ul>
-
-      <AddPlaceSheet open={addOpen} onClose={() => setAddOpen(false)} />
     </nav>
   )
 }
