@@ -21,14 +21,15 @@
   --color-open: #a3661c;
   --color-open-soft: #f7ead4;
 
-  --color-food: #d2662f;
+  --color-restaurant: #d2662f;
   --color-cafe: #96703f;
   --color-shopping: #b8567f;
   --color-beauty: #96628f;
-  --color-culture: #3f6ea6;
+  --color-spa: #7d93b3;
   --color-sightseeing: #2f8f89;
-  --color-nightlife: #6a5197;
+  --color-nightout: #3d4166;
   --color-activity: #66803a;
+  --color-fitness: #a4443c;
 
   --radius-card: 22px;
   --radius-pill: 999px;
@@ -91,4 +92,33 @@ button {
 
 .animate-fade-in {
   animation: fade-in 0.18s ease-out;
+}
+
+@keyframes splash-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(-6deg);
+  }
+}
+
+.animate-splash-float {
+  animation: splash-float ease-in-out infinite;
+}
+
+@keyframes splash-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.86);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-splash-pop {
+  animation: splash-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }

@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useAppState } from '../state/AppStateContext'
 import { useLikes } from '../state/useLikes'
+import { usePreferences } from '../state/usePreferences'
 import { participants } from '../data/mockParticipants'
 import { filterPlaces } from '../lib/places'
 import { SearchBar } from '../components/places/SearchBar'
@@ -12,6 +13,7 @@ import { PlaceDetailSheet } from '../components/places/PlaceDetailSheet'
 export function GalleryPage() {
   const { places } = useAppState()
   const { counts: likeCounts, likedBy, likedByMe, toggleLike } = useLikes()
+  const { interests } = usePreferences()
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState<string | null>(null)
   const [neighborhoods, setNeighborhoods] = useState<Set<string>>(new Set())
@@ -66,6 +68,7 @@ export function GalleryPage() {
             onSelect={setCategory}
             onOpenFilters={() => setFilterSheetOpen(true)}
             filterCount={filterCount}
+            preferredOrder={interests ?? undefined}
           />
         </div>
 

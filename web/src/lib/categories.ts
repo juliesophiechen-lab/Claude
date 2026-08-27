@@ -6,14 +6,15 @@ interface CategoryMeta {
 }
 
 const CATEGORY_META: Record<PlaceCategory, CategoryMeta> = {
-  Food: { color: 'var(--color-food)', emoji: '🍜' },
+  Restaurant: { color: 'var(--color-restaurant)', emoji: '🍽️' },
   Café: { color: 'var(--color-cafe)', emoji: '☕' },
   Shopping: { color: 'var(--color-shopping)', emoji: '🛍️' },
-  Beauty: { color: 'var(--color-beauty)', emoji: '✨' },
-  Culture: { color: 'var(--color-culture)', emoji: '🖼️' },
-  Sightseeing: { color: 'var(--color-sightseeing)', emoji: '🏯' },
-  Nightlife: { color: 'var(--color-nightlife)', emoji: '🌙' },
-  Activity: { color: 'var(--color-activity)', emoji: '🎨' },
+  'Beauty Treatments': { color: 'var(--color-beauty)', emoji: '✨' },
+  Spa: { color: 'var(--color-spa)', emoji: '🧖' },
+  Sightseeing: { color: 'var(--color-sightseeing)', emoji: '🏛️' },
+  'Night Out': { color: 'var(--color-nightout)', emoji: '🌙' },
+  Activity: { color: 'var(--color-activity)', emoji: '🧭' },
+  Fitness: { color: 'var(--color-fitness)', emoji: '🏋️' },
 }
 
 const DEFAULT_META: CategoryMeta = { color: 'var(--color-ink-faint)', emoji: '📍' }

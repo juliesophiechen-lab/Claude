@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useAppState } from '../state/AppStateContext'
+import { usePreferences } from '../state/usePreferences'
 import { MapView } from '../map/MapProvider'
 import { categoryColor, categoryEmoji } from '../lib/categories'
 import { SearchBar } from '../components/places/SearchBar'
@@ -15,6 +16,7 @@ const SEOUL_BOUNDS = { minLat: 37.44, maxLat: 37.61, minLng: 126.88, maxLng: 127
 
 export function PlacesPage() {
   const { places } = useAppState()
+  const { interests } = usePreferences()
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState<string | null>(null)
   const [neighborhoods, setNeighborhoods] = useState<Set<string>>(new Set())
@@ -87,6 +89,7 @@ export function PlacesPage() {
           onSelect={setCategory}
           onOpenFilters={() => setFilterSheetOpen(true)}
           filterCount={filterCount}
+          preferredOrder={interests ?? undefined}
         />
       </div>
 

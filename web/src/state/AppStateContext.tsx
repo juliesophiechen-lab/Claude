@@ -15,7 +15,7 @@ import { itineraryItems as seedItinerary } from '../data/mockItinerary'
 import { db } from '../lib/firebase'
 import { useIdentity } from './IdentityContext'
 
-const STORAGE_KEY = 'seoul-guide-state-v1'
+const STORAGE_KEY = 'seoul-guide-state-v2'
 
 interface StoredState {
   places: Place[]

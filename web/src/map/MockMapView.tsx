@@ -15,7 +15,7 @@ function project(lat: number, lng: number, bounds: MapViewProps['bounds']) {
 
 export function MockMapView({ markers, onSelectMarker, bounds }: MapViewProps) {
   return (
-    <div className="relative h-full w-full overflow-hidden bg-[#eae6dd]">
+    <div className="relative h-full w-full overflow-hidden bg-[#f2f0ec]">
       {/* stylized backdrop: faint city block grid */}
       <div
         className="absolute inset-0 opacity-40"
@@ -25,14 +25,14 @@ export function MockMapView({ markers, onSelectMarker, bounds }: MapViewProps) {
         }}
       />
 
-      {/* Han river, stylized */}
+      {/* Han river, stylized — pale lavender to match the pastel map theme */}
       <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
         <path
           d="M-5 66 C 20 60, 35 72, 55 64 S 90 58, 105 66"
-          stroke="#a9c3ce"
+          stroke="#e4def7"
           strokeWidth="7"
           fill="none"
-          opacity={0.55}
+          opacity={0.85}
         />
       </svg>
 

@@ -1,6 +1,24 @@
 import { useEffect, useRef } from 'react'
 import type { MapViewProps } from './MapProvider'
 
+// Desaturated pastel styling: light grey land, white roads, mint parks,
+// pale lavender water — instead of Google's default saturated palette.
+const MAP_STYLE: google.maps.MapTypeStyle[] = [
+  { elementType: 'geometry', stylers: [{ color: '#f2f0ec' }] },
+  { elementType: 'labels.icon', stylers: [{ visibility: 'off' }] },
+  { elementType: 'labels.text.fill', stylers: [{ color: '#9a988f' }] },
+  { elementType: 'labels.text.stroke', stylers: [{ color: '#f2f0ec' }] },
+  { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#ffffff' }] },
+  { featureType: 'road', elementType: 'geometry.stroke', stylers: [{ color: '#e7e4dc' }] },
+  { featureType: 'road.highway', elementType: 'geometry', stylers: [{ color: '#fbfaf7' }] },
+  { featureType: 'poi.park', elementType: 'geometry', stylers: [{ color: '#dcebe0' }] },
+  { featureType: 'landscape.natural', elementType: 'geometry', stylers: [{ color: '#eeece6' }] },
+  { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#e4def7' }] },
+  { featureType: 'administrative', elementType: 'geometry.stroke', stylers: [{ color: '#e0ddd4' }] },
+  { featureType: 'poi.business', stylers: [{ visibility: 'off' }] },
+  { featureType: 'transit', stylers: [{ visibility: 'off' }] },
+]
+
 function emojiMarkerIcon(emoji: string, color: string, selected: boolean): google.maps.Icon {
   const px = selected ? 40 : 32
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
@@ -27,6 +45,7 @@ export function GoogleMapView({ markers, onSelectMarker, bounds, recenterSignal 
       zoom: 12,
       disableDefaultUI: false,
       clickableIcons: true,
+      styles: MAP_STYLE,
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

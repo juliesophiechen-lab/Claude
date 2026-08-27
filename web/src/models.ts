@@ -37,14 +37,15 @@ export type Participant = {
 }
 
 export const PLACE_CATEGORIES = [
-  'Food',
+  'Restaurant',
   'Café',
   'Shopping',
-  'Beauty',
-  'Culture',
+  'Beauty Treatments',
+  'Spa',
   'Sightseeing',
-  'Nightlife',
+  'Night Out',
   'Activity',
+  'Fitness',
 ] as const
 
 export type PlaceCategory = (typeof PLACE_CATEGORIES)[number]
@@ -69,6 +70,8 @@ export type SourceType =
   | 'YouTube'
   | 'Blog'
   | 'Recommendation'
+  | 'Google Maps List'
+  | 'To-Do List'
 
 export type Place = {
   id: string

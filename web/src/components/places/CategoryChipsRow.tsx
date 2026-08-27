@@ -7,13 +7,29 @@ interface CategoryChipsRowProps {
   onSelect: (category: string | null) => void
   onOpenFilters: () => void
   filterCount: number
+  /** Categories to surface first (e.g. from onboarding), other categories follow in their default order. */
+  preferredOrder?: string[]
 }
 
-export function CategoryChipsRow({ active, onSelect, onOpenFilters, filterCount }: CategoryChipsRowProps) {
+function orderCategories(preferredOrder?: string[]): readonly string[] {
+  if (!preferredOrder || preferredOrder.length === 0) return PLACE_CATEGORIES
+  const preferred = PLACE_CATEGORIES.filter((cat) => preferredOrder.includes(cat))
+  const rest = PLACE_CATEGORIES.filter((cat) => !preferredOrder.includes(cat))
+  return [...preferred, ...rest]
+}
+
+export function CategoryChipsRow({
+  active,
+  onSelect,
+  onOpenFilters,
+  filterCount,
+  preferredOrder,
+}: CategoryChipsRowProps) {
+  const categories = orderCategories(preferredOrder)
   return (
     <div className="no-scrollbar flex items-center gap-2 overflow-x-auto px-5 pb-1">
       <Chip label="All" active={active === null} onClick={() => onSelect(null)} />
-      {PLACE_CATEGORIES.map((cat) => (
+      {categories.map((cat) => (
         <Chip
           key={cat}
           label={cat}

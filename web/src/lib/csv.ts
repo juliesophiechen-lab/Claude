@@ -59,10 +59,10 @@ export function csvToRecords(rows: string[][]): Record<string, string>[] {
 // model. Any CSV with these headers (Name/Location/Kategorie/...) works;
 // other shapes still preview but skip cleanly.
 const CATEGORY_MAP: Record<string, string> = {
-  Food: 'Food',
+  Food: 'Restaurant',
   Shopping: 'Shopping',
   Sightseeing: 'Sightseeing',
-  Treatments: 'Beauty',
+  Treatments: 'Beauty Treatments',
   Diverses: 'Activity',
 }
 

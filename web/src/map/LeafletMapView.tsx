@@ -32,9 +32,13 @@ export function LeafletMapView({ markers, onSelectMarker, bounds, recenterSignal
       attributionControl: true,
     })
 
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    // Pastel basemap (CARTO Positron) instead of OSM's default saturated
+    // tiles, to match the app's soft/editorial map styling.
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
       maxZoom: 19,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      subdomains: 'abcd',
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     }).addTo(map)
 
     const clusterGroup = L.markerClusterGroup({
