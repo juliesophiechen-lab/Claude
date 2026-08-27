@@ -115,9 +115,16 @@ curated notes). Many of the 309 saved places are deliberately vague
 (neighborhood names, generic activities like "Karaoke", placeholder entries
 like repeated "beauty spa" rows with no confirmed business) — those won't
 match anything, and the sheet just falls back to the original curated
-content, same as always. No offline batching or extra data files: the
-lookup happens on demand each time a place is opened, using the same key/
-billing as the map itself.
+content, same as always. The lookup happens on demand (no offline batch
+job) — but the resolved result is written to a `googlePlaceInfo/{placeId}`
+Firestore doc (`lib/googlePlaceCache.ts`) the first time any place is
+looked up, and every subsequent load (any device, any page reload) reads
+that instead of calling the Places API again. Gallery cards trigger this
+same lookup automatically once they scroll into view (not all 309 at
+once — an `IntersectionObserver`, one-shot per card), so real
+photos/ratings show up while scrolling instead of needing the detail
+sheet opened first, and they persist across refreshes instead of
+reverting to the plain category emoji.
 
 ### Geocoding
 
@@ -211,6 +218,7 @@ service cloud.firestore {
     match /likeCounts/{id} { allow read, write: if true; }
     match /suggestedPlaces/{id} { allow read, write: if true; }
     match /participantPreferences/{id} { allow read, write: if true; }
+    match /googlePlaceInfo/{id} { allow read, write: if true; }
     match /meta/{id} { allow read, write: if true; }
   }
 }
