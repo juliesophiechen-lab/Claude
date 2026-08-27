@@ -1,5 +1,6 @@
+import { useEffect, useRef, useState } from 'react'
 import type { Participant, Place } from '../../models'
-import { useGooglePlaceCache } from '../../lib/googlePlaceCache'
+import { ensureGooglePlaceCached, useGooglePlaceCache } from '../../lib/googlePlaceCache'
 import { Avatar } from '../common/Avatar'
 import { PlaceThumb } from './PlaceThumb'
 import { HeartIcon, PlayIcon, StarIcon } from '../../layout/icons'
@@ -23,9 +24,37 @@ export function PlaceGalleryCard({
 }: PlaceGalleryCardProps) {
   const cached = useGooglePlaceCache(place.id)
   const previewPhoto = cached?.photoUrl ?? place.sourceThumbnail
+  const cardRef = useRef<HTMLDivElement>(null)
+  const [imgFailed, setImgFailed] = useState(false)
+  const [lastPreviewPhoto, setLastPreviewPhoto] = useState(previewPhoto)
+  if (previewPhoto !== lastPreviewPhoto) {
+    setLastPreviewPhoto(previewPhoto)
+    setImgFailed(false)
+  }
+
+  // Fetch the live Google Places match once this card actually scrolls into
+  // view, rather than requiring the user to open the detail sheet first —
+  // still lazy (not all 309 places at once), just automatic instead of
+  // click-gated.
+  useEffect(() => {
+    const el = cardRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          ensureGooglePlaceCached(place.id, place.name, place.address)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '200px' },
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [place.id, place.name, place.address])
 
   return (
     <div
+      ref={cardRef}
       role="button"
       tabIndex={0}
       onClick={onOpen}
@@ -35,8 +64,13 @@ export function PlaceGalleryCard({
       className="flex w-full items-start gap-3 rounded-2xl bg-white p-3 text-left shadow-[0_1px_2px_rgba(18,18,20,0.06)]"
     >
       <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl">
-        {previewPhoto ? (
-          <img src={previewPhoto} alt="" className="h-full w-full object-cover" />
+        {previewPhoto && !imgFailed ? (
+          <img
+            src={previewPhoto}
+            alt=""
+            className="h-full w-full object-cover"
+            onError={() => setImgFailed(true)}
+          />
         ) : (
           <PlaceThumb category={place.category} className="h-full w-full" />
         )}

@@ -57,6 +57,13 @@ export function PlaceDetailSheet({ place, open, onClose }: PlaceDetailSheetProps
   const cached = useGooglePlaceCache(place?.id ?? '')
   const googleInfo: GooglePlaceInfo | null = cached ?? null
   const googleLoading = open && cached === undefined
+  const heroPhoto = googleInfo?.photoUrl || place?.sourceThumbnail
+  const [heroImgFailed, setHeroImgFailed] = useState(false)
+  const [lastHeroPhoto, setLastHeroPhoto] = useState(heroPhoto)
+  if (heroPhoto !== lastHeroPhoto) {
+    setLastHeroPhoto(heroPhoto)
+    setHeroImgFailed(false)
+  }
 
   if (!place) return null
 
@@ -72,8 +79,13 @@ export function PlaceDetailSheet({ place, open, onClose }: PlaceDetailSheetProps
       <BottomSheet open={open && !addOpen} onClose={onClose}>
         <div className="pb-8">
           <div className="relative mx-5 h-40 overflow-hidden rounded-2xl">
-            {googleInfo?.photoUrl || place.sourceThumbnail ? (
-              <img src={googleInfo?.photoUrl ?? place.sourceThumbnail} alt="" className="h-full w-full object-cover" />
+            {heroPhoto && !heroImgFailed ? (
+              <img
+                src={heroPhoto}
+                alt=""
+                className="h-full w-full object-cover"
+                onError={() => setHeroImgFailed(true)}
+              />
             ) : (
               <PlaceThumb category={place.category} className="h-full w-full" />
             )}
