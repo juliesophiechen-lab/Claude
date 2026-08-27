@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { AppShell } from './layout/AppShell'
 import { AppStateProvider } from './state/AppStateContext'
@@ -19,12 +19,7 @@ function Gate() {
   const { interests, saveInterests } = usePreferences()
   const [showSplash, setShowSplash] = useState(true)
 
-  useEffect(() => {
-    const timer = setTimeout(() => setShowSplash(false), 1800)
-    return () => clearTimeout(timer)
-  }, [])
-
-  if (showSplash) return <SplashScreen />
+  if (showSplash) return <SplashScreen onDone={() => setShowSplash(false)} />
   if (!me) return <StartPage />
   if (interests === null) return <InterestsPage onSubmit={saveInterests} />
 

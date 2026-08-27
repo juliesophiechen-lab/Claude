@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 const FLOATERS: { emoji: string; top: string; left: string; size: number; delay: number; duration: number }[] = [
   { emoji: '☕', top: '14%', left: '14%', size: 44, delay: 0, duration: 5.5 },
   { emoji: '🪩', top: '20%', left: '78%', size: 40, delay: 0.6, duration: 6.2 },
@@ -7,10 +9,31 @@ const FLOATERS: { emoji: string; top: string; left: string; size: number; delay:
   { emoji: '📷', top: '82%', left: '48%', size: 36, delay: 0.8, duration: 5.8 },
 ]
 
-export function SplashScreen() {
+const BOB_MS = 1600
+const SWISH_MS = 500
+
+interface SplashScreenProps {
+  onDone: () => void
+}
+
+export function SplashScreen({ onDone }: SplashScreenProps) {
+  const [exiting, setExiting] = useState(false)
+
+  useEffect(() => {
+    const bobTimer = setTimeout(() => setExiting(true), BOB_MS)
+    return () => clearTimeout(bobTimer)
+  }, [])
+
+  useEffect(() => {
+    if (!exiting) return
+    const swishTimer = setTimeout(onDone, SWISH_MS)
+    return () => clearTimeout(swishTimer)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [exiting])
+
   return (
     <div
-      className="fixed inset-0 z-[2000] flex items-center justify-center overflow-hidden"
+      className={`fixed inset-0 z-[2000] flex items-center justify-center overflow-hidden ${exiting ? 'animate-splash-swish-up' : ''}`}
       style={{ background: 'linear-gradient(180deg, #b9a8ff 0%, #e9e3ff 100%)' }}
     >
       {/* soft clouds */}
@@ -38,7 +61,7 @@ export function SplashScreen() {
 
       <div className="relative z-10 flex flex-col items-center animate-splash-pop">
         <div
-          className="-rotate-3 text-center font-black leading-[0.85] tracking-tight"
+          className={`-rotate-3 text-center font-black leading-[0.85] tracking-tight ${exiting ? '' : 'animate-splash-bob'}`}
           style={{
             fontSize: '4.2rem',
             background: 'linear-gradient(180deg, #ffffff 0%, #cabdff 55%, #7c5cff 100%)',

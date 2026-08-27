@@ -122,3 +122,47 @@ button {
 .animate-splash-pop {
   animation: splash-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
+
+@keyframes splash-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.animate-splash-bob {
+  animation: splash-bob 1.4s ease-in-out infinite;
+}
+
+@keyframes splash-swish-up {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-115%);
+    opacity: 0.5;
+  }
+}
+
+.animate-splash-swish-up {
+  animation: splash-swish-up 0.5s cubic-bezier(0.55, 0, 1, 0.45) forwards;
+}
+
+@keyframes countdown-tick {
+  from {
+    opacity: 0.35;
+    transform: translateY(-3px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-countdown-tick {
+  animation: countdown-tick 0.22s ease-out;
+}
