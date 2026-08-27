@@ -130,7 +130,7 @@ export function ItineraryItemSheet({
         <button
           onClick={handleAdd}
           disabled={!canSubmit}
-          className="mt-7 w-full rounded-full bg-accent py-3.5 text-sm font-semibold text-white disabled:opacity-40"
+          className="mt-7 w-full rounded-full bg-ink py-3.5 text-sm font-semibold text-white disabled:opacity-40"
         >
           {editItem ? 'Änderungen speichern' : `Add to ${formatDayMonth(date)}`}
         </button>

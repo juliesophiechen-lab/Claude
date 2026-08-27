@@ -39,7 +39,7 @@ function NavTab({ to, label, Icon, end, emphasize }: Tab) {
             <span
               className={`flex items-center justify-center rounded-2xl transition-all ${
                 emphasize
-                  ? `h-10 w-14 ${isActive ? 'bg-accent text-white' : 'bg-canvas-sunk text-ink-soft'}`
+                  ? `h-10 w-14 ${isActive ? 'bg-ink text-white' : 'bg-canvas-sunk text-ink-soft'}`
                   : `h-8 w-8 ${isActive ? 'text-ink' : 'text-ink-faint'}`
               }`}
             >
@@ -66,7 +66,7 @@ export function BottomNav() {
           <button
             onClick={() => setAddOpen(true)}
             aria-label="Ort hinzufügen"
-            className="flex h-12 w-12 -translate-y-2.5 items-center justify-center rounded-full bg-accent text-white shadow-[0_4px_14px_rgba(193,82,42,0.45)] active:scale-95"
+            className="flex h-12 w-12 -translate-y-2.5 items-center justify-center rounded-full bg-ink text-white shadow-[0_4px_14px_rgba(18,18,20,0.35)] active:scale-95"
           >
             <PlusIcon className="h-6 w-6" />
           </button>

@@ -100,7 +100,7 @@ export function CsvImportSheet({ open, onClose }: CsvImportSheetProps) {
             <button
               onClick={() => fileInputRef.current?.click()}
               disabled={loading}
-              className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-accent py-3.5 text-sm font-semibold text-white disabled:opacity-50"
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-ink py-3.5 text-sm font-semibold text-white disabled:opacity-50"
             >
               <UploadIcon className="h-4 w-4" /> Choose CSV file
             </button>
@@ -152,7 +152,7 @@ export function CsvImportSheet({ open, onClose }: CsvImportSheetProps) {
 
             <button
               onClick={handleImport}
-              className="mt-6 w-full rounded-full bg-accent py-3.5 text-sm font-semibold text-white"
+              className="mt-6 w-full rounded-full bg-ink py-3.5 text-sm font-semibold text-white"
             >
               Import {records.length} places
             </button>

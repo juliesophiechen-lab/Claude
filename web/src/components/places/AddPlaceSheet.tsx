@@ -134,7 +134,7 @@ export function AddPlaceSheet({ open, onClose }: AddPlaceSheetProps) {
             ) : (
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="mt-5 flex w-full items-center justify-center gap-2 rounded-full bg-accent py-3.5 text-sm font-semibold text-white"
+                className="mt-5 flex w-full items-center justify-center gap-2 rounded-full bg-ink py-3.5 text-sm font-semibold text-white"
               >
                 <UploadIcon className="h-4 w-4" /> Screenshot auswählen
               </button>
@@ -199,7 +199,7 @@ export function AddPlaceSheet({ open, onClose }: AddPlaceSheetProps) {
         <button
           onClick={handleSubmit}
           disabled={!canSubmit || saving}
-          className="mt-6 w-full rounded-full bg-accent py-3.5 text-sm font-semibold text-white disabled:opacity-40"
+          className="mt-6 w-full rounded-full bg-ink py-3.5 text-sm font-semibold text-white disabled:opacity-40"
         >
           {saving ? 'Wird gespeichert…' : 'Hinzufügen'}
         </button>

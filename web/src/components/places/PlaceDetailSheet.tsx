@@ -236,7 +236,7 @@ export function PlaceDetailSheet({ place, open, onClose }: PlaceDetailSheetProps
           <div className="mt-6 grid grid-cols-2 gap-2.5 px-5">
             <button
               onClick={() => setAddOpen(true)}
-              className="col-span-2 flex items-center justify-center gap-1.5 rounded-full bg-accent py-3 text-sm font-semibold text-white active:opacity-90"
+              className="col-span-2 flex items-center justify-center gap-1.5 rounded-full bg-ink py-3 text-sm font-semibold text-white active:opacity-90"
             >
               <PlusIcon className="h-4 w-4" /> Add to itinerary
             </button>
