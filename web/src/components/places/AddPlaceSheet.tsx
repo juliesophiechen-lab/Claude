@@ -67,9 +67,13 @@ export function AddPlaceSheet({ open, onClose }: AddPlaceSheetProps) {
     setSaving(true)
     try {
       const id = `sg-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
+      const trimmedName = name.trim()
+      const trimmedNote = note.trim()
+      // Firestore's setDoc rejects `undefined` field values outright, so optional
+      // fields must be omitted entirely rather than set to undefined.
       const base = {
-        name: name.trim() || undefined,
-        note: note.trim() || undefined,
+        ...(trimmedName ? { name: trimmedName } : {}),
+        ...(trimmedNote ? { note: trimmedNote } : {}),
         addedBy: me?.id ?? null,
         addedByName: me?.name ?? null,
         addedAt: serverTimestamp(),
@@ -82,9 +86,10 @@ export function AddPlaceSheet({ open, onClose }: AddPlaceSheetProps) {
         await setDoc(doc(collection(db, 'suggestedPlaces'), id), { ...base, sourceUrl: linkUrl.trim() })
       } else {
         const parsed = parseGoogleMapsLink(linkUrl.trim())
+        const resolvedName = trimmedName || parsed.name
         await setDoc(doc(collection(db, 'suggestedPlaces'), id), {
           ...base,
-          name: base.name || parsed.name,
+          ...(resolvedName ? { name: resolvedName } : {}),
           googleMapsUrl: linkUrl.trim(),
           ...(parsed.latitude != null && parsed.longitude != null
             ? { latitude: parsed.latitude, longitude: parsed.longitude }

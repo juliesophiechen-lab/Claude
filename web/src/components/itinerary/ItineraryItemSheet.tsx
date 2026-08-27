@@ -49,12 +49,15 @@ export function ItineraryItemSheet({
 
   function handleAdd() {
     if (!canSubmit) return
+    const resolvedPlaceId = place?.id ?? editItem?.placeId
+    // Firestore's setDoc/updateDoc reject `undefined` field values outright, so
+    // optional fields must be omitted entirely rather than set to undefined.
     const input = {
       date,
-      time: time || undefined,
+      ...(time ? { time } : {}),
       title: resolvedTitle.trim(),
       type,
-      placeId: place?.id ?? editItem?.placeId,
+      ...(resolvedPlaceId ? { placeId: resolvedPlaceId } : {}),
     }
     if (editItem) {
       updateItineraryItem(editItem.id, input)
