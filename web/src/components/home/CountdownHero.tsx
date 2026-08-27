@@ -10,19 +10,20 @@ interface CountdownHeroProps {
 
 function StatBlock({ value, label, tick }: { value: number; label: string; tick?: boolean }) {
   return (
-    <div className="flex flex-1 flex-col items-center">
-      <span
+    <div className="flex flex-1 flex-col items-center gap-1.5">
+      <div
         key={tick ? value : undefined}
-        className={`tabular-nums text-[34px] font-black leading-none tracking-tight sm:text-[40px] ${tick ? 'animate-countdown-tick' : ''}`}
+        className={`flex h-[52px] w-full items-center justify-center rounded-xl sm:h-[60px] ${tick ? 'animate-countdown-tick' : ''}`}
         style={{
-          background: 'linear-gradient(180deg, #ffffff 0%, #d9ccff 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
+          background: 'linear-gradient(180deg, #9a7fff 0%, #6d4fd1 100%)',
+          boxShadow: '0 4px 0 0 #3a2680, 0 8px 16px -4px rgba(0,0,0,0.45)',
         }}
       >
-        {String(value).padStart(2, '0')}
-      </span>
-      <span className="mt-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-accent/80">{label}</span>
+        <span className="tabular-nums text-[26px] font-black leading-none text-white sm:text-[32px]">
+          {String(value).padStart(2, '0')}
+        </span>
+      </div>
+      <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-accent/80">{label}</span>
     </div>
   )
 }
@@ -63,16 +64,13 @@ export function CountdownHero({ destination, departureAt, startDate, endDate }: 
       {inTrip ? (
         <h1 className="relative mt-4 text-[44px] font-semibold leading-[0.95] tracking-tight">In Seoul</h1>
       ) : (
-        <div
-          className="relative mt-5 flex items-start justify-between rounded-2xl bg-white/[0.05] px-1.5 py-4 ring-1 ring-accent/30"
-          style={{ boxShadow: '5px 5px 0 0 rgba(124,92,255,0.28)' }}
-        >
+        <div className="relative mt-5 flex items-start gap-1.5">
           <StatBlock value={days} label={days === 1 ? 'day' : 'days'} />
-          <span className="pt-1.5 text-xl font-light text-accent/40">:</span>
+          <span className="pt-3 text-xl font-black text-accent sm:pt-4">:</span>
           <StatBlock value={hours} label="hrs" />
-          <span className="pt-1.5 text-xl font-light text-accent/40">:</span>
+          <span className="pt-3 text-xl font-black text-accent sm:pt-4">:</span>
           <StatBlock value={minutes} label="min" />
-          <span className="pt-1.5 text-xl font-light text-accent/40">:</span>
+          <span className="pt-3 text-xl font-black text-accent sm:pt-4">:</span>
           <StatBlock value={seconds} label="sec" tick />
         </div>
       )}

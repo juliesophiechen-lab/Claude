@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import type { ItineraryItem, Participant, Place } from '../../models'
 import { ITINERARY_TYPE_META } from '../../lib/itineraryTypes'
+import { Avatar } from '../common/Avatar'
 
 interface ItineraryItemRowProps {
   item: ItineraryItem
@@ -40,7 +41,15 @@ export function ItineraryItemRow({ item, place, addedByParticipant, onEdit }: It
         )}
         {item.notes && <p className="mt-1 text-xs text-ink-faint">{item.notes}</p>}
         {addedByParticipant && (
-          <p className="mt-1 text-[11px] text-ink-faint">Vorgeschlagen von {addedByParticipant.name}</p>
+          <div className="mt-1.5 flex items-center gap-1.5">
+            <Avatar
+              name={addedByParticipant.name}
+              color={addedByParticipant.color}
+              image={addedByParticipant.image}
+              size={18}
+            />
+            <p className="text-[11px] font-medium text-ink-soft">Vorgeschlagen von {addedByParticipant.name}</p>
+          </div>
         )}
       </div>
     </div>

@@ -1,4 +1,5 @@
 import type { ItineraryItem, Participant } from '../../models'
+import { Avatar } from '../common/Avatar'
 
 interface OpenItemCardProps {
   item: ItineraryItem
@@ -18,7 +19,15 @@ export function OpenItemCard({ item, addedByParticipant, onEdit }: OpenItemCardP
       <p className="mt-1 text-[15px] font-medium text-ink">{item.title}</p>
       {item.notes && <p className="mt-1 text-xs text-ink-soft">{item.notes}</p>}
       {addedByParticipant && (
-        <p className="mt-1 text-[11px] text-ink-faint">Vorgeschlagen von {addedByParticipant.name}</p>
+        <div className="mt-1.5 flex items-center gap-1.5">
+          <Avatar
+            name={addedByParticipant.name}
+            color={addedByParticipant.color}
+            image={addedByParticipant.image}
+            size={18}
+          />
+          <p className="text-[11px] font-medium text-ink-soft">Vorgeschlagen von {addedByParticipant.name}</p>
+        </div>
       )}
     </div>
   )
