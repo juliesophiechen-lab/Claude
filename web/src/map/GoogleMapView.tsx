@@ -40,13 +40,28 @@ export function GoogleMapView({ markers, onSelectMarker, bounds, recenterSignal 
   useEffect(() => {
     if (!mapRef.current || mapInstanceRef.current) return
 
-    mapInstanceRef.current = new google.maps.Map(mapRef.current, {
+    const map = new google.maps.Map(mapRef.current, {
       center: { lat: (bounds.minLat + bounds.maxLat) / 2, lng: (bounds.minLng + bounds.maxLng) / 2 },
       zoom: 12,
       disableDefaultUI: false,
       clickableIcons: true,
       styles: MAP_STYLE,
     })
+    mapInstanceRef.current = map
+
+    // Google Maps doesn't know its container resized on its own (mobile
+    // keyboard opening/closing, browser chrome show/hide, layout shifts) —
+    // without this the map's rendered tiles drift out of sync with its
+    // actual box, looking like the map "slipped" out of place.
+    const container = mapRef.current
+    const resizeObserver = new ResizeObserver(() => {
+      const center = map.getCenter()
+      google.maps.event.trigger(map, 'resize')
+      if (center) map.setCenter(center)
+    })
+    resizeObserver.observe(container)
+
+    return () => resizeObserver.disconnect()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

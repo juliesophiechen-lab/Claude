@@ -51,7 +51,16 @@ export function LeafletMapView({ markers, onSelectMarker, bounds, recenterSignal
 
     mapInstanceRef.current = map
 
+    // Leaflet doesn't know its container resized on its own (mobile keyboard
+    // opening/closing, browser chrome show/hide, layout shifts) — without
+    // this the tile grid drifts out of sync with its actual box, looking
+    // like the map "slipped" out of place.
+    const container = mapRef.current
+    const resizeObserver = new ResizeObserver(() => map.invalidateSize())
+    resizeObserver.observe(container)
+
     return () => {
+      resizeObserver.disconnect()
       map.remove()
       mapInstanceRef.current = null
       clusterGroupRef.current = null
