@@ -4,7 +4,7 @@
 // Variables); without it every request replies with a clear setup error
 // instead of leaking a stack trace.
 
-const MODEL = 'claude-haiku-4-5-20251001'
+const MODEL = 'claude-haiku-4-5'
 
 function buildPlacesSummary(places) {
   if (!Array.isArray(places)) return ''
