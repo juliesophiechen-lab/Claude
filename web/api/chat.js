@@ -1,10 +1,11 @@
-// Vercel serverless function — proxies chat questions to the Anthropic API so
-// the API key never reaches the browser. Requires an ANTHROPIC_API_KEY
-// environment variable set in the Vercel project (Settings → Environment
-// Variables); without it every request replies with a clear setup error
-// instead of leaking a stack trace.
+// Vercel serverless function — proxies chat questions to Groq's free,
+// OpenAI-compatible chat completions API running an open-weight model, so no
+// billing / credit card is needed. Requires a GROQ_API_KEY environment
+// variable set in the Vercel project (Settings → Environment Variables);
+// without it every request replies with a clear setup error instead of
+// leaking a stack trace.
 
-const MODEL = 'claude-haiku-4-5'
+const MODEL = 'llama-3.3-70b-versatile'
 
 function buildPlacesSummary(places) {
   if (!Array.isArray(places)) return ''
@@ -26,9 +27,9 @@ export default async function handler(req, res) {
     return
   }
 
-  const apiKey = process.env.ANTHROPIC_API_KEY
+  const apiKey = process.env.GROQ_API_KEY
   if (!apiKey) {
-    res.status(500).json({ error: 'ANTHROPIC_API_KEY is not configured on the server.' })
+    res.status(500).json({ error: 'GROQ_API_KEY is not configured on the server.' })
     return
   }
 
@@ -43,32 +44,34 @@ export default async function handler(req, res) {
 Saved places:
 ${buildPlacesSummary(places)}`
 
-  const messages = [...(Array.isArray(history) ? history : []), { role: 'user', content: question }]
+  const messages = [
+    { role: 'system', content: systemPrompt },
+    ...(Array.isArray(history) ? history : []),
+    { role: 'user', content: question },
+  ]
 
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
+        authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
         model: MODEL,
         max_tokens: 500,
-        system: systemPrompt,
         messages,
       }),
     })
 
     if (!response.ok) {
       const text = await response.text()
-      res.status(502).json({ error: `Anthropic API error: ${text}` })
+      res.status(502).json({ error: `Groq API error: ${text}` })
       return
     }
 
     const data = await response.json()
-    const answer = data.content?.find((block) => block.type === 'text')?.text ?? ''
+    const answer = data.choices?.[0]?.message?.content ?? ''
     res.status(200).json({ answer })
   } catch (err) {
     res.status(500).json({ error: String(err) })
