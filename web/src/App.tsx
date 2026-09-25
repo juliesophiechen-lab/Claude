@@ -13,6 +13,7 @@ import { ItineraryPage } from './pages/ItineraryPage'
 import { PlacesPage } from './pages/PlacesPage'
 import { GalleryPage } from './pages/GalleryPage'
 import { KoreanPage } from './pages/KoreanPage'
+import { ChatPage } from './pages/ChatPage'
 
 function Gate() {
   const { me } = useIdentity()
@@ -33,6 +34,7 @@ function Gate() {
             <Route path="places" element={<PlacesPage />} />
             <Route path="gallery" element={<GalleryPage />} />
             <Route path="korean" element={<KoreanPage />} />
+            <Route path="chat" element={<ChatPage />} />
           </Route>
         </Routes>
       </ToastProvider>
