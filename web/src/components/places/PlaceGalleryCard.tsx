@@ -83,7 +83,14 @@ export function PlaceGalleryCard({
 
       <div className="min-w-0 flex-1 pt-0.5">
         <div className="flex items-start justify-between gap-2">
-          <p className="truncate text-[15px] font-semibold leading-snug text-ink">{place.name}</p>
+          <div className="min-w-0">
+            <p className="truncate text-[15px] font-semibold leading-snug text-ink">{place.name}</p>
+            {place.category === 'Suggested' && (
+              <span className="mt-0.5 inline-flex items-center rounded-full bg-accent/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-accent">
+                Pending review
+              </span>
+            )}
+          </div>
           <button
             onClick={(e) => {
               e.stopPropagation()

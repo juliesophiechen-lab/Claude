@@ -10,6 +10,14 @@ const cache = new Map<string, CacheEntry>()
 const inFlight = new Set<string>()
 const listeners = new Map<string, Set<() => void>>()
 
+// Google's Place Photo Service URLs (photos[].getUrl()) are session/referrer
+// -bound and start 403ing (rendering Google's own "photo unavailable" icon,
+// which never fires our <img onError>) after they've been cached for a
+// while — so a permanently-cached photoUrl eventually goes stale forever.
+// Refetching after this TTL keeps previews working without giving up the
+// shared cache for everything else (rating, hours, etc.).
+const PHOTO_TTL_MS = 24 * 60 * 60 * 1000
+
 function notify(key: string) {
   listeners.get(key)?.forEach((fn) => fn())
 }
@@ -59,9 +67,15 @@ export function ensureGooglePlaceCached(key: string, name: string, address: stri
     try {
       const snap = await getDoc(doc(db, 'googlePlaceInfo', key))
       if (snap.exists()) {
-        cache.set(key, snap.data() as GooglePlaceInfo)
-        notify(key)
-        return
+        const data = snap.data() as GooglePlaceInfo & { fetchedAt?: number }
+        const isFresh = typeof data.fetchedAt === 'number' && Date.now() - data.fetchedAt < PHOTO_TTL_MS
+        if (isFresh) {
+          cache.set(key, data)
+          notify(key)
+          return
+        }
+        // Stale (or from before this TTL existed) — fall through and
+        // refetch instead of serving a photo link likely to 403 by now.
       }
     } catch (err) {
       console.warn('googlePlaceInfo read failed', err)
@@ -71,7 +85,7 @@ export function ensureGooglePlaceCached(key: string, name: string, address: stri
     cache.set(key, info)
     notify(key)
     if (info) {
-      setDoc(doc(db, 'googlePlaceInfo', key), stripUndefined(info)).catch((err) =>
+      setDoc(doc(db, 'googlePlaceInfo', key), stripUndefined({ ...info, fetchedAt: Date.now() })).catch((err) =>
         console.warn('googlePlaceInfo write failed', err),
       )
     }

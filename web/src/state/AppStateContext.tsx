@@ -48,9 +48,10 @@ const SEOUL_CENTER = { latitude: 37.55607, longitude: 126.97236 }
 function suggestedPlaceFromDoc(id: string, data: Record<string, unknown>): Place {
   const hasRealCoords = typeof data.latitude === 'number' && typeof data.longitude === 'number'
   const sourceUrl = data.sourceUrl as string | undefined
+  const addedByName = data.addedByName as string | undefined
   return {
     id,
-    name: (data.name as string) || 'Suggested place',
+    name: (data.name as string) || `New suggestion${addedByName ? ` from ${addedByName}` : ''}`,
     category: 'Suggested',
     address: 'Seoul, Seoul, South Korea',
     latitude: hasRealCoords ? (data.latitude as number) : SEOUL_CENTER.latitude,
@@ -61,13 +62,18 @@ function suggestedPlaceFromDoc(id: string, data: Record<string, unknown>): Place
     sourceType: sourceUrl ? 'Recommendation' : undefined,
     sourceUrl,
     googleMapsUrl: data.googleMapsUrl as string | undefined,
-    creator: data.addedByName as string | undefined,
+    creator: addedByName,
     favorite: false,
     visited: false,
     planned: false,
     priority: 3,
     geocoded: hasRealCoords,
   }
+}
+
+function addedAtMillis(data: Record<string, unknown>): number {
+  const ts = data.addedAt as { toMillis?: () => number } | undefined
+  return ts?.toMillis?.() ?? 0
 }
 
 async function ensureItinerarySeeded() {
@@ -130,6 +136,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       setSuggestedPlaces(
         snap.docs
           .filter((d) => !d.data().processed)
+          .sort((a, b) => addedAtMillis(b.data()) - addedAtMillis(a.data()))
           .map((d) => suggestedPlaceFromDoc(d.id, d.data())),
       )
     })
@@ -186,7 +193,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   }
 
   const value: AppState = {
-    places: [...places, ...suggestedPlaces],
+    places: [...suggestedPlaces, ...places],
     itineraryItems,
     toggleFavorite,
     toggleVisited,
