@@ -1,7 +1,7 @@
 import { trip } from '../data/mockTrip'
 import { participants } from '../data/mockParticipants'
 import { useAppState } from '../state/AppStateContext'
-import { nextPlanItem, placeById } from '../lib/trip'
+import { isConnectingLeg, nextPlanItem, placeById } from '../lib/trip'
 import { CountdownHero } from '../components/home/CountdownHero'
 import { FlightCard } from '../components/home/FlightCard'
 import { LayoverDivider } from '../components/home/LayoverDivider'
@@ -29,9 +29,15 @@ export function HomePage() {
 
         {trip.flights.map((flight, i) => {
           const prev = trip.flights[i - 1]
+          const connecting = prev ? isConnectingLeg(prev, flight) : false
           return (
             <div key={flight.id}>
-              {prev && (
+              {prev && !connecting && (
+                <p className="px-1 pb-1 pt-2 text-[11px] font-semibold uppercase tracking-wide text-ink-faint">
+                  Return flight
+                </p>
+              )}
+              {connecting && prev && (
                 <LayoverDivider city={prev.toCity} arriveTime={prev.arriveTime} departTime={flight.departTime} />
               )}
               <FlightCard flight={flight} />

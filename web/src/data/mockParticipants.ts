@@ -6,7 +6,7 @@ import sofiaAvatar from '../assets/avatars/sofia.jpg'
 import jojoAvatar from '../assets/avatars/jojo.jpg'
 
 export const participants: Participant[] = [
-  { id: 'p5', name: 'Julie', image: julieAvatar, color: '#c1522a', arrivalDate: '2026-10-09', departureDate: '2026-10-19' },
+  { id: 'p5', name: 'Julie', image: julieAvatar, color: '#c1522a', arrivalDate: '2026-10-09', departureDate: '2026-10-26' },
   { id: 'p3', name: 'Luca', image: lucaAvatar, color: '#3f6ea6', arrivalDate: '2026-10-09', departureDate: '2026-10-19' },
   { id: 'p4', name: 'Nisha', image: nishaAvatar, color: '#2f8f89', arrivalDate: '2026-10-09', departureDate: '2026-10-19' },
   { id: 'p1', name: 'Sofia', image: sofiaAvatar, color: '#96628f', arrivalDate: '2026-10-09', departureDate: '2026-10-18' },

@@ -1,5 +1,23 @@
-import type { ItineraryItem, Participant, Place } from '../models'
+import type { FlightLeg, ItineraryItem, Participant, Place } from '../models'
 import { dateRangeDays, todayISO } from './dates'
+
+function flightDateTime(date: string, time: string, dayOffset = 0): Date {
+  const dt = new Date(`${date}T${time}:00`)
+  dt.setDate(dt.getDate() + dayOffset)
+  return dt
+}
+
+/** True when `next` is the connecting leg right after `prev` (same airport,
+ * landing shortly before takeoff) rather than an unrelated later flight —
+ * e.g. the outbound's last leg and the return's first leg land/depart
+ * through the same hub weeks apart and are not a layover. */
+export function isConnectingLeg(prev: FlightLeg, next: FlightLeg): boolean {
+  if (prev.to !== next.from) return false
+  const gapMs =
+    flightDateTime(next.date, next.departTime).getTime() -
+    flightDateTime(prev.date, prev.arriveTime, prev.arriveDayOffset).getTime()
+  return gapMs >= 0 && gapMs < 24 * 60 * 60 * 1000
+}
 
 export function participantsOnDate(participants: Participant[], dateStr: string): Participant[] {
   return participants.filter((p) => p.arrivalDate <= dateStr && p.departureDate >= dateStr)
